@@ -12,11 +12,11 @@
 	color-scheme: light dark;
 }
 html {
-    font: 17px/1.4 Metrophobic, sans-serif;
+    font: clamp(15px, 2.2vw, 17px)/1.4 Metrophobic, sans-serif;
     font-variant: none;
 }
 body {
-    background: var(--bg);
+    background-color: var(--bg);
     color: var(--fg);
     margin: 2rem auto;
     max-width: 680px;
@@ -26,7 +26,7 @@ ol, ul, blockquote { margin: var(--mg); padding: 0 1rem }
 ol, ul { margin-right: 0 }
 pre, code, kbd { font-family: "SF Mono", ui-monospace, monospace; font-size: 90% }
 pre code {
-    background: var(--bg);
+    background-color: var(--bg);
     font-size: 100%;
     display: block;
     padding: .6rem .75rem;
@@ -69,7 +69,7 @@ header nav, footer nav {
 	gap: 1rem
 }
 article {
-	background: var(--bl);
+	background-color: var(--bl);
 	padding: 2rem;
 	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px 0px, rgba(0, 0, 0, 0.15) 0px 3px 6px 0px;
 }
