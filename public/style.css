@@ -1,28 +1,88 @@
+@font-face{ font-family: Metrophobic; src: url(./Metrophobic-Regular.ttf); font-weight: normal }
 * { box-sizing: border-box; }
-:root { --bg: #1e1e1e; --fg: #eee; --ac: #aaa; --br: #777; --bl: #2e2e2e; --mg: 1.4rem; }
-html { font: clamp(15px, 2.5vw, 17px)/1.4 Inter, system-ui, sans-serif; }
-body { background: var(--bg); color: var(--fg); margin: 0 auto; max-width: 640px; padding: 1rem; }
-body > * { margin: 2rem 0 }
+:root {
+    --bg: light-dark(#f4f4f4, #121212);
+    --fg: light-dark(#000, #e5e5e5);
+    --ac: light-dark(#888, #aaa);
+    --br: light-dark(#aaa, #777);
+    --bl: light-dark(#fff, #222);
+    --mg: 1.25rem;
+    --li: light-dark(blue, #acbbf9);
+    --co: light-dark(#444, #ccc);
+	color-scheme: light dark;
+}
+html {
+    font: 17px/1.4 Metrophobic, sans-serif;
+    font-variant: none;
+}
+body {
+    background: var(--bg);
+    color: var(--fg);
+    margin: 2rem auto;
+    max-width: 680px;
+}
 main > * { margin: var(--mg) 0 }
-pre, code, kbd { font-family: "SF Mono", ui-monospace, monospace; font-size-adjust: 0.5 }
-pre code { font-size: 100%; display: block; background: var(--bl); padding: 0.6rem; overflow: auto; line-height: 1.33 }
-figure { margin: 0px; }
-img { width: 100%; }
+ol, ul, blockquote { margin: var(--mg); padding: 0 1rem }
+ol, ul { margin-right: 0 }
+pre, code, kbd { font-family: "SF Mono", ui-monospace, monospace; font-size: 90% }
+pre code {
+    background: var(--bg);
+    font-size: 100%;
+    display: block;
+    padding: .6rem .75rem;
+    overflow-x: auto;
+    margin: var(--mg) 0;
+}
+figure { margin: 0 }
+img { width: 100%; height: auto }
 table { width: 100%; border-collapse: collapse; }
-td, th { border: thin solid var(--br); }
-blockquote { border-left: solid var(--br); padding: 0 0.6rem; }
+td, th { border: thin solid var(--br); padding: 0.15rem 0.3rem }
+blockquote { border-left: 0.1rem solid; padding: 0 .75rem }
 blockquote > :first-child, div.note > :first-child { margin-top: 0 }
 blockquote > :last-child, div.note > :last-child { margin-bottom: 0 }
 blockquote pre { white-space: pre-wrap }
 sup { line-height: 0; }
-a { color: cornflowerblue; text-underline-offset: 1px }
-main a:visited { color: inherit }
-a:hover { text-decoration: none }
-h1 { font-size: 160%; margin: 0; line-height: 1.3; text-wrap: balance }
-h2 { font-size: 130%; margin: 1.6rem 0 -0.5rem }
-h3 { font-size: 110%; margin: 1.33rem 0 -0.5rem }
+a { color: var(--li); text-underline-offset: 0.1rem; text-decoration-thickness: 0.05rem; }
+a:hover, time a { text-decoration: none }
+h1 { font-size: 110%; margin: 0; line-height: 1.3; text-wrap: balance }
+h2 { font-size: 107.5%; margin: calc(var(--mg) * 1.25) 0 -0.5rem }
+h3 { font-size: 100%; margin: 1.4rem 0 -0.5rem }
 ul { list-style: square; }
-ul.posts { list-style: none; padding: 0px; }
-ul.posts li { margin-bottom: 0.25rem; }
-header, footer { color: var(--ac) }
-time, a.tag, header a { color: var(--ac) }
+header, footer { padding: 0 1rem; color: var(--ac) }
+time, a.tag, header a, footer a, time a, h1 + p a { color: var(--ac) }
+.footnotes { border-top: thin solid var(--br) }
+h1 + p {
+    margin-top: 0.15rem;
+	color: var(--ac)
+}
+a code {
+	color: inherit
+}
+header a, footer a, time a {text-decoration: none}
+header a:hover, footer a:hover, time a:hover {text-decoration: underline; text-underline-offset: 0.1rem; text-decoration-thickness: 0.05rem }
+header, footer {
+	display: flex;
+	justify-content: space-between;
+}
+header nav, footer nav {
+	display: flex;
+	gap: 1rem
+}
+article {
+	background: var(--bl);
+	padding: 2rem;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px 0px, rgba(0, 0, 0, 0.15) 0px 3px 6px 0px;
+}
+@media(prefers-color-scheme: dark) {
+	article {
+		box-shadow: rgba(0, 0, 0, 0.5) 0px 19px 38px 0px, rgba(0, 0, 0, 0.3) 0px 15px 12px 0px
+	}
+}
+nav h3 {
+	margin-top: 0
+}
+footer ul {
+	list-style: none;
+	padding: 0;
+	margin: 1rem 0
+}

@@ -1,21 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" href="/public/Metrophobic-Regular.ttf" as="font">
 <link rel="stylesheet" href="/public/style.css">
 <title>RC03: The Curious Case of the Inconsistent Byte Order - pjg1.site</title>
 </head>
 <body>
+
 <header>
-<p>
-<a href="/"><code>pjg1.site</code></a><br>
-<time datetime="2023-09-18 00:00:00 +0400">18 September 2023</time>
-</p>
+<a href="/">Piya Gehi</a>
+<nav>
+<a href="/blog.html">Blog</a>
+<a href="/now.html">Now</a>
+<a href="/feed.xml">RSS</a>
+</nav>
 </header>
 <main>
+<article>
 <h1>RC03: The Curious Case of the Inconsistent Byte Order</h1>
+<p><time datetime="2023-09-18 00:00:00 +0400">September 18, 2023</time></p>
 <p>This week, I started working on building a <a href="https://github.com/pjg11/tuntcp">TCP/IP stack from scratch in C</a>.</p>
 
 <p>Part of the IP implementation is calculating the checksum, which requires splitting the IP header into 16-bit chunks. I'll be using these hex bytes from an IP packet as an example</p>
@@ -248,15 +253,14 @@ back into memory will swap the sum back into network byte order.</p>
  </li>
 </ol>
 
+</article>
 </main>
+
 <footer>
-<p>
-<a class="tag" href="/tags#c">#c</a>
-<a class="tag" href="/tags#recurse">#recurse</a>
-<a class="tag" href="/tags#networking">#networking</a>
-<br>
-last updated <time datetime="2025-07-27 00:00:00 +0400">27 July 2025</time>
-</p>
+<span>&copy; 2022-2025</span>
+<nav>
+<a href="/#contact">Contact</a>
+</nav>
 </footer>
 </body>
 </html>

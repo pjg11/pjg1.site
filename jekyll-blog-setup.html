@@ -1,21 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" href="/public/Metrophobic-Regular.ttf" as="font">
 <link rel="stylesheet" href="/public/style.css">
 <title>Creating A Blog with GitHub Pages and Jekyll - pjg1.site</title>
 </head>
 <body>
+
 <header>
-<p>
-<a href="/"><code>pjg1.site</code></a><br>
-<time datetime="2022-12-16 00:00:00 +0400">16 December 2022</time>
-</p>
+<a href="/">Piya Gehi</a>
+<nav>
+<a href="/blog.html">Blog</a>
+<a href="/now.html">Now</a>
+<a href="/feed.xml">RSS</a>
+</nav>
 </header>
 <main>
+<article>
 <h1>Creating A Blog with GitHub Pages and Jekyll</h1>
+<p><time datetime="2022-12-16 00:00:00 +0400">December 16, 2022</time></p>
 <p>I have written blogs before on existing web-based blogging platforms like Blogger and Tumblr, lots of them. For this website, I was looking for fewer features that I could fine-tune locally on my machine.</p>
 
 <p>Keeping this in mind, GitHub Pages with Jekyll seemed like the best option. I've documented the process step-by-step in the form of a setup post, hoping it might help those who are looking to setup their own website.</p>
@@ -89,14 +94,14 @@ $ ./publish "Initial commit"</code></pre>
 
 <p>Once the script is run, you can see the files in your repository. Once the build is complete on GitHub (a green tick should appear next to the recent commit's hash), the content will appear on <code>$USERNAME.github.io</code>.</p>
 
+</article>
 </main>
+
 <footer>
-<p>
-<a class="tag" href="/tags#blogging">#blogging</a>
-<a class="tag" href="/tags#jekyll">#jekyll</a>
-<br>
-last updated <time datetime="2025-07-20 00:00:00 +0400">20 July 2025</time>
-</p>
+<span>&copy; 2022-2025</span>
+<nav>
+<a href="/#contact">Contact</a>
+</nav>
 </footer>
 </body>
 </html>

@@ -1,21 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" href="/public/Metrophobic-Regular.ttf" as="font">
 <link rel="stylesheet" href="/public/style.css">
 <title>Minified versions of fonts - pjg1.site</title>
 </head>
 <body>
+
 <header>
-<p>
-<a href="/"><code>pjg1.site</code></a><br>
-<time datetime="2024-03-30 00:00:00 +0400">30 March 2024</time>
-</p>
+<a href="/">Piya Gehi</a>
+<nav>
+<a href="/blog.html">Blog</a>
+<a href="/now.html">Now</a>
+<a href="/feed.xml">RSS</a>
+</nav>
 </header>
 <main>
+<article>
 <h1>Minified versions of fonts</h1>
+<p><time datetime="2024-03-30 00:00:00 +0400">March 30, 2024</time></p>
 <p>While looking for custom fonts for this website, I came across <a href="https://github.com/joelesko/minlo-font/tree/main">Minlo</a>, a minified version of the Apple system font Menlo.</p>
 
 <p>I first thought it was made smaller by some cool compression technique. While that is true (converting to WOFF2 leads to smaller file sizes), I found that it even contains lesser characters (glyphs) than in a regular font file.</p>
@@ -99,14 +104,14 @@ $ du -Ahs Inter-Regular.otf Inter-Regular.subset.woff2
     </li>
   </ol>
 
+</article>
 </main>
+
 <footer>
-<p>
-<a class="tag" href="/tags#blogging">#blogging</a>
-<a class="tag" href="/tags#font">#font</a>
-<br>
-last updated <time datetime="2024-03-30 00:00:00 +0400">30 March 2024</time>
-</p>
+<span>&copy; 2022-2025</span>
+<nav>
+<a href="/#contact">Contact</a>
+</nav>
 </footer>
 </body>
 </html>
