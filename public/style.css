@@ -1,15 +1,25 @@
 @font-face{ font-family: Metrophobic; src: url(./Metrophobic-Regular.ttf); font-weight: normal }
 * { box-sizing: border-box; }
 :root {
-    --bg: light-dark(#f4f4f4, #121212);
-    --fg: light-dark(#000, #e5e5e5);
-    --ac: light-dark(#888, #aaa);
-    --br: light-dark(#aaa, #777);
-    --bl: light-dark(#fff, #222);
-    --mg: 1.25rem;
-    --li: light-dark(blue, #acbbf9);
-    --co: light-dark(#444, #ccc);
-	color-scheme: light dark;
+	--bg: #f4f4f4;
+	--fg: #000;
+	--ac: #888;
+	--br: #aaa;
+	--bl: #fff;
+	--mg: 1.25rem;
+	--li: blue;
+	--co: #444
+}
+@media(prefers-color-scheme: dark) {
+	:root {
+		--bg: #121212;
+		--fg: #e5e5e5;
+		--ac: #aaa;
+		--br: #777;
+		--bl: #222;
+		--li: #acbbf9;
+		--co: #ccc
+	}
 }
 html {
     font: clamp(15px, 2.2vw, 17px)/1.4 Metrophobic, sans-serif;
