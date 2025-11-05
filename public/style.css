@@ -1,0 +1,150 @@
+:root {
+    color-scheme: light dark;
+    --bg: #f4f4f4;
+    --fg: #000;
+    --bl: #fff;
+    --br: #999;
+}
+@media(prefers-color-scheme: dark) {
+    :root {
+        --bg: #252525;
+        --fg: #ddd;
+        --bl: #191919;
+        --br: #777;
+    }
+    img.dim {
+        opacity: 0.8
+    }
+}
+html {
+    background: var(--bl);
+    color: var(--fg);
+    font: 100%/1.4 Charter, system-ui, sans-serif
+}
+body {
+    max-width: 38rem;
+    margin: 1% auto;
+
+}
+main {
+    padding: calc(1rem + 0.5vw);
+    background: var(--bl);
+    border: thin solid var(--br);
+}
+@media screen and (max-width: 38rem) {
+    main {
+        border-left: 0;
+        border-right: 0
+    }
+}
+code {
+    font-family: SF Mono, ui-monospace, monospace;
+    background: var(--bg);
+    border: thin solid var(--br);
+    padding: 0.05rem 0.2rem;
+    font-size: 87.5%;
+
+}
+pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5rem;
+}
+sup {
+    line-height: 0
+}
+h1, h2 {
+    line-height: 1.3;
+}
+h1 {
+    font-size: 1.35rem;
+    margin: 0 0 -0.25rem
+}
+h2 {
+    font-size: 1.15rem;
+    margin: 1.5rem 0 -0.25rem
+}
+h3 {
+    font-size: 1.05rem;
+    margin-bottom: -0.25rem
+}
+figure {
+    margin: 1rem 0;
+}
+figure pre {
+    margin: 0
+}
+figcaption {
+    padding: 0.25rem 0
+}
+img {
+    width: 100%;
+    height: auto;
+    border: thin solid var(--br);
+}
+ol, ul {
+    padding-left: 1.75rem
+}
+li {
+    margin-bottom: 0.15rem
+}
+blockquote {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    border: thin solid var(--br);
+    border-left: 0.3rem solid var(--br)
+}
+blockquote > :first-child {
+    margin-top: 0
+}
+blockquote > :last-child {
+    margin-bottom: 0
+}
+nav, footer {
+    padding: 0.75rem 0.5rem;
+    font-weight: bold;
+    text-align: center
+}
+a {
+    color: inherit;
+    text-decoration-thickness: 0.05rem;
+    text-underline-offset: 0.05rem
+}
+a:hover {
+    text-decoration: none
+}
+nav {
+    display: flex;
+    gap: 1rem;
+}
+nav > a:first-of-type {
+    float: left;
+	margin-right: auto
+}
+nav a {
+    text-decoration: none
+}
+nav a:hover {
+    text-decoration: underline
+}
+table {
+    width: 100%;
+    border-collapse: collapse
+}
+td, th {
+    border: thin solid var(--br)
+}
+th {
+    background: var(--bg)
+}
+th code {
+    border: 0
+}
+hr {
+    border-top: thin solid var(--br);
+    border-bottom: 0;
+}
+h1 + .byline {
+    padding-bottom: 1rem;
+    border-bottom: thin solid var(--br)
+}

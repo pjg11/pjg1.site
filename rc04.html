@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/style.css">
+<title>RC04: Shell Scripting Adventures | pjg1.site</title>
+</head>
+<body>
+  <nav>
+	  <a href="/">pjg1.site</a>
+	  <a href="/now.html">now</a>
+  </nav>
+  <main>
+    
+  <h1>RC04: Shell Scripting Adventures</h1>
+  <p class="byline"><time datetime="2023-09-30T00:00:00&#43;00:00">September 30, 2023</time></p>
+  <p>One of the things that helped me rediscover the joy of programming was making tiny shell scripts/functions for a specific purpose.</p>
+<p>As I started using the command line more often, these functions helped execute commands that I would otherwise have to type repeatedly. And that set off a chain reaction - the more functions I made, the more ideas I&rsquo;d get.</p>
+<p>The first one I made was <a href="https://github.com/pjg11/scripts/tree/main/tzc"><code>tzc</code></a>, to convert time from another timezone to my local time. It was inspired by two things:</p>
+<ul>
+<li>The RC application process, where all the interview timings were displayed in EST, and I needed a way to convert timings quickly, and</li>
+<li><a href="https://lazybear.io/posts/cli-of-the-week-19/">CLI of the week #19</a>, a post that introduced me to the idea of tiny shell functions.</li>
+</ul>
+<p>Things I like about making tiny functions:</p>
+<ul>
+<li><a href="https://blubsblog.bearblog.dev/i-am-the-only-user/">I am the only user</a>, so I make them in a way that makes sense to me (bonus points if it makes sense to others too).</li>
+<li>It takes less time to go from idea to execution.</li>
+<li>It&rsquo;s a great learning opportunity, as I end up learning something new about shell scripting concepts or the thing I&rsquo;m making the script for.</li>
+</ul>
+<p>I made a couple of functions while at RC - particularly over the last two weeks - which I&rsquo;ll share in this post.</p>
+<h2 id="note"><code>note</code></h2>
+<p>I came across <a href="https://github.com/cdkini/quicknote"><code>quicknote</code></a> recently, and really liked the way it was structured. It made it easier to capture notes and search them, so I made its <code>zsh</code> equivalent:</p>
+<pre><code>#!/bin/zsh
+note() (
+    dir=$HOME/notes
+    cd $dir
+
+    case $1 in
+        &quot;open&quot;)    shift ; micro $@ ;;
+        &quot;ls&quot;)      fd . $dir --type file | cut -d'/' -f5- ;;
+        &quot;grep&quot;)    rg $2 ;;
+        &quot;rm&quot;)      shift ; rm $@ ;;
+        *)         _usage ; return ;;
+    esac
+)
+</code></pre>
+<p>A neat trick I learnt while making this is writing the function block in regular braces <code>()</code> - which runs commands in a subshell as opposed to curly braces <code>{}</code> - to prevent changing the directory of my current shell session.</p>
+<p>The full code with error handling and usage information can be found <a href="https://github.com/pjg11/scripts/blob/a3d5993b8cf75f7ad50b684154735c8ab187ab10/note">here</a>.</p>
+<h2 id="blog"><code>blog</code></h2>
+<p>This function is my take on a basic CLI content management system.</p>
+<pre><code>$ blog -h
+blog - commands to manage your Jekyll blog
+
+Usage:
+  blog command [args]
+
+Options:
+  -h|--help                  Show this message and exit
+
+Commands:
+  new filename               Create a new post
+  update commitmsg           Build and deploy changes to existing content
+  publish filename           Publish post now
+  publish filename time      Schedule post for a later time
+  preview                    View recent post/draft locally
+  preview all                View entire website locally
+</code></pre>
+<p>These commands have existed as a bunch of separate shell scripts and aliases. Some of them have featured on this blog - a <a href="/jekyll-blog-setup#publish-your-website#testing-the-script">publish script</a> and a post on <a href="/schedule-jekyll">scheduling</a>.</p>
+<p>The upgraded function code can be found <a href="https://github.com/pjg11/scripts/blob/a3d5993b8cf75f7ad50b684154735c8ab187ab10/blog">here</a>.</p>
+<h2 id="rlist"><code>rlist</code></h2>
+<p>I use Safari&rsquo;s Reading List to save links, and I wanted a way to manage them from the command line, particularly to view all links and delete a link once I&rsquo;m done reading.</p>
+<pre><code>$ rlist -h
+rlist - Manage Safari's Reading List from the command line
+
+Usage:
+  rlist [options] command
+
+Options:
+  -h|--help    Show this message and exit
+
+Commands:
+  init         Extracts links and saves to $HOME/notes/rlist.tsv
+  search       Search all links and open chosen link in browser
+  delete       Delete chosen link from list
+</code></pre>
+<p>The Reading List is stored in <code>~/Library/Safari/Bookmarks.plist</code>, and the function uses a utility called <a href="https://www.marcosantadev.com/manage-plist-files-plistbuddy/"><code>PlistBuddy</code></a> to interact with the file.</p>
+<p>Here&rsquo;s a demo of the search command, that works like a fuzzy finder, along with the option to open the link in a browser.</p>
+<figure>
+<a href="https://asciinema.org/a/674173" target="_blank"><img src="https://asciinema.org/a/674173.svg" loading="lazy" alt="Thumbnail of an asciinema recording of the rlist&#39;s searching functionality" /></a>
+<figcaption>Click to view on asciinema</figcaption>
+</figure>
+<p>This is possibly the coolest script I&rsquo;ve made yet, as it took a while to understand how <code>PlistBuddy</code> works, and using <a href="https://github.com/charmbracelet/gum"><code>gum</code></a> for the fancy formatting added to the coolness.</p>
+<h2 id="mkfunc"><code>mkfunc</code></h2>
+<p>Lastly, a meta function whose naming is inspired by <code>mkdir</code>. It creates a file with starter code for a shell function when called.</p>
+<pre><code>#!/bin/zsh
+
+mkfunc() {
+
+    if [[ ( $# -eq 0 ) || ( &quot;$*&quot; =~ &quot;-h&quot; ) || (&quot;$*&quot; =~ &quot;--help&quot;) ]] ; then
+            echo &quot;Usage: mkfunc name&quot;
+            return
+    fi
+
+    tee $HOME/.oh-my-zsh/functions/$1 &lt;&lt; 'EOF'
+#!/bin/zsh
+
+func() {
+
+    _usage() {
+        # Add help text here
+    }
+
+    if [[ ( $# -eq 0 ) || ( &quot;$*&quot; =~ &quot;-h&quot; ) || ( &quot;$*&quot; =~ &quot;--help&quot;) ]] ; then
+        _usage
+        return
+    fi
+
+    # Remove this block if function contains no subcommands
+    case $1 in
+        # Add other cases here
+        *) echo &quot;invalid option - $1&quot; ; _usage ;;
+    esac
+}
+EOF
+    chmod u+x $1
+    $EDITOR $1
+}
+</code></pre>
+<p>This function contains simpler help text, as there are no additional commands. The heredoc delimiter <code>EOF</code> is wrapped with single quotes to prevent execution of the variables within the heredoc (<code>$*</code>, <code>$@</code>,<code>$1</code>).</p>
+<hr>
+<p>Thanks for tuning in to another episode of &ldquo;things I didn&rsquo;t plan to work on&rdquo;! It&rsquo;s interesting how I get more post ideas from side quests rather than the main ones 😅</p>
+<p>You can find all the above scripts (and more, whenever I make them) at <a href="https://github.com/pjg11/scripts">pjg11/scripts</a>.</p>
+
+  </main>
+  <footer>
+  </footer>
+</body>
+</html>

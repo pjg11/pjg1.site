@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/public/style.css">
+<title>RC02: Extending filtering capabilities in Bubble Tea apps | pjg1.site</title>
+</head>
+<body>
+  <nav>
+	  <a href="/">pjg1.site</a>
+	  <a href="/now.html">now</a>
+  </nav>
+  <main>
+    
+  <h1>RC02: Extending filtering capabilities in Bubble Tea apps</h1>
+  <p class="byline"><time datetime="2023-09-11T00:00:00&#43;00:00">September 11, 2023</time></p>
+  <p>In Week 1 of RC, I started building a todo app. It&rsquo;s built using <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>, a TUI framework written in Go.</p>
+<p>The app uses the <a href="https://github.com/charmbracelet/bubbles/#list">List component</a> as its base, which comes from Bubbles, a repo containing TUI components for Bubble Tea.</p>
+<p>One of the features it provides is filtering items. Filtering works by pressing the <code>/</code> key, followed by entering the text of choice. The filter value, i.e., what field to filter can be declared in the code.</p>
+<p>In the case of the <a href="https://github.com/charmbracelet/bubbletea/tree/master/examples/list-default">default list</a> (what I used for this app), it can be either the Title or the Description. I went ahead with the description, where I store the status of a task.</p>
+<p>The app takes the tasks from a plaintext file. Each task in the app can be written in one of these formats.</p>
+<pre><code>- Todo
+* Today
+/ Waiting
+X Done
+! Idea
+&lt; Archive
+</code></pre>
+<p>The description stores textual versions of these symbols, and that&rsquo;s what used as the filter value.</p>
+<p>Since the filter values are limited, I wanted a way to access these filters faster. Rather than having to type <code>/today</code> for tasks tagged Today, I wanted to press <code>1</code>. Similarly, I wanted the key <code>2</code> for Todo, <code>3</code> for Waiting and so on.</p>
+<p>I set out to look for if there was a function that did this. The first place I checked was the Issues tab on GitHub to see if others had asked for something similar.</p>
+<p>While there is no built-in function to do this, there are pull requests that offer functions to be added to the source code. <a href="https://github.com/charmbracelet/bubbles/pull/335">This pull request</a> has been around for a while, but hasn&rsquo;t been merged to the main source code for some reason.</p>
+<h2 id="attempt-1-use-a-modified-local-bubbles-instance">Attempt #1: Use a modified, local Bubbles instance</h2>
+<p>I was impatient and really wanted to implement this feature in my app. So I cloned the entire Bubbles repository to my directory.</p>
+<p>I specifically cloned the user&rsquo;s fork, so I could use the newly created function, <code>SetFilterText()</code>. The code was located in the branch called <code>feat-prefilter-opt</code>.</p>
+<pre><code>$ git clone https://github.com/taigrr/bubbles
+$ cd bubbles &amp;&amp; git checkout remotes/origin/feat-prefilter-opt
+</code></pre>
+<p>I implemented the core logic in my app&rsquo;s <code>Update()</code> function, which handles keypresses.</p>
+<pre><code>switch msg := msg.(type) {
+case tea.KeyMsg:
+    switch msg.String() {
+    case &quot;1&quot;:
+        m.list.SetFilterText(&quot;today&quot;)
+    case &quot;2&quot;:
+        m.list.SetFilterText(&quot;todo&quot;)
+    case &quot;3&quot;:
+        m.list.SetFilterText(&quot;waiting&quot;)
+    case &quot;4&quot;:
+        m.list.SetFilterText(&quot;done&quot;)
+    case &quot;5&quot;:
+        m.list.SetFilterText(&quot;idea&quot;)
+    case &quot;6&quot;:
+        m.list.SetFilterText(&quot;archive&quot;)
+    }
+}
+</code></pre>
+<p>Next, I needed to create keybindings for the keys above, so that they show up in the help section of the app.</p>
+<p>I created keybindings for the keys <code>1</code> - <code>6</code> and a combined key called <code>Section</code> using the following code:</p>
+<pre><code>type listKeyMap struct {
+    Section key.Binding
+    Today   key.Binding
+    Todo    key.Binding
+    Waiting key.Binding
+    Done    key.Binding
+    Idea    key.Binding
+    Archive key.Binding
+}
+
+func newListKeyMap() *listKeyMap {
+    return &amp;listKeyMap{
+        Section: key.NewBinding(
+            key.WithKeys(&quot;1-6&quot;),
+            key.WithHelp(&quot;1-6&quot;, &quot;section&quot;),
+        ),
+        Today: key.NewBinding(
+            key.WithKeys(&quot;1&quot;),
+            key.WithHelp(&quot;1&quot;, &quot;today&quot;),
+        ),
+        Todo: key.NewBinding(
+            key.WithKeys(&quot;2&quot;),
+            key.WithHelp(&quot;2&quot;, &quot;todo&quot;),
+        ),
+        Waiting: key.NewBinding(
+            key.WithKeys(&quot;3&quot;),
+            key.WithHelp(&quot;3&quot;, &quot;waiting&quot;),
+        ),
+        Done: key.NewBinding(
+            key.WithKeys(&quot;4&quot;),
+            key.WithHelp(&quot;4&quot;, &quot;done&quot;),
+        ),
+        Idea: key.NewBinding(
+            key.WithKeys(&quot;5&quot;),
+            key.WithHelp(&quot;5&quot;, &quot;idea&quot;),
+        ),
+        Archive: key.NewBinding(
+            key.WithKeys(&quot;6&quot;),
+            key.WithHelp(&quot;6&quot;, &quot;archive&quot;),
+        ),
+    }
+}
+</code></pre>
+<p>The program has two help sections - a short help displayed below the app, and a full help that can be accessed by pressing the <code>?</code> key.</p>
+<p>The <code>Section</code> key is created for the short help, to avoid making the short help too long. Each of the individual section keys go in the full help. This code goes in the app&rsquo;s <code>newModel()</code> function, that builds the list.</p>
+<pre><code>list.AdditionalFullHelpKeys = func() []key.Binding {
+    return []key.Binding{
+        listKeys.Today,
+        listKeys.Todo,
+        listKeys.Waiting,
+        listKeys.Done,
+        listKeys.Idea,
+        listKeys.Archive,
+        listKeys.Edit,
+    }
+}
+list.AdditionalShortHelpKeys = func() []key.Binding {
+    return []key.Binding{
+        listKeys.Section,
+    }
+}
+
+return model{
+    list: list,
+    keys: listKeys,
+}
+</code></pre>
+<p>One last change I had to make was to add the following line to the <code>go.mod</code> file to use the local import.</p>
+<pre><code>replace github.com/charmbracelet/bubbles =&gt; ./bubbles
+</code></pre>
+<p>And&hellip;it worked!</p>
+<p><img src="https://asciinema.org/a/674186.svg" alt="Thumbnail of an asciinema recording of the todo application - showing the various filtering options and the help menu to show the keybindings">{: url=&ldquo;<a href="https://asciinema.org/a/674186%22%7D">https://asciinema.org/a/674186&quot;}</a>
+{: caption=&ldquo;Click to view on asciinema&rdquo;}</p>
+<p>Now I could have stopped here. But having the entire Bubbles package as part of my repo made it unnecessarily bulky. There had to be another way, a way which didn&rsquo;t require a local copy.</p>
+<p>I tried adding <code>SetFilterText()</code> to my <code>main.go</code> file, but it accessed private variables and functions of the List component, which I couldn&rsquo;t access.</p>
+<h2 id="an-undocumented-workaround">An undocumented workaround</h2>
+<p>The same pull request also contains the following text:</p>
+<blockquote>
+<p>A workaround of using Program.Send works, but is limiting.</p></blockquote>
+<p>I got curious as to what this hack was. From an <a href="https://github.com/charmbracelet/bubbletea/tree/master/examples/send-msg">example</a> provided by Bubble Tea, <code>Program.Send()</code> can be used to send messages from outside of the program.</p>
+<p>The term &ldquo;workaround&rdquo; suggests that there could be a way to send keypresses from within the program through this function.</p>
+<p>The pull request had no sample code to show how it works though, so I was left to figure it out on my own.</p>
+<p>I read through the documentation and tried to put something together, but thanks to the combination of working with a new language (Go) and a new code structure, I couldn&rsquo;t get it to work.</p>
+<h2 id="recursers-to-the-rescue">Recursers to the rescue</h2>
+<p>Around the same time, <a href="https://the.scapegoat.dev">Manuel</a>, a Recurse alum, shared progress on his project, that also used Bubble Tea!<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> I reached out to him for help, and we decided to figure this out together in a pairing session.</p>
+<p>A few days later, we got on call, and actually got it to work. He did most of the figuring out, so here&rsquo;s my attempt of explaining the concept by showing how I implemented it in the app.</p>
+<h2 id="proof-of-concept">Proof of concept</h2>
+<p>Let&rsquo;s start with the documentation for <code>Program.Send</code>, which contains the function declaration:</p>
+<pre><code>func (p *Program) Send(msg Msg)
+</code></pre>
+<p>It takes an input of type <code>Msg</code>, which is the message to be sent. I need a way to send keys to the program. For this, there is a type of <code>Msg</code> called <code>KeyMsg</code>.</p>
+<pre><code>type KeyMsg Key
+
+type Key struct {
+    Type  KeyType
+    Runes []rune
+    Alt   bool
+}
+</code></pre>
+<p><code>KeyMsg</code> is of type <code>Key</code> which requires one or two parameters:</p>
+<ul>
+<li><code>Type</code> which is the type of key, which could be one of the constant values defined <a href="https://pkg.go.dev/github.com/charmbracelet/bubbletea#KeyType">here</a>. If the type is set to <code>KeyRunes</code>, then the next parameter is required.</li>
+<li><code>Runes</code> is an array of the type <code>rune</code>, a Go type that stores characters as 32-bit integers. This can be used to send keys not described in the constant values above or multiple keys at once.</li>
+</ul>
+<p>Putting together the learnings from the pairing session and the docs, here&rsquo;s the syntax for sending a key press via <code>Program.Send()</code>:</p>
+<pre><code>p.Send(tea.KeyMsg(tea.Key{Type: tea.CtrlC}))
+p.Send(tea.KeyMsg(tea.Key{Type: tea.KeyRunes, Runes: []rune(&quot;q&quot;)}))
+</code></pre>
+<p>Both examples cause the program to quit. The first example sends the key <code>Ctrl</code> + <code>C</code>, while the second sends the <code>Q</code> key using the rune syntax.</p>
+<p>Having this figured out, I made my own function, called <code>SetFilter()</code></p>
+<h2 id="attempt-2-setfilter">Attempt #2: <code>SetFilter()</code></h2>
+<pre><code>/* Custom function to switch between the different categories. */
+func (m model) SetFilter(s string) {
+    go func() {
+        if m.list.IsFiltered() {
+            p.Send(tea.KeyMsg(tea.Key{Type: tea.KeyEsc}))
+        }
+        p.Send(tea.KeyMsg(tea.Key{Type: tea.KeyRunes, Runes: []rune{'/'}}))
+        p.Send(tea.KeyMsg(tea.Key{Type: tea.KeyRunes, Runes: []rune(s)}))
+        time.Sleep(2 * time.Millisecond)
+        p.Send(tea.KeyMsg(tea.Key{Type: tea.KeyEnter}))
+    }()
+}
+</code></pre>
+<p>Lines 7-10 are the core of this function:</p>
+<ul>
+<li>It starts by sending the <code>/</code> key, which enables filtering mode.</li>
+<li>Then the filter text is sent, stored in <code>s</code>.</li>
+<li>After a delay of 2 milliseconds (required to update the pagination), the <code>Enter</code> key is sent to apply the filter.</li>
+</ul>
+<p>Lines 4-6 check if a filter is currently set, in which case the <code>Esc</code> key is sent to reset the filter before switching to another one.</p>
+<p>Lastly, all the statements are wrapped in a goroutine. This is to ensure that neither of these commands can block the entire program.</p>
+<p>With the function complete, I changed the <code>Update()</code> function.</p>
+<pre><code>case &quot;1&quot;:
+    m.SetFilter(&quot;today&quot;)
+case &quot;2&quot;:
+    m.SetFilter(&quot;todo&quot;)
+case &quot;3&quot;:
+    m.SetFilter(&quot;waiting&quot;)
+case &quot;4&quot;:
+    m.SetFilter(&quot;done&quot;)
+case &quot;5&quot;:
+    m.SetFilter(&quot;idea&quot;)
+case &quot;6&quot;:
+    m.SetFilter(&quot;archive&quot;)
+</code></pre>
+<p>Lastly, I declared the Program <code>p</code> as a global variable, so that <code>SetFilter()</code> could access it.</p>
+<h2 id="limitations">Limitations</h2>
+<ol>
+<li>
+<p>The app can flicker sometimes when switching filters, due to the 2 millisecond delay in the function.</p>
+</li>
+<li>
+<p><a href="#attempt-1-use-a-modified-local-bubbles-instance">Attempt #1</a> displayed a &ldquo;0 items found&rdquo; screen when there were no items for a given filter. This happens due to the function setting a state called <code>FilterApplied</code>. The actual behavior for this case is different though (exits filter mode and displays all items) which is how <a href="#attempt-2-setfilter">Attempt #2</a> works. I prefer the first approach, but haven&rsquo;t found a way to implement it yet.</p>
+</li>
+</ol>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>I came across his blog posts from Bearblog&rsquo;s <a href="http://bearblog.dev/discover">discovery feed</a>, and I had no idea he was an RC alum before joining. Never thought I&rsquo;d actually get to meet him, so pairing with him was totally unexpected and a really cool experience!&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </main>
+  <footer>
+  </footer>
+</body>
+</html>
