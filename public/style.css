@@ -43,7 +43,6 @@ code {
     border: thin solid var(--br);
     padding: 0.05rem 0.2rem;
     font-size: 87.5%;
-
 }
 pre code {
     display: block;
@@ -90,7 +89,7 @@ li {
 }
 blockquote {
     margin: 1.25rem 0;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     border: thin solid var(--br);
     border-left: 0.3rem solid var(--br)
 }
@@ -147,4 +146,7 @@ hr {
 h1 + .byline {
     padding-bottom: 1rem;
     border-bottom: thin solid var(--br)
+}
+abbr {
+	cursor: help
 }
