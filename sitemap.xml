@@ -2,10 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://pjg1.site/intentional-engagement.html</loc>
-    <lastmod>2025-11-10T23:47:04+04:00</lastmod>
+    <loc>https://pjg1.site/publishing-nerd.html</loc>
+    <lastmod>2025-11-12T19:10:41+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/index.html</loc>
+    <lastmod>2025-11-12T19:10:41+04:00</lastmod>
+  </url><url>
+    <loc>https://pjg1.site/intentional-engagement.html</loc>
     <lastmod>2025-11-10T23:47:04+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/starting-a-homelab.html</loc>
