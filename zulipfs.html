@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Things I learnt while working on ZulipFS | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/zulipfs.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Things I learnt while working on ZulipFS | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/zulipfs.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Things I learnt while working on ZulipFS</h1>
-  <p class="byline"><time datetime="2025-02-03T00:00:00&#43;00:00">February 3, 2025</time></p>
-  <p>I came across <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE</a> recently, which brought up an idea: <em>what if I could access a <a href="https://zulip.com">Zulip</a> instance as a filesystem?</em></p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Things I learnt while working on ZulipFS</h1>
+<p>
+<time datetime="2025-02-03T00:00:00&#43;00:00">February 3, 2025</time>
+</p>
+</header>
+<hr>
+<p>I came across <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE</a> recently, which brought up an idea: <em>what if I could access a <a href="https://zulip.com">Zulip</a> instance as a filesystem?</em></p>
 <p>This led to the creation of ZulipFS, where channels are represented as directories, and topics as files within those directories. The usage and code for the project is available <a href="https://github.com/pjg11/zulipfs">here</a>. This post talks about things I learnt about FUSE, filesystems in general and design choices I made in the process.</p>
 <h2 id="how-fuse-works-in-a-nutshell">How FUSE works in a nutshell</h2>
 <p>FUSE lets you mount a folder containing files and folders. These could be actual files and folders (eg: <a href="https://github.com/libfuse/sshfs">SSHFS</a> where files from a remote network are mounted) or virtual files (eg: <a href="https://omar.website/tabfs/">TabFS</a>, where information from browser tabs are presented as files and folders). You write your own implementation for relevant <a href="https://libfuse.github.io/doxygen/structfuse__operations.html">system calls</a> relating to file operations, and FUSE will run your implementation instead of the standard implementation.</p>
@@ -156,9 +175,10 @@ def zulip_name(self, name):
 </code></pre>
 <h2 id="acknowledgements">Acknowledgements</h2>
 <p>Thanks to <a href="https://fractalkitty.com">Sophia</a> for reviewing a draft of this post.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

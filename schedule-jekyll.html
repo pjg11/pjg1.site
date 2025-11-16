@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Schedule Posts in Jekyll | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/schedule-jekyll.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Schedule Posts in Jekyll | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/schedule-jekyll.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Schedule Posts in Jekyll</h1>
-  <p class="byline"><time datetime="2023-07-22T00:00:00&#43;00:00">July 22, 2023</time></p>
-  <p>My current blogging setup consists of me publishing a post shortly after I&rsquo;ve finished typing and proofreading. While this is a straightforward and easy process, it also makes it easy for me to procrastinate on posts for days on end.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Schedule Posts in Jekyll</h1>
+<p>
+<time datetime="2023-07-22T00:00:00&#43;00:00">July 22, 2023</time>
+</p>
+</header>
+<hr>
+<p>My current blogging setup consists of me publishing a post shortly after I&rsquo;ve finished typing and proofreading. While this is a straightforward and easy process, it also makes it easy for me to procrastinate on posts for days on end.</p>
 <p>As a way to introduce some form of accountability, I thought having the option to schedule a post in advance might be a good idea.</p>
 <p>My current publishing setup is a <code>bash</code> script, that builds the site files and deploys the build to Netlify. I started finding ways to automate the execution of this script at a later date.</p>
 <p>A cron job might be the first thing comes to mind, however I would like to introduce another tool that is just as useful.</p>
@@ -144,9 +163,10 @@ reattach-to-user-namespace osascript -e \
 </li>
 </ol>
 </div>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

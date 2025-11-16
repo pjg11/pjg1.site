@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Homelab networking: the basics | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/homelab-networking-basics.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Homelab networking: the basics | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/homelab-networking-basics.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Homelab networking: the basics</h1>
-  <p class="byline"><time datetime="2025-11-14T23:59:00&#43;04:00">November 14, 2025</time></p>
-  <p>I briefly mentioned the network setup in a post about <a href="/starting-a-homelab.html">starting my homelab</a>, but wanted to describe the steps I took to get connectivity to the machine and the VMs within it.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Homelab networking: the basics</h1>
+<p>
+<time datetime="2025-11-14T23:59:00&#43;04:00">November 14, 2025</time>
+</p>
+</header>
+<hr>
+<p>I briefly mentioned the network setup in a post about <a href="/starting-a-homelab.html">starting my homelab</a>, but wanted to describe the steps I took to get connectivity to the machine and the VMs within it.</p>
 <p>Proxmox creates a <a href="https://pve.proxmox.com/wiki/Network_Configuration#_default_configuration_using_a_bridge">basic network configuration</a> during installation. It provides connectivity to the VM via a bridge interface&mdash;a virtual switch. The configuration assumes that the machine has a static IP, and is connected via an Ethernet interface.</p>
 <pre><code class="language-conf">auto lo
 iface lo inet loopback
@@ -87,9 +106,10 @@ source /etc/network/interfaces.d/*
 </code></pre>
 <p>Each VM now receives an IP address from my main home router via DHCP, so all VMs + the physical machine itself are on the same network. I have also been using the Ethernet adapter for a few months, and it seems to be working reliably so far!</p>
 <p>The next step would be to create the router VM, and expand on that further. Also, now that the WiFi interface is unused and I have a working ethernet interface, I might try to make the passthrough work again.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

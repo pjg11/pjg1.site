@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Switching from Jekyll to Hugo | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/jekyll-to-hugo.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Switching from Jekyll to Hugo | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/jekyll-to-hugo.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Switching from Jekyll to Hugo</h1>
-  <p class="byline"><time datetime="2025-11-07T23:18:03&#43;04:00">November 7, 2025</time></p>
-  <p>I switched from Jekyll to Hugo as my static site generator of choice recently. The only reason I have a Ruby environment is for this site, so moving from that to a single binary looked appealing.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Switching from Jekyll to Hugo</h1>
+<p>
+<time datetime="2025-11-07T23:18:03&#43;04:00">November 7, 2025</time>
+</p>
+</header>
+<hr>
+<p>I switched from Jekyll to Hugo as my static site generator of choice recently. The only reason I have a Ruby environment is for this site, so moving from that to a single binary looked appealing.</p>
 <p>I use a specific version of Hugo by downloading the binary directly instead of via a package manager. This was a tip I got from a <a href="https://jvns.ca/blog/2016/10/09/switching-to-hugo/">similar post</a> from Julia Evans. I liked the idea to be able to choose when to upgrade instead of my site breaking each time something changes with a new release.</p>
 <p>Julia&rsquo;s post also mentioned a way to import most of my Jekyll site with one command: <code>hugo import jekyll</code>. It moved the posts static assets (CSS, images) almost seamlessly, except for a few changes in the configuration and specific posts to render certain parts correctly. However, it did not import any of my templates, so the site wouldn&rsquo;t render without adding a theme.</p>
 <p>Themeing is one thing that has confused me each time I&rsquo;ve tried to switch to Hugo in the past since I prefer making custom layouts. Hugo also offers a few base layout files that Jekyll did not, which took a while to get the hang of. Here&rsquo;s the approach I took:</p>
@@ -30,9 +49,10 @@
 <p>On one hand, the amount of configuration options in Hugo can get overwhelming, and the templating language is also confusing coming from Jekyll&rsquo;s Liquid, making Hugo&rsquo;s learning curve steep.</p>
 <p>Where I prefer Hugo to Jekyll is when structuring the site files. Jekyll imposes a certain filename format and directory for blog posts, and any other collections/sections have to be configured differently. I reached a roadblock whenever I wanted to create other collections or sub-collections within the post collection. Hugo doesn&rsquo;t impose such structure, and lets you define your own.</p>
 <p>I&rsquo;m looking forward to tinkering with Hugo more.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

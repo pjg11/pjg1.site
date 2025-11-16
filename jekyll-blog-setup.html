@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Creating A Blog with GitHub Pages and Jekyll | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/jekyll-blog-setup.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Creating A Blog with GitHub Pages and Jekyll | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/jekyll-blog-setup.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Creating A Blog with GitHub Pages and Jekyll</h1>
-  <p class="byline"><time datetime="2022-12-16T00:00:00&#43;00:00">December 16, 2022</time></p>
-  <p>I have written blogs before on existing web-based blogging platforms like Blogger and Tumblr, lots of them. For this website, I was looking for fewer features that I could fine-tune locally on my machine.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Creating A Blog with GitHub Pages and Jekyll</h1>
+<p>
+<time datetime="2022-12-16T00:00:00&#43;00:00">December 16, 2022</time>
+</p>
+</header>
+<hr>
+<p>I have written blogs before on existing web-based blogging platforms like Blogger and Tumblr, lots of them. For this website, I was looking for fewer features that I could fine-tune locally on my machine.</p>
 <p>Keeping this in mind, GitHub Pages with Jekyll seemed like the best option. I&rsquo;ve documented the process step-by-step in the form of a setup post, hoping it might help those who are looking to setup their own website.</p>
 <h2 id="hosting---github-pages">Hosting - GitHub Pages</h2>
 <p><a href="https://pages.github.com">GitHub Pages</a> is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, optionally runs the files through a build process, and publishes a website. Using GitHub Pages for hosting the website seemed ideal since I&rsquo;m familiar with GitHub and already have repositories there.</p>
@@ -63,9 +82,10 @@ git subtree push --prefix _site origin main
 $ ./publish &quot;Initial commit&quot;
 </code></pre>
 <p>Once the script is run, you can see the files in your repository. Once the build is complete on GitHub (a green tick should appear next to the recent commit&rsquo;s hash), the content will appear on <code>$USERNAME.github.io</code>.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

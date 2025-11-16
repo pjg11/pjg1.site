@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>How does a Linux machine connect to the internet, really? | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/linux-internet-from-scratch.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="How does a Linux machine connect to the internet, really? | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/linux-internet-from-scratch.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>How does a Linux machine connect to the internet, really?</h1>
-  <p class="byline"><time datetime="2025-02-09T00:00:00&#43;00:00">February 9, 2025</time></p>
-  <p>Recently, I was brainstorming networking project ideas, I got curious on what goes behind connecting to the internet, and if I could do it from scratch.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>How does a Linux machine connect to the internet, really?</h1>
+<p>
+<time datetime="2025-02-09T00:00:00&#43;00:00">February 9, 2025</time>
+</p>
+</header>
+<hr>
+<p>Recently, I was brainstorming networking project ideas, I got curious on what goes behind connecting to the internet, and if I could do it from scratch.</p>
 <p>I&rsquo;m delighted to report that the experiment was successful, and I thought of sharing it here! I&rsquo;ve tested this on Ubuntu, but I think it should work on any Linux distribution. If not, <a href="mailto:piya@pjg1.site">let me know</a>.</p>
 <ul>
 <li><a href="#identify-and-disable-existing-configuration">Identify and disable existing configuration</a></li>
@@ -220,9 +239,10 @@ bound to 192.168.100.128 -- renewal in 271244 seconds.
 </li>
 </ol>
 </div>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

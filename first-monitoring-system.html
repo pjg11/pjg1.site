@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Baby&#39;s first monitoring system | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/first-monitoring-system.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Baby&#39;s first monitoring system | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/first-monitoring-system.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Baby&#39;s first monitoring system</h1>
-  <p class="byline"><time datetime="2025-02-17T00:00:00&#43;00:00">February 17, 2025</time></p>
-  <p>Till last week, I didn&rsquo;t know what a monitoring system really looked like. A week later, I&rsquo;m in the process of setting up one for the <a href="https://www.recurse.com/scout/click?t=2ac66128b9116e0722d941ebf7e14b5a">Recurse Center</a>&rsquo;s shared computing cluster<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>  which is community maintained. Here are some notes about the various tools I&rsquo;m using and how they work together (<a href="#tldr">TL;DR</a>).</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Baby&#39;s first monitoring system</h1>
+<p>
+<time datetime="2025-02-17T00:00:00&#43;00:00">February 17, 2025</time>
+</p>
+</header>
+<hr>
+<p>Till last week, I didn&rsquo;t know what a monitoring system really looked like. A week later, I&rsquo;m in the process of setting up one for the <a href="https://www.recurse.com/scout/click?t=2ac66128b9116e0722d941ebf7e14b5a">Recurse Center</a>&rsquo;s shared computing cluster<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>  which is community maintained. Here are some notes about the various tools I&rsquo;m using and how they work together (<a href="#tldr">TL;DR</a>).</p>
 <p>I&rsquo;m halfway through my second batch at RC, and one of my batch goals was to learn DevOps/SRE skills by contributing to this cluster. Having put it off for the first 5 weeks, I finally reached out to folks in the weekly meeting about the cluster, where I was recommended to look into <a href="https://prometheus.io">Prometheus</a>.</p>
 <h2 id="prometheus">Prometheus</h2>
 <p>The Prometheus server at its core is a database. More specifically, it is a time-series database, which means it stores key-value pairs with the key being a timestamp, thus showing how a particular value changed over time. This data can be used to create graphs and dashboards or trigger alerts if the values cross a certain threshold (more on both later). It has its own query language called PromQL.</p>
@@ -83,9 +102,10 @@
 </li>
 </ol>
 </div>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

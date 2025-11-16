@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>RC01: Some InconsistenC&#39;s | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/rc01.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="RC01: Some InconsistenC&#39;s | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/rc01.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>RC01: Some InconsistenC&#39;s</h1>
-  <p class="byline"><time datetime="2023-08-19T00:00:00&#43;00:00">August 19, 2023</time></p>
-  <p>I came across an older CTF writeup of mine - <a href="https://github.com/pjg11/CTF-Writeups/blob/main/2021-Space-Race/3-Space-Snacks.md#50-points-there-might-be-more-cake">There might be more cake</a> from Hacky Holidays 2021. The solution for it was this C program:</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>RC01: Some InconsistenC&#39;s</h1>
+<p>
+<time datetime="2023-08-19T00:00:00&#43;00:00">August 19, 2023</time>
+</p>
+</header>
+<hr>
+<p>I came across an older CTF writeup of mine - <a href="https://github.com/pjg11/CTF-Writeups/blob/main/2021-Space-Race/3-Space-Snacks.md#50-points-there-might-be-more-cake">There might be more cake</a> from Hacky Holidays 2021. The solution for it was this C program:</p>
 <pre><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;time.h&gt;
@@ -147,9 +166,10 @@ binary value.
 <p>Different standards likely mean different implementations, which explains the difference in output.</p>
 <p>The standard mentioned in the macOS code, ISO C90, is an older standard, so the implementation might be outdated, and hence is declared obsolete in the man pages. This isn&rsquo;t the case for the Linux version though, which is interesting.</p>
 <p>The man pages also seem to have quite a few differences in both OS&rsquo;s, the major one being that the macOS pages date back to the 1990s, while the Linux ones are from this year.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>RC02: Extending filtering capabilities in Bubble Tea apps | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/rc02.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="RC02: Extending filtering capabilities in Bubble Tea apps | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/rc02.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>RC02: Extending filtering capabilities in Bubble Tea apps</h1>
-  <p class="byline"><time datetime="2023-09-11T00:00:00&#43;00:00">September 11, 2023</time></p>
-  <p>In Week 1 of RC, I started building a todo app. It&rsquo;s built using <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>, a TUI framework written in Go.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>RC02: Extending filtering capabilities in Bubble Tea apps</h1>
+<p>
+<time datetime="2023-09-11T00:00:00&#43;00:00">September 11, 2023</time>
+</p>
+</header>
+<hr>
+<p>In Week 1 of RC, I started building a todo app. It&rsquo;s built using <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>, a TUI framework written in Go.</p>
 <p>The app uses the <a href="https://github.com/charmbracelet/bubbles/#list">List component</a> as its base, which comes from Bubbles, a repo containing TUI components for Bubble Tea.</p>
 <p>One of the features it provides is filtering items. Filtering works by pressing the <code>/</code> key, followed by entering the text of choice. The filter value, i.e., what field to filter can be declared in the code.</p>
 <p>In the case of the <a href="https://github.com/charmbracelet/bubbletea/tree/master/examples/list-default">default list</a> (what I used for this app), it can be either the Title or the Description. I went ahead with the description, where I store the status of a task.</p>
@@ -222,9 +241,10 @@ case &quot;6&quot;:
 </li>
 </ol>
 </div>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

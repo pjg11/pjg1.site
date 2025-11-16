@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Faded codeblocks using CSS | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/fade-block-css.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Faded codeblocks using CSS | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/fade-block-css.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Faded codeblocks using CSS</h1>
-  <p class="byline"><time datetime="2025-02-26T00:00:00&#43;00:00">February 26, 2025</time></p>
-  <p>One aspect I&rsquo;ve gotten stuck on with the styling of this blog is code blocks. I&rsquo;ve tried adding a border and/or a background color in the past, but I couldn&rsquo;t stick with either of them and constantly kept changing styles.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Faded codeblocks using CSS</h1>
+<p>
+<time datetime="2025-02-26T00:00:00&#43;00:00">February 26, 2025</time>
+</p>
+</header>
+<hr>
+<p>One aspect I&rsquo;ve gotten stuck on with the styling of this blog is code blocks. I&rsquo;ve tried adding a border and/or a background color in the past, but I couldn&rsquo;t stick with either of them and constantly kept changing styles.</p>
 <p>I wanted a subtler indication to scroll if a block overflows, and a fading gradient towards seemed like a good option.</p>
 <p>Here&rsquo;s the CSS I wrote for it:</p>
 <pre><code>pre {
@@ -79,9 +98,10 @@ pre code {
   }
 </style>
 <p>While I&rsquo;ve demonstrated this for codeblocks, this styling could be extended for any block element - say a paragraph within a div, or a paragraph within a blockquote.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Installing Ubuntu on a 2017 MBP - fixing WiFi troubles | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/mbp-linux-wifi.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Installing Ubuntu on a 2017 MBP - fixing WiFi troubles | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/mbp-linux-wifi.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Installing Ubuntu on a 2017 MBP - fixing WiFi troubles</h1>
-  <p class="byline"><time datetime="2024-09-09T00:00:00&#43;00:00">September 9, 2024</time></p>
-  <p>I&rsquo;d been curious on what it&rsquo;s like to use Linux as the main OS, and wanted to upgrade from my <a href="/linux-vm-setup">Linux VM setup</a> for a while now. So when a family member was upgrading to a newer machine, I asked for their older machine - a <a href="https://support.apple.com/en-us/111947">2017 MacBook Pro</a> - and decided to install Linux on it.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Installing Ubuntu on a 2017 MBP - fixing WiFi troubles</h1>
+<p>
+<time datetime="2024-09-09T00:00:00&#43;00:00">September 9, 2024</time>
+</p>
+</header>
+<hr>
+<p>I&rsquo;d been curious on what it&rsquo;s like to use Linux as the main OS, and wanted to upgrade from my <a href="/linux-vm-setup">Linux VM setup</a> for a while now. So when a family member was upgrading to a newer machine, I asked for their older machine - a <a href="https://support.apple.com/en-us/111947">2017 MacBook Pro</a> - and decided to install Linux on it.</p>
 <p>I chose Ubuntu as that&rsquo;s the distro I&rsquo;m most comfortable with. After some initial research, I created a bootable installer using <a href="https://ubuntu.com/tutorials/create-a-usb-stick-on-macos#1-overview">this guide</a> and proceeded with the install which went smoothly. Ubuntu also booted much faster compared to macOS on the same machine, so I was feeling good about this.</p>
 <p>The feel-good-ness went away fairly quickly, as I started to notice major problems - one of them being that the WiFi wouldn&rsquo;t connect. I could see the list of networks, but it got stuck at the connecting stage after I entered the password. I failed to catch this during the installation process as I skipped the &ldquo;Connect to WiFi&rdquo; step.</p>
 <p>With the power of the search engine, I came to the conclusion that the WiFi driver was missing. The driver was available via <code>apt</code>, but I needed WiFi for <code>apt</code> to work. The solution I kept coming across was to get a direct connection via Ethernet and then install. Great idea, except my machine doesn&rsquo;t have an Ethernet port.</p>
@@ -75,9 +94,10 @@ RestartSec=5
 WantedBy=multi-user.target
 </code></pre>
 <p>Earlier iterations of this service failed to run, since it would sometimes try to execute commands before the wireless interface (<code>wlp3s0</code>) is even detected. To solve this, I added the <code>Restart</code> and <code>RestartSec</code> parameters to retry after it fails, and now it connects shortly after booting.</p>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

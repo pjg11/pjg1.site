@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Making sense of zsh history shell options | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/zsh-history-opts.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Making sense of zsh history shell options | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/zsh-history-opts.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Making sense of zsh history shell options</h1>
-  <p class="byline"><time datetime="2025-01-09T00:00:00&#43;00:00">January 9, 2025</time></p>
-  <p>I was refactoring my <code>.zshrc</code> recently, and found these existing options for managing the command history:</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Making sense of zsh history shell options</h1>
+<p>
+<time datetime="2025-01-09T00:00:00&#43;00:00">January 9, 2025</time>
+</p>
+</header>
+<hr>
+<p>I was refactoring my <code>.zshrc</code> recently, and found these existing options for managing the command history:</p>
 <pre><code>setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_DUPS
@@ -138,9 +157,10 @@ echo test
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 </code></pre>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>

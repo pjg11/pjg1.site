@@ -3,19 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/public/style.css">
+<meta name="color-scheme" content="light dark">
+<meta name="author" content="Piya Gehi">
+<meta name="fediverse:creator" content="@pjg1@mastodon.social">
 <title>Linux x64 VM on an M1 Macbook | pjg1.site</title>
+<link rel="canonical" href="https://pjg1.site/linux-vm-setup.html">
+<link rel="stylesheet" href="/public/style.css">
+
+<meta property="og:title" content="Linux x64 VM on an M1 Macbook | pjg1.site">
+<meta property="og:site_name" content="pjg1.site">
+<meta property="og:image" content="/public/images/favicon-full.png">
+<meta property="og:url" content="https://pjg1.site/linux-vm-setup.html">
+
+<link rel="me" href="https://mastodon.social/@pjg1">
+<link rel="me" href="https://github.com/pjg11">
+<link rel="me authn" href="mailto:piya@pjg1.site">
+<link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-  <nav>
-	  <a href="/">pjg1.site</a>
-	  <a href="/now.html">now</a>
-  </nav>
-  <main>
-    
-  <h1>Linux x64 VM on an M1 Macbook</h1>
-  <p class="byline"><time datetime="2023-01-13T00:00:00&#43;00:00">January 13, 2023</time></p>
-  <p>I upgraded to the M1 MacBook Pro as my daily driver laptop about a year ago. Being a machine with the ARM architecture, I couldn&rsquo;t use the same setup that I had on my previous machine, an Intel machine. I tried a bunch of solutions before finally settling on the current one, which I&rsquo;ll describe in detail in this post.</p>
+<nav>
+<a href="/">pjg1.site</a>
+<a href="/now.html">now</a>
+</nav>
+<main>
+<article>
+<header>
+<h1>Linux x64 VM on an M1 Macbook</h1>
+<p>
+<time datetime="2023-01-13T00:00:00&#43;00:00">January 13, 2023</time>
+</p>
+</header>
+<hr>
+<p>I upgraded to the M1 MacBook Pro as my daily driver laptop about a year ago. Being a machine with the ARM architecture, I couldn&rsquo;t use the same setup that I had on my previous machine, an Intel machine. I tried a bunch of solutions before finally settling on the current one, which I&rsquo;ll describe in detail in this post.</p>
 <h2 id="initial-trial-and-error">Initial trial and error</h2>
 <p>I started off with a free trial of Parallels Desktop, which at the time (2021) provided support for M1 Macs over VMWare, which is what I used on my previous laptop. After the trial got over, I was looking for a more permanent solution. VMWare did release a version of their app for M1 soon enough, but that too seemed buggy at times.</p>
 <p>Enter <a href="https://mac.getutm.app">UTM</a>, a free and open-source alternative to Parallels and VMWare for MacOS. Setting up the VM using it was a breeze due to the installation instructions as part of their documentation. I used a Kali Linux ARM VM on UTM for a long time, till I started noticing some core issues.</p>
@@ -111,9 +130,10 @@ Serving HTTP on :: port 8888 (http://[::]:8888/) ...
 </li>
 </ol>
 </div>
+</article>
 
-  </main>
-  <footer>
-  </footer>
+</main>
+<footer>
+</footer>
 </body>
 </html>
