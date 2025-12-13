@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/minfonts.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="Minified versions of fonts | pjg1.site">
+<meta property="og:title" content="Minified versions of fonts">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/minfonts.html">
@@ -21,24 +21,20 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>Minified versions of fonts</h1>
 <p>
-<time datetime="2024-03-30T00:00:00&#43;00:00">March 30, 2024</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2024-03-30T00:00:00+00:00">30 March 2024</time>
 </p>
-</header>
-<hr>
 <p>While looking for custom fonts for this website, I came across <a href="https://github.com/joelesko/minlo-font/tree/main">Minlo</a>, a minified version of the Apple system font Menlo.</p>
 <p>I first thought it was made smaller by some cool compression technique. While that is true (converting to WOFF2 leads to smaller file sizes), I found that it even contains lesser characters (glyphs) than in a regular font file.</p>
-<p>As I&rsquo;d been considering using custom fonts in my website, I wanted to make something like Minlo, but for other fonts.</p>
+<p>As I’d been considering using custom fonts in my website, I wanted to make something like Minlo, but for other fonts.</p>
 <h2 id="manual-approach">Manual approach</h2>
-<p>The first idea I had was to manually remove glyphs I don&rsquo;t need using <a href="https://fontforge.org/en-US/">Font Forge</a>, a font editor.</p>
+<p>The first idea I had was to manually remove glyphs I don’t need using <a href="https://fontforge.org/en-US/">Font Forge</a>, a font editor.</p>
 <p>I found a post that describes the exact same steps I tried - <a href="https://barrd.dev/article/create-a-custom-font-with-only-the-glyphs-you-need/">Create a custom font with only the glyphs you need</a>. To summarize:</p>
 <ul>
 <li>Open a font file in FontForge</li>
@@ -49,7 +45,7 @@
 <p>There had to be a way to do this programmatically, right?</p>
 <h2 id="meet-pyftsubset">Meet <code>pyftsubset</code></h2>
 <p>I found an answer to this in the most unexpected of places - the <a href="https://rsms.me/inter/#faq-subset">FAQ section of Inter</a>, a sans-serif font family.</p>
-<p>The tool is called <code>pyftsubset</code>, and since I&rsquo;m looking for to create a file that contains a subset of the original set of glyphs, this sounds like the right one to go with!</p>
+<p>The tool is called <code>pyftsubset</code>, and since I’m looking for to create a file that contains a subset of the original set of glyphs, this sounds like the right one to go with!</p>
 <p>Looking at the <a href="https://fonttools.readthedocs.io/en/latest/subset/">documentation</a>, the tool is part of the <code>fonttools</code> Python package, which I installed using <code>pip</code>.</p>
 <pre><code>$ python3 -m pip install fonttools
 $ pyftsubset -h
@@ -57,14 +53,14 @@ usage: pyftsubset font-file [glyph...] [--option=value]...
 Try pyftsubset --help for more information.
 </code></pre>
 <p>Looking back at the docs, there are a couple of ways to provide which glyphs I want to keep. The easiest option seems to be using <code>--unicodes</code><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, that takes a list of the Unicode code points (<code>U+</code> followed by hexadecimal digits) representing each character.</p>
-<p>If you&rsquo;re familiar with ASCII, Unicode (more specifically UTF-8) is another encoding standard that contains more characters than ASCII, like symbols and characters from other languages.</p>
+<p>If you’re familiar with ASCII, Unicode (more specifically UTF-8) is another encoding standard that contains more characters than ASCII, like symbols and characters from other languages.</p>
 <h3 id="demo-time">Demo time!</h3>
 <p>I created a subset file of the font Inter Regular, containing only uppercase and lowercase letters, digits and punctuation.</p>
 <pre><code>$ pyftsubset Inter-Regular.otf --unicodes=U+0020-007E \
   --layout-features='' \
   --passthrough-tables
 </code></pre>
-<p>The unicode range is from the <a href="https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)">Basic Latin unicode block</a>, the <code>--layout-features</code> flag is set to an empty string to remove all glyphs associated with <a href="https://rsms.me/inter/#features">OpenType features</a>, while <code>--passthrough-tables</code> skips over any sections of the file that the tool doesn&rsquo;t know what to do with.</p>
+<p>The unicode range is from the <a href="https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)">Basic Latin unicode block</a>, the <code>--layout-features</code> flag is set to an empty string to remove all glyphs associated with <a href="https://rsms.me/inter/#features">OpenType features</a>, while <code>--passthrough-tables</code> skips over any sections of the file that the tool doesn’t know what to do with.</p>
 <p>With this, the file size has reduced from 591KB to 12KB, a 97% decrease!</p>
 <pre><code>$ du -Ahs Inter-Regular.otf Inter-Regular.subset.otf
 591K    Inter-Regular.otf
@@ -94,10 +90,8 @@ $ du -Ahs Inter-Regular.otf Inter-Regular.subset.woff2
 </li>
 </ol>
 </div>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

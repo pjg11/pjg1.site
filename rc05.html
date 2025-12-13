@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/rc05.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="RC05: Creating and hosting a CTF challenge in two days | pjg1.site">
+<meta property="og:title" content="RC05: Creating and hosting a CTF challenge in two days">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/rc05.html">
@@ -21,31 +21,27 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>RC05: Creating and hosting a CTF challenge in two days</h1>
 <p>
-<time datetime="2023-10-11T00:00:00&#43;00:00">October 11, 2023</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2023-10-11T00:00:00+00:00">11 October 2023</time>
 </p>
-</header>
-<hr>
-<p>I&rsquo;ve <a href="https://writeups-pjg1.netlify.app">played quite a few CTF challenges</a>, but hadn&rsquo;t attempted to create and host one before. With the announcement of Impossible Stuff Day at RC last week<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, it seemed like a good opportunity to finally give it a shot.</p>
-<p>This post covers details of the challenge and the underlying infrastructure. The source files are up on <a href="https://github.com/pjg11/quack-ctf-challenge">pjg11/quack-ctf-challenge</a> if you&rsquo;d like to try it out yourself!</p>
+<p>I’ve <a href="https://writeups-pjg1.netlify.app">played quite a few CTF challenges</a>, but hadn’t attempted to create and host one before. With the announcement of Impossible Stuff Day at RC last week<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, it seemed like a good opportunity to finally give it a shot.</p>
+<p>This post covers details of the challenge and the underlying infrastructure. The source files are up on <a href="https://github.com/pjg11/quack-ctf-challenge">pjg11/quack-ctf-challenge</a> if you’d like to try it out yourself!</p>
 <h2 id="the-initial-plan">The initial plan</h2>
 <p>My aim was to host one (1) challenge, with interaction via <code>ssh</code> or <code>nc</code>, as a web-based challenge would take more time to set up.</p>
 <p>For challenge ideas, I was inspired by <a href="https://ctftime.org/task/25620">Wordle Bash</a>, a challenge I attempted while playing NahamCon CTF this year. I found it tricky to solve, but liked the game-like nature of the challenge.</p>
 <p>The target audience were fellow Recursers - some with CTF experience but a big majority of people being possibly new to them. Having an easy challenge made sense here, allowing me to focus more on the setup.</p>
 <p>Looking for existing CTF setups brings up mentions of open-source frameworks like <a href="https://ctfd.io">CTFd</a>. This seemed overkill for my case, so I decided to host the challenge from one (1) Docker container on a server - a DigitalOcean droplet with a 25GB SSD and 1GB RAM.</p>
-<p>The challenge would be accessible over SSH, but on a different port than 22 as that is the droplet&rsquo;s SSH port.</p>
-<p>The container acts as a sandboxed environment - the user is restricted to the container&rsquo;s filesystem and can&rsquo;t access the server&rsquo;s files<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
+<p>The challenge would be accessible over SSH, but on a different port than 22 as that is the droplet’s SSH port.</p>
+<p>The container acts as a sandboxed environment - the user is restricted to the container’s filesystem and can’t access the server’s files<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
 <h2 id="a-test-dockerfile">A test Dockerfile</h2>
 <p>When looking for Dockerfiles of other CTF challenges, I came across a video - <a href="https://www.youtube.com/watch?v=gSoNSgzp5Yo">BASH ALIAS CTF Challenge built w/ Docker</a> by John Hammond, a cybersecurity content creator and also the author of Wordle Bash.</p>
-<p>He used <a href="https://github.com/rastasheep/ubuntu-sshd"><code>ubuntu-sshd</code></a> as the base image. The image hadn&rsquo;t been updated for recent Ubuntu versions, so I took the code from one of the Dockerfiles and used that as my starting point.</p>
+<p>He used <a href="https://github.com/rastasheep/ubuntu-sshd"><code>ubuntu-sshd</code></a> as the base image. The image hadn’t been updated for recent Ubuntu versions, so I took the code from one of the Dockerfiles and used that as my starting point.</p>
 <pre><code>FROM ubuntu:latest
 
 RUN apt-get update -y &amp;&amp; \
@@ -65,7 +61,7 @@ CMD [&quot;/usr/sbin/sshd&quot;, &quot;-D&quot;]
 <blockquote>
 <p><code>-D</code> <br>
 When this option is specified, sshd will not detach and does not become a daemon. This allows easy monitoring of sshd.</p></blockquote>
-<p>I tried a test run, and it worked! I also found out that Docker makes it very easy to forward ports from the Docker container to the host machine, something I wasn&rsquo;t sure how to do before.</p>
+<p>I tried a test run, and it worked! I also found out that Docker makes it very easy to forward ports from the Docker container to the host machine, something I wasn’t sure how to do before.</p>
 <pre><code># docker build -t test .
 [+] Building 32.4s (9/9) FINISHED
 # docker run -d -p 20000:22 test
@@ -73,7 +69,7 @@ When this option is specified, sshd will not detach and does not become a daemon
 # ssh -p 20000 localhost
 user@858a1c9b2658:~$
 </code></pre>
-<p>SSH by default logs into a shell session, however I wanted to run the challenge file at login instead. I couldn&rsquo;t find how to do so, which lead me to change the setup entirely, as I was short on time.</p>
+<p>SSH by default logs into a shell session, however I wanted to run the challenge file at login instead. I couldn’t find how to do so, which lead me to change the setup entirely, as I was short on time.</p>
 <h2 id="sshd--xinetd"><code>sshd</code> → <code>xinetd</code></h2>
 <p>I came across another CTF challenge - <a href="https://github.com/JohnHammond/misfortune-ctf-challenge">misfortune</a>, also written by John Hammond. This challenge used <code>xinetd</code> instead of <code>sshd</code> to run the challenge, and users can access the challenge over <code>nc</code> or netcat.</p>
 <p>I wanted to test this out with the Wordle Bash source code, so the following changes were made:</p>
@@ -102,7 +98,7 @@ RUN chmod 551 entrypoint.sh &amp;&amp; \
 
 WORKDIR /home/user
 </code></pre>
-<p>There are two additional files required for this to work, which I&rsquo;ll talk about shortly.</p>
+<p>There are two additional files required for this to work, which I’ll talk about shortly.</p>
 <pre><code>EXPOSE 9999
 CMD [&quot;/entrypoint.sh&quot;]
 </code></pre>
@@ -131,7 +127,7 @@ trap : TERM INT; sleep infinity &amp; wait
     log_on_failure = HOST
 }
 </code></pre>
-<p>This wasn&rsquo;t successful, as the script wouldn&rsquo;t wait for input.</p>
+<p>This wasn’t successful, as the script wouldn’t wait for input.</p>
 <pre><code># nc localhost 9999
 
   ╔══════════════════════════════════════════════════╗
@@ -159,17 +155,17 @@ echo &quot;What is your name?&quot;
 read name
 echo Hello $name
 </code></pre>
-<p>This meant my plans for the challenge had to change, and I couldn&rsquo;t use <code>gum</code> for input as I initially hoped<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>. At this point, Impossible Stuff Day was coming to an end, so I decided to work on the challenge aspect the next day.</p>
+<p>This meant my plans for the challenge had to change, and I couldn’t use <code>gum</code> for input as I initially hoped<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>. At this point, Impossible Stuff Day was coming to an end, so I decided to work on the challenge aspect the next day.</p>
 <h2 id="building-quack">Building QUACK</h2>
-<p>Once the initial plan for the challenge failed, I started to think about it more seriously. I looked to challenges I&rsquo;d played before, particularly these two:</p>
+<p>Once the initial plan for the challenge failed, I started to think about it more seriously. I looked to challenges I’d played before, particularly these two:</p>
 <ul>
 <li><a href="https://github.com/pjg11/CTF-Writeups/blob/main/2022-NahamCon-CTF/Prisoner.md">Prisoner</a> from NahamCon CTF 2022</li>
 <li><a href="https://heinandre.no/htb-cyber-apocalypse-2022/misc/compressor/">Compressor</a> from Cyber Apocalypse 2021</li>
 </ul>
-<p>I didn&rsquo;t have the source code for either challenge, but Prisoner seemed easier to recreate, so I went in that direction.</p>
-<p>Prisoner is an example of the <code>pyjail</code> style of challenges, where one is provided access to a restricted Python environment, and you&rsquo;re required to escape the <em>jail</em> to access the flag. The core steps are as follows:</p>
+<p>I didn’t have the source code for either challenge, but Prisoner seemed easier to recreate, so I went in that direction.</p>
+<p>Prisoner is an example of the <code>pyjail</code> style of challenges, where one is provided access to a restricted Python environment, and you’re required to escape the <em>jail</em> to access the flag. The core steps are as follows:</p>
 <ul>
-<li>Start off with an input prompt that doesn&rsquo;t do anything when typing into it. The challenge can be assisted with ASCII art, to create a story.</li>
+<li>Start off with an input prompt that doesn’t do anything when typing into it. The challenge can be assisted with ASCII art, to create a story.</li>
 <li>Pressing <kbd>Ctrl</kbd> + <kbd>D</kbd> prints a traceback and displays a Python interactive shell.</li>
 <li>In this shell, one can execute system commands and read the flag.</li>
 </ul>
@@ -216,8 +212,8 @@ EOFError: EOF when reading a line
 &gt;&gt;&gt;
 #
 </code></pre>
-<p>It displays the traceback and shell prompt as expected, but exits before I could even type anything in the interactive shell&hellip; *sigh*</p>
-<p>I&rsquo;m not entirely sure why this happened, but my guess is <code>nc</code> sees <kbd>Ctrl</kbd> + <kbd>D</kbd> as a signal to close the connection. I couldn&rsquo;t find any solution for this, so I tried the first option I mentioned earlier, to embed a shell in the code. This recreates the output produced by <code>python3 -i</code>.</p>
+<p>It displays the traceback and shell prompt as expected, but exits before I could even type anything in the interactive shell… *sigh*</p>
+<p>I’m not entirely sure why this happened, but my guess is <code>nc</code> sees <kbd>Ctrl</kbd> + <kbd>D</kbd> as a signal to close the connection. I couldn’t find any solution for this, so I tried the first option I mentioned earlier, to embed a shell in the code. This recreates the output produced by <code>python3 -i</code>.</p>
 <pre><code>#!/usr/bin/env python3
 
 import readline
@@ -255,7 +251,7 @@ ___( O)&gt;
 <p>Lastly, I created a flag file, which the users can read on entering the shell. It follows the format commonly found in CTFs - some text written within braces in 1337 5p34k to make it look all cool and fancy:</p>
 <pre><code># echo &quot;CTF{th4nks_f0r_p14y1ng}&quot; &gt; flag.txt
 </code></pre>
-<p>I made the changes to the Dockerfile and other files, and once again, I faced the &ldquo;EOF when reading a line&rdquo; I saw earlier. I found myself at a dead end, so I gave up on this setup, and finally went back to using SSH.</p>
+<p>I made the changes to the Dockerfile and other files, and once again, I faced the “EOF when reading a line” I saw earlier. I found myself at a dead end, so I gave up on this setup, and finally went back to using SSH.</p>
 <h2 id="xinetd--sshd"><code>xinetd</code> → <code>sshd</code></h2>
 <p>The only thing stopping me from using <code>sshd</code> earlier was not knowing a way to run a script at login, which I <a href="https://askubuntu.com/a/397696">finally figured</a>. With that sorted, I got rid of <code>challenge.xinetd</code> and <code>entrypoint.sh</code>, and made the final set of changes to the Dockerfile:</p>
 <p><code>python3</code> got added to the installation, as the challenge file is a Python script. The base image changed from Ubuntu to Debian for a smaller image size.</p>
@@ -294,7 +290,7 @@ set -ex
 docker build -t quack .
 docker run --pids-limit 100 --read-only -d -p 9999:22 quack
 </code></pre>
-<p>This builds and runs the container in read-only mode, preventing the user from making changes to the flag or any other file. The number of processes running at once have also been limited, to <a href="https://stackoverflow.com/questions/28237906/limit-number-of-processes-started-inside-docker-container">prevent forkbombs</a>. This wouldn&rsquo;t be much of an issue in my case, but I had it there just in case.</p>
+<p>This builds and runs the container in read-only mode, preventing the user from making changes to the flag or any other file. The number of processes running at once have also been limited, to <a href="https://stackoverflow.com/questions/28237906/limit-number-of-processes-started-inside-docker-container">prevent forkbombs</a>. This wouldn’t be much of an issue in my case, but I had it there just in case.</p>
 <p>After multiple detours and changes, I tested the challenge setup, and it worked.</p>
 <figure>
 <a href="https://asciinema.org/a/674178"><img src="https://asciinema.org/a/674178.svg"></a>
@@ -323,7 +319,7 @@ flag.txt? Thanks!
 <h2 id="logging">Logging</h2>
 <p>I was looking to log two things - the number of challenge attempts and the number of solves. Nothing too fancy, just everything in one log file would also work.</p>
 <h3 id="challenge-attempts">Challenge attempts</h3>
-<p>SSH logs to <code>/var/auth/auth.log</code> by default. However, that I wasn&rsquo;t seeing any log file when I ran my setup. At the time, I missed a crucial detail - my container was set to read-only, so the log file wasn&rsquo;t being created.</p>
+<p>SSH logs to <code>/var/auth/auth.log</code> by default. However, that I wasn’t seeing any log file when I ran my setup. At the time, I missed a crucial detail - my container was set to read-only, so the log file wasn’t being created.</p>
 <p>To solve this, I added the <code>-e</code> flag to the Dockerfile command, which prints the logs to <code>stderr</code> instead of a file:</p>
 <pre><code>CMD [&quot;/usr/bin/sshd&quot;, &quot;-e&quot;, &quot;-D&quot;]
 </code></pre>
@@ -346,21 +342,21 @@ inotifywait -e open .secret/flag.txt -m --format &quot;[%T] %w %e&quot; --timefm
 RUN chmod 551 /entrypoint.sh
 CMD [&quot;/entrypoint.sh&quot;]
 </code></pre>
-<p>This doesn&rsquo;t account for multiple flag reads by the same user, but some manual filtering of the logs could solve the issue in my case.</p>
+<p>This doesn’t account for multiple flag reads by the same user, but some manual filtering of the logs could solve the issue in my case.</p>
 <h3 id="accessing-logs">Accessing logs</h3>
 <p>The logs are accessible using the <code>docker logs</code> command:</p>
 <pre><code># docker logs &lt;containerid&gt;
 </code></pre>
-<p>During the challenge, appending the <code>-f</code> file to command shows log entries as they appear. Once the challenge is over and I&rsquo;ve stopped the container, I can redirect the output of the command (without <code>-f</code>) to a file.</p>
+<p>During the challenge, appending the <code>-f</code> file to command shows log entries as they appear. Once the challenge is over and I’ve stopped the container, I can redirect the output of the command (without <code>-f</code>) to a file.</p>
 <p>This would contain a combination of SSH logs and the file access logs, which I could filter out using tools like <code>grep</code>.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>Given the timeframe of two days, I&rsquo;m honestly surprised I was even able to do this much. I&rsquo;m glad to be a part of a community like RC, that encourages people to try things they otherwise wouldn&rsquo;t.</p>
+<p>Given the timeframe of two days, I’m honestly surprised I was even able to do this much. I’m glad to be a part of a community like RC, that encourages people to try things they otherwise wouldn’t.</p>
 <p>I hope you enjoyed reading this, and if you do try out the challenge, feel free to leave a comment with any feedback!</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>It’s a day to work on something that is well beyond what you&rsquo;re currently capable of. The idea is to take the first step towards doing something seemingly impossible, and seeing how far you can get. It&rsquo;s been one of the highlights of my RC experience.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>It’s a day to work on something that is well beyond what you’re currently capable of. The idea is to take the first step towards doing something seemingly impossible, and seeing how far you can get. It’s been one of the highlights of my RC experience.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
 <p>However, messing up the challenge files for someone else or escaping the container due to a vulnerability is a possibility. Solutions to this include <a href="https://github.com/google/nsjail"><code>nsjail</code></a>, which spawns individual read-only instances whenever someone accesses a challenge. It seemed extra for my use case, but I found the concept very cool.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
@@ -370,10 +366,8 @@ CMD [&quot;/entrypoint.sh&quot;]
 </li>
 </ol>
 </div>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

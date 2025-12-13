@@ -1,142 +1,133 @@
+@font-face {
+  font-family: Lunasima;
+  src: url('Lunasima-Regular.woff2') format('woff2');
+  font-weight: 400
+}
+@font-face {
+  font-family: Lunasima;
+  src: url('Lunasima-Bold.woff2') format('woff2');
+  font-weight: 700
+}
 :root {
-    color-scheme: light dark;
-    --bg: #fff;
-    --fg: #000;
-    --bl: #f4f4f4;
-    --br: #999;
+  --bg: #fff;
+  --fg: #000;
+  --bl: #eee;
+  --bq: #bbb;
+  --ac: #777;
+  --f: Lunasima, sans-serif;
+  --c: Menlo, monospace;
 }
 @media(prefers-color-scheme: dark) {
-    :root {
-        --bg: #191919;
-        --fg: #ddd;
-        --bl: #252525;
-        --br: #777;
-    }
-    img.dim {
-        opacity: 0.8
-    }
-}
-html {
-    background: var(--bg);
-    color: var(--fg);
-    font: 100%/1.4 Charter, system-ui, sans-serif;
-	font-kerning: none
+  :root {
+    --bg: #1e1e1e;
+    --fg: #d9d9d9;
+    --bl: #2e2e2e;
+    --bq: #555;
+    --ac: #999;
+  }
 }
 body {
-    max-width: 38rem;
-    margin: 1% auto
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/23.5px var(--f);
+    padding: 1.25rem;
+    max-width: 36em;
+    margin: auto;
 }
-main {
-    padding: calc(1rem + 0.5vw);
-    border: thin solid var(--br)
+pre, code, kbd {
+  font-family: var(--c);
+  font-size: 92.5%;
 }
-@media screen and (max-width: 38rem) {
-    main {
-        border-left: 0;
-        border-right: 0
-    }
-}
-code {
-    font-family: SF Mono, ui-monospace, monospace;
-    background: var(--bl);
-    border: thin solid var(--br);
-    padding: 0.05rem 0.2rem;
-    font-size: 87.5%
+pre {
+  margin: 1.15rem 0;
+  overflow-x: auto;
+  padding: 0.5rem;
+  line-height: 1.4;
+  background: var(--bl);
 }
 pre code {
-    display: block;
-    overflow-x: auto;
-    padding: 0.5rem
+  font-size: 100%;
 }
 sup {
-    line-height: 0
-}
-h1, h2 {
-    line-height: 1.3
-}
-h1 {
-    font-size: 1.35rem;
-    margin: 0 0 -0.25rem
-}
-h2 {
-    font-size: 1.15rem;
-    margin: 1.5rem 0 -0.25rem
-}
-h3 {
-    font-size: 1.05rem;
-    margin-bottom: -0.25rem
+  line-height: 0
 }
 figure {
-    margin: 1rem 0
+  margin: 1.15rem 0
 }
 figure pre {
     margin: 0
 }
-figcaption {
-    padding: 0.25rem 0
-}
 img {
-    width: 100%;
-    height: auto;
-    border: thin solid var(--br)
+  width: 100%;
+  height: auto
 }
-ol, ul {
-    padding-left: 1.75rem
-}
-li {
-    margin-bottom: 0.15rem
+p, hr {
+  margin: 0 0 1.15rem
 }
 blockquote {
-    margin: 1.25rem 0;
-    padding: 0.75rem 1rem;
-    border: thin solid var(--br);
-    border-left: 0.3rem solid var(--br)
+  margin: 0 0 1.15rem;
+  border-left: 4px solid var(--bq);
+  padding-left: 1rem
 }
-blockquote > :first-child {
-    margin-top: 0
+ul, ol {
+  padding-left: 1.625rem;
+  margin: 0 0 1.15rem
 }
-blockquote > :last-child {
-    margin-bottom: 0
-}
-nav, footer {
-    padding: 0.75rem 0.5rem;
-    font-weight: bold;
-    text-align: center
+li {
+  margin: 1px 0
 }
 a {
     color: inherit;
-    text-decoration-thickness: 0.05rem;
-    text-underline-offset: 0.05rem
+    text-decoration-color: var(--ac);
+    text-underline-offset: 0.05em;
+    text-decoration-thickness: 0.05em;
 }
 a:hover {
-    text-decoration: none
+    text-decoration-color: inherit
 }
-nav {
-    display: flex;
-    gap: 1rem
+hr {
+  border-top: thin solid var(--bq);
+  border-bottom: 0;
 }
-nav > a:first-of-type {
-    float: left;
-	margin-right: auto
+section + hr {
+  margin: 3rem 0
 }
-nav a {
-    text-decoration: none
+h1, h2, h3 {
+  line-height: 1.85rem;
+  margin: 1em 0 1rem;
 }
-nav a:hover {
-    text-decoration: underline
+h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.25rem
+}
+h2 {
+  font-size: 1.25em;
+}
+h3 {
+  font-size: 1.1em
+}
+h1 + p, figcaption, time {
+	color: var(--ac)
+}
+h1 + p a {
+	text-decoration: none
+}
+h1 + p a:hover {
+	text-decoration: underline
 }
 table {
     width: 100%;
-    border-collapse: collapse
+    border-collapse: collapse;
+    margin: 0 0 1.15rem
 }
 td, th {
-    border-bottom: thin solid var(--br);
-	padding: 0.15rem 0.5rem
+    border-top: thin solid var(--bq);
+    border-bottom: thin solid var(--bq);
+    padding: 0.15rem 0;
+	text-align: left;
+	vertical-align: baseline
 }
-hr {
-    border-top: thin solid var(--br);
-    border-bottom: 0
-}
-abbr[title] {
-	cursor: help
+table time {
+	text-wrap: nowrap;
+	margin-left: 0.5rem
 }

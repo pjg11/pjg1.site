@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/rc00.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="RC00: Interesting Python behavior | pjg1.site">
+<meta property="og:title" content="RC00: Interesting Python behavior">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/rc00.html">
@@ -21,24 +21,20 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>RC00: Interesting Python behavior</h1>
 <p>
-<time datetime="2023-08-10T00:00:00&#43;00:00">August 10, 2023</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2023-08-10T00:00:00+00:00">10 August 2023</time>
 </p>
-</header>
-<hr>
-<p>I attended a pair programming workshop as part of the RC orientation talks. After a brief introduction to pairing and how it works, the attendees were paired with each other to code <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway&rsquo;s Game of Life</a> within an hour.</p>
+<p>I attended a pair programming workshop as part of the RC orientation talks. After a brief introduction to pairing and how it works, the attendees were paired with each other to code <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway’s Game of Life</a> within an hour.</p>
 <p>My pairing partner, <a href="https://msabin.github.io">Manuel</a> and I decided to code in Python, the first step being to create a grid. For some reason, my mind came up with this line of code:</p>
 <pre><code>grid=[['X']*10]*10
 </code></pre>
-<p>I don&rsquo;t recall seeing something like this before, so it came as a bit of a surprise. It seemed like a very neat trick and I was proud of myself. On running the code, it worked as intended, which was even more surprising.</p>
+<p>I don’t recall seeing something like this before, so it came as a bit of a surprise. It seemed like a very neat trick and I was proud of myself. On running the code, it worked as intended, which was even more surprising.</p>
 <pre><code>$ python3 gameoflife.py
 [['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
 ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X'],
@@ -71,12 +67,12 @@ grid[4][6] = 'O'
 </code></pre>
 <p>Instead of specific cells, entire columns were updated? Strange.</p>
 <p>My attention went towards the multiply sign. <strong>Was it duplicating the same object instead of each row being a different object?</strong></p>
-<p>Turns out, yes! However, I wasn&rsquo;t entirely convinced and needed some evidence to back this up. After the workshop I came across <a href="https://pythontutor.com/python-debugger.html">Python Tutor</a>, a tool to visualize Python code, and decided to try it out.</p>
+<p>Turns out, yes! However, I wasn’t entirely convinced and needed some evidence to back this up. After the workshop I came across <a href="https://pythontutor.com/python-debugger.html">Python Tutor</a>, a tool to visualize Python code, and decided to try it out.</p>
 <figure>
-<img src="/public/images/rc00/viz1.png" class="dim" loading="lazy" alt="There are three blocks - a global frame with the variable name &quot;grid&quot;. The variable name points to block representing an array of index 10. Every index of the array points to a third block - an array of index 10 with the string "X" written for each index." />
+<img src="/public/images/rc00/viz1.png" class="dim" alt="There are three blocks - a global frame with the variable name &quot;grid&quot;. The variable name points to block representing an array of index 10. Every index of the array points to a third block - an array of index 10 with the string "X" written for each index." />
 <figcaption><a href="https://pythontutor.com/render.html#code=grid%3D%5B%5B&#39;X&#39;%20for%20_%20in%20range%2810%29%5D%20for%20_%20in%20range%2810%29%5D&amp;cumulative=false&amp;curInstr=144&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false">View on Python Tutor</a></figcaption>
 </figure>
-<p>The intended scenario would be to see 11 different arrays - the <code>grid</code> array, and 10 arrays containing 10 X&rsquo;s each. However, here we see 2 arrays - <code>grid</code> and one array with 10 X&rsquo;s, which I&rsquo;ll call <code>row</code> from now on.</p>
+<p>The intended scenario would be to see 11 different arrays - the <code>grid</code> array, and 10 arrays containing 10 X’s each. However, here we see 2 arrays - <code>grid</code> and one array with 10 X’s, which I’ll call <code>row</code> from now on.</p>
 <p>Each index of <code>grid</code> points to <code>row</code>. So <code>grid[0] == grid[1] ... == grid[9]</code>. Any changes to <code>row</code> will reflect a change in <code>grid[n]</code>, <code>n</code> being 0-9 in this case. Evidence found!</p>
 <p>We can also see this in action using <code>id()</code> within Python, which prints out the memory address of an object.</p>
 <pre><code>&gt;&gt;&gt; grid=[['X']*10]*10
@@ -85,7 +81,7 @@ grid[4][6] = 'O'
 &gt;&gt;&gt; id(grid[1])
 4315577152
 </code></pre>
-<p>The memory address for both <code>row</code>s is the same, indicating that they&rsquo;re pointing to the same object.</p>
+<p>The memory address for both <code>row</code>s is the same, indicating that they’re pointing to the same object.</p>
 <p>This property is true for lists of other items as well, for example a dictionary:</p>
 <pre><code>&gt;&gt;&gt; data = [{'x':1, 'y':2}]*10
 &gt;&gt;&gt; id(data[0])
@@ -93,7 +89,7 @@ grid[4][6] = 'O'
 &gt;&gt;&gt; id(data[1])
 4312977664
 </code></pre>
-<p>How does this explain the two columns being changed? Here&rsquo;s what happened:</p>
+<p>How does this explain the two columns being changed? Here’s what happened:</p>
 <ul>
 <li>The indexes we tried to change were <code>grid[5][5]</code>, <code>grid[4][5]</code> and <code>grid[4][6]</code>.</li>
 <li><code>grid[4]</code> and <code>grid[5]</code> are pointing to <code>row</code>, so indexes 5 and 6 were changed in <code>row</code>.</li>
@@ -112,21 +108,19 @@ grid=[['X' for _ in range(10)] for _ in range(10)]
 </code></pre>
 <p>The visualization for either of these approaches looks completely different from the earlier approach.</p>
 <figure>
-<img src="/public/images/rc00/viz2.png" class="dim" loading="lazy" alt="There are a total of tweleve blocks - a global frame with the variable name &quot;grid&quot;. The variable name points to block representing an array of index 10. Each index of the array points to a separate block - an array of index 10 with the string &quot;X&quot; written for each index." />
+<img src="/public/images/rc00/viz2.png" class="dim" alt="There are a total of tweleve blocks - a global frame with the variable name &quot;grid&quot;. The variable name points to block representing an array of index 10. Each index of the array points to a separate block - an array of index 10 with the string &quot;X&quot; written for each index." />
 <figcaption><a href="https://pythontutor.com/render.html#code=grid%3D%5B%5B&#39;X&#39;%20for%20_%20in%20range%2810%29%5D%20for%20_%20in%20range%2810%29%5D&amp;cumulative=false&amp;curInstr=144&amp;heapPrimitives=nevernest&amp;mode=display&amp;origin=opt-frontend.js&amp;py=3&amp;rawInputLstJSON=%5B%5D&amp;textReferences=false" target="_blank">View on Python Tutor</a></figcaption>
 </figure>
-<p>Instead of one <code>row</code>, there are now 10 <code>row</code>s. Changes to one <code>row</code> won&rsquo;t affect the other <code>row</code>s, which is the intended behavior.</p>
-<p>In Python, <code>id()</code> returns different addresses for each <code>row</code>, further confirming that they&rsquo;re different objects.</p>
+<p>Instead of one <code>row</code>, there are now 10 <code>row</code>s. Changes to one <code>row</code> won’t affect the other <code>row</code>s, which is the intended behavior.</p>
+<p>In Python, <code>id()</code> returns different addresses for each <code>row</code>, further confirming that they’re different objects.</p>
 <pre><code>&gt;&gt;&gt; grid=[['X' for _ in range(10)] for _ in range(10)]
 &gt;&gt;&gt; id(grid[0])
 4315575040
 &gt;&gt;&gt; id(grid[1])
 4315559744
 </code></pre>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

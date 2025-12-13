@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/hanukkahofdata.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="Hanukkah of Data | pjg1.site">
+<meta property="og:title" content="Hanukkah of Data">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/hanukkahofdata.html">
@@ -21,24 +21,20 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>Hanukkah of Data</h1>
 <p>
-<time datetime="2024-04-10T00:00:00&#43;00:00">April 10, 2024</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2024-04-10T00:00:00+00:00">10 April 2024</time>
 </p>
-</header>
-<hr>
 <p><a href="https://hanukkah.bluebird.sh/5784/">Hanukkah of Data</a> is a set of data puzzles based around a storyline, released in 2022. I found out about this a few months past its release, and recently solved them using SQLite.</p>
-<h2 id="0-noahs-market">0. Noah&rsquo;s Market</h2>
-<p>The story revolves around finding the missing rug of Noah, who&rsquo;s the owner of a store called Noah&rsquo;s Market in Manhattan. The dataset is a backup of the Noah&rsquo;s Market database, created by Alex in 2017. However, it is password protected.</p>
+<h2 id="0-noahs-market">0. Noah’s Market</h2>
+<p>The story revolves around finding the missing rug of Noah, who’s the owner of a store called Noah’s Market in Manhattan. The dataset is a backup of the Noah’s Market database, created by Alex in 2017. However, it is password protected.</p>
 <blockquote>
-<p>&ldquo;Alex set up the backups to be password-protected. I can never remember the password itself, but it&rsquo;s just the year in the Hebrew calendar when Alex set up the database.&rdquo;</p></blockquote>
+<p>“Alex set up the backups to be password-protected. I can never remember the password itself, but it’s just the year in the Hebrew calendar when Alex set up the database.”</p></blockquote>
 <p>Some searching later, I found the password - 5777. With the dataset unlocked, I had a look at the tables and their schema.</p>
 <pre><code>sqlite&gt; .open noahs.sqlite
 sqlite&gt; .schema
@@ -54,10 +50,10 @@ NATURAL JOIN orders
 NATURAL JOIN orders_items
 NATURAL JOIN products;
 </code></pre>
-<p>The next set of puzzles have a similar structure - the description contains clues to a customer of Noah&rsquo;s Market who may have the rug, and submitting the customer&rsquo;s phone number solves the puzzle.</p>
+<p>The next set of puzzles have a similar structure - the description contains clues to a customer of Noah’s Market who may have the rug, and submitting the customer’s phone number solves the puzzle.</p>
 <h2 id="1-the-investigator">1. The Investigator</h2>
-<p>This person&rsquo;s phone number is the numeric representation of their last name. So each letter corresponds to the <a href="https://en.wikipedia.org/wiki/File:Telephone_keys.JPG#/media/File:Telephone_keys.JPG">digits printed on the phone buttons</a> - &ldquo;abc&rdquo; to 2, &ldquo;def&rdquo; to 3, and so on.</p>
-<p>While the solution seemed easy conceptually, there&rsquo;s no existing SQLite function that maps characters to numbers, making this a lot harder than I expected. This led me to look into <a href="https://sqlite.org/loadext.html">custom extensions</a>, and I used the <a href="https://www.sqlite.org/src/file/ext/misc/rot13.c">rot13 extension</a> code as the basis for mine, <code>phonenum</code>.</p>
+<p>This person’s phone number is the numeric representation of their last name. So each letter corresponds to the <a href="https://en.wikipedia.org/wiki/File:Telephone_keys.JPG#/media/File:Telephone_keys.JPG">digits printed on the phone buttons</a> - “abc” to 2, “def” to 3, and so on.</p>
+<p>While the solution seemed easy conceptually, there’s no existing SQLite function that maps characters to numbers, making this a lot harder than I expected. This led me to look into <a href="https://sqlite.org/loadext.html">custom extensions</a>, and I used the <a href="https://www.sqlite.org/src/file/ext/misc/rot13.c">rot13 extension</a> code as the basis for mine, <code>phonenum</code>.</p>
 <details>
 <summary><code>phonenum.c</code></summary>
 <pre><code>#include &quot;sqlite3ext.h&quot;
@@ -160,7 +156,7 @@ sqlite&gt; .load phonenum
 Sam Tannenbaum|826-636-2286
 </code></pre>
 <h2 id="2-the-contractor">2. The Contractor</h2>
-<p>Theis person&rsquo;s initials are &lsquo;JP&rsquo; and they shopped from Noah&rsquo;s Market in 2017, while they were tasked with the cleaning of the rug. One of the purchased items mentioned were cleaning supplies, so I first looked for related items in the <code>products</code> database.</p>
+<p>Theis person’s initials are ‘JP’ and they shopped from Noah’s Market in 2017, while they were tasked with the cleaning of the rug. One of the purchased items mentioned were cleaning supplies, so I first looked for related items in the <code>products</code> database.</p>
 <pre><code>sqlite&gt; SELECT sku, desc FROM products WHERE desc LIKE '%rug %';
 HOM2761|Rug Cleaner
 
@@ -178,7 +174,7 @@ First, I got the name of the neighborhood using the phone number I found earlier
 <pre><code>sqlite&gt; SELECT citystatezip FROM customers WHERE phone == '332-274-4185';
 Jamaica, NY 11435
 </code></pre>
-<p>Then coming to the clues about the person&rsquo;s birthdate. The astrological sign, Cancer, gives us a range for the day and month (21 June – 22 July), while the Chinese zodiac, <a href="https://chinesenewyear.net/zodiac/rabbit/">Rabbit</a>, gives a range for the birth year.
+<p>Then coming to the clues about the person’s birthdate. The astrological sign, Cancer, gives us a range for the day and month (21 June – 22 July), while the Chinese zodiac, <a href="https://chinesenewyear.net/zodiac/rabbit/">Rabbit</a>, gives a range for the birth year.
 I checked for the earliest and latest birth years in the dataset, to add all valid birth years in the <code>WHERE</code> clause.</p>
 <pre><code>sqlite&gt; SELECT min(birthdate), max(birthdate) FROM customers;
 1935-01-29|2001-12-31
@@ -195,7 +191,7 @@ sqlite&gt; SELECT name, phone
 Robert Morton|917-288-9635
 </code></pre>
 <h2 id="4-the-early-bird">4. The Early Bird</h2>
-<p>This person met The Neighbor at 5AM with pastries they just bought from Noah&rsquo;s. This means that the order happened somewhere close to 5AM. I filtered for pastry orders by checking if the <code>sku</code> starts with <code>BKY</code> for bakery items.</p>
+<p>This person met The Neighbor at 5AM with pastries they just bought from Noah’s. This means that the order happened somewhere close to 5AM. I filtered for pastry orders by checking if the <code>sku</code> starts with <code>BKY</code> for bakery items.</p>
 <p>The database also contains the <code>ordered</code> and <code>shipped</code> timestamps for each order. Since they were purchased from the store (as opposed to being ordered from home for example), the ordered and shipped time would be the same for this order.</p>
 <pre><code>sqlite&gt; SELECT name, phone
    ...&gt; FROM noahsrug
@@ -206,8 +202,8 @@ Robert Morton|917-288-9635
 Renee Harmon|607-231-3605
 </code></pre>
 <h2 id="5-the-cat-lady">5. The Cat Lady</h2>
-<p>The Early Bird decided to give away the rug during their &ldquo;Marie Kondo phase&rdquo;, which would be sometime after 2019. They gave it to a person from Staten Island, who was wearing a &ldquo;Noah&rsquo;s Market&rdquo; sweatshirt and owned 10 or 11 old cats.</p>
-<p>This means they purchased lots of cat food from Noah&rsquo;s. There are products for Adult and Senior cats, so I filtered for those, and searched for the person with the most cat related orders.</p>
+<p>The Early Bird decided to give away the rug during their “Marie Kondo phase”, which would be sometime after 2019. They gave it to a person from Staten Island, who was wearing a “Noah’s Market” sweatshirt and owned 10 or 11 old cats.</p>
+<p>This means they purchased lots of cat food from Noah’s. There are products for Adult and Senior cats, so I filtered for those, and searched for the person with the most cat related orders.</p>
 <pre><code>sqlite&gt; SELECT name, phone
    ...&gt; FROM noahsrug
    ...&gt; WHERE citystatezip LIKE 'Staten Island%'
@@ -218,9 +214,9 @@ Renee Harmon|607-231-3605
    ...&gt; LIMIT 1;
 Nicole Wilson|631-507-6048
 </code></pre>
-<p>The sweatshirt clue turned out to be a red herring, which I did spend quite some time on. In hindsight, focusing on the puzzle&rsquo;s title would have helped save some time.</p>
-<p>The speedrun description of this puzzle didn&rsquo;t have the Staten Island clue, so I removed it and…the solution didn&rsquo;t work. After some attempts at trying different queries and nothing really working, I looked solutions online. Turns out, I misunderstood the phrase &ldquo;most cat related orders&rdquo;.</p>
-<p>My solution finds the maximum number of orders…but doesn&rsquo;t consider the &ldquo;quantity&rdquo; of each order. Since the person owns 10 or 11 cats, they would buy 10 or 11 quantities of the same item! Knowing this made the solution much simpler than the original, and worked for both the original puzzle and the speedrun.</p>
+<p>The sweatshirt clue turned out to be a red herring, which I did spend quite some time on. In hindsight, focusing on the puzzle’s title would have helped save some time.</p>
+<p>The speedrun description of this puzzle didn’t have the Staten Island clue, so I removed it and…the solution didn’t work. After some attempts at trying different queries and nothing really working, I looked solutions online. Turns out, I misunderstood the phrase “most cat related orders”.</p>
+<p>My solution finds the maximum number of orders…but doesn’t consider the “quantity” of each order. Since the person owns 10 or 11 cats, they would buy 10 or 11 quantities of the same item! Knowing this made the solution much simpler than the original, and worked for both the original puzzle and the speedrun.</p>
 <pre><code>sqlite&gt; SELECT name, phone
    ...&gt; FROM noahsrug
    ...&gt; WHERE desc REGEXP '.*(Adult|Senior) Cat.*'
@@ -232,7 +228,7 @@ Nicole Wilson|631-507-6048
 <p>I was stuck on this for a long time, and I ended up slightly peeking at another solution to get unstuck. The solution comes from this one line in the description:</p>
 <blockquote>
 <p>In fact I like to tease her that Noah actually loses money whenever she comes in the store.</p></blockquote>
-<p>This line always felt relevant from the beginning, but I didn&rsquo;t know what to look for. Now that I was sure, I focused my attention on the columns in the database. Two of them stood out, <code>wholesale_cost</code> (the price Noah&rsquo;s bought the item for) and <code>unit_price</code> (the price Noah&rsquo;s sold the item for).</p>
+<p>This line always felt relevant from the beginning, but I didn’t know what to look for. Now that I was sure, I focused my attention on the columns in the database. Two of them stood out, <code>wholesale_cost</code> (the price Noah’s bought the item for) and <code>unit_price</code> (the price Noah’s sold the item for).</p>
 <p>If the unit price is lesser than the wholesale cost, that would mean a loss. The person having the maximum transactions resulting in loss would be The Bargain Hunter.</p>
 <pre><code>sqlite&gt; SELECT name, phone
    ...&gt; FROM noahsrug
@@ -243,7 +239,7 @@ Nicole Wilson|631-507-6048
 Sherri Long|585-838-9161
 </code></pre>
 <h2 id="7-the-meet-cute">7. The Meet Cute</h2>
-<p>This person was at Noah&rsquo;s on the same day as the Bargain Hunter, and purchased the same item in a color that the Bargain Hunter wanted.</p>
+<p>This person was at Noah’s on the same day as the Bargain Hunter, and purchased the same item in a color that the Bargain Hunter wanted.</p>
 <p>There are no clues on what day this happened, so I started with finding color related items purchased by the Bargain Hunter. All products with color variations have the <code>sku</code> starting with <code>COL</code>. Ordered and shipped time will also be the same here.</p>
 <pre><code>sqlite&gt; SELECT orderid, desc
    ...&gt; FROM noahsrug
@@ -253,7 +249,7 @@ Sherri Long|585-838-9161
 70503|Noah's Poster (azure)
 124821|Noah's Action Figure (green)
 </code></pre>
-<p>Using these queries, I checked for orders around the same time for the same item manually, by comparing the substring of the product names (without the color) and checking for the last 5 orders before the Bargain Hunter&rsquo;s order.</p>
+<p>Using these queries, I checked for orders around the same time for the same item manually, by comparing the substring of the product names (without the color) and checking for the last 5 orders before the Bargain Hunter’s order.</p>
 <pre><code>sqlite&gt; SELECT name, phone, orderid
    ...&gt; FROM noahsrug
    ...&gt; WHERE ordered == shipped
@@ -268,7 +264,7 @@ Carlos Myers|838-335-7157|70502
    ...&gt;   AND desc LIKE 'Noah''s Action Figure%';
    ...&gt;   AND orderid BETWEEN 124816 AND 124820;
 </code></pre>
-<p>However, this solution didn&rsquo;t work for the speedrun for two reasons.</p>
+<p>However, this solution didn’t work for the speedrun for two reasons.</p>
 <ol>
 <li>
 <p>There are items apart from the ones starting with <code>COL</code> that have color variations. The format of the items is <code>Item name (color)</code>, so I changed the <code>WHERE</code> condition to look for a bracket in the description instead.</p>
@@ -292,7 +288,7 @@ Carlos Myers|838-335-7157|70502
 Carlos Myers|838-335-7157
 </code></pre>
 <h2 id="8-the-collector">8. The Collector</h2>
-<p>Ending on an easier note after some tough puzzle. This person has a set of all Noah&rsquo;s collectibles. These are items that contain &ldquo;Noah&rsquo;s&rdquo; in their name, or more precisely, the <code>sku</code> starts with <code>COL</code> - short for collectibles. Finding the person with the maximum collectibles purchases solves this puzzle.</p>
+<p>Ending on an easier note after some tough puzzle. This person has a set of all Noah’s collectibles. These are items that contain “Noah’s” in their name, or more precisely, the <code>sku</code> starts with <code>COL</code> - short for collectibles. Finding the person with the maximum collectibles purchases solves this puzzle.</p>
 <pre><code>sqlite&gt; SELECT name, phone
    ...&gt; FROM noahsrug
    ...&gt; WHERE sku LIKE 'COL%'
@@ -302,7 +298,7 @@ Carlos Myers|838-335-7157
 James Smith|212-547-3518
 </code></pre>
 <h2 id="speedrun-mode">Speedrun Mode</h2>
-<p>Completing all the puzzles unlocks the speedrun mode, which lets you attempt the same puzzles with a different dataset and slightly different clues. I also got the idea of solving all puzzles at once while reading <a href="https://ellakaye.rbind.io/posts/2023-12-07_hanukkah-of-data-5784">Ella Kaye&rsquo;s writeup</a> and wanted to do something similar for SQLite.</p>
+<p>Completing all the puzzles unlocks the speedrun mode, which lets you attempt the same puzzles with a different dataset and slightly different clues. I also got the idea of solving all puzzles at once while reading <a href="https://ellakaye.rbind.io/posts/2023-12-07_hanukkah-of-data-5784">Ella Kaye’s writeup</a> and wanted to do something similar for SQLite.</p>
 <p>I considered writing a Python script, but then remembered that I can execute multiple queries written in a SQL file from SQLite directly. That seemed about right, so I started by adding all of the solution queries to <code>noahs-speedrun.sql</code>.</p>
 <p>I saved each solution query to a temporary view, so that I could reference them in puzzles where information from a previous puzzle is required. Lastly, I added <code>SELECT</code> statements which display all of the solutions together.</p>
 <details>
@@ -407,10 +403,8 @@ sqlite&gt; .read noahsrug-speedrun.sql
 516-544-4187
 516-638-9966
 </code></pre>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

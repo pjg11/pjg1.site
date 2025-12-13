@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/rc02.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="RC02: Extending filtering capabilities in Bubble Tea apps | pjg1.site">
+<meta property="og:title" content="RC02: Extending filtering capabilities in Bubble Tea apps">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/rc02.html">
@@ -21,20 +21,16 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>RC02: Extending filtering capabilities in Bubble Tea apps</h1>
 <p>
-<time datetime="2023-09-11T00:00:00&#43;00:00">September 11, 2023</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2023-09-11T00:00:00+00:00">11 September 2023</time>
 </p>
-</header>
-<hr>
-<p>In Week 1 of RC, I started building a todo app. It&rsquo;s built using <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>, a TUI framework written in Go.</p>
+<p>In Week 1 of RC, I started building a todo app. It’s built using <a href="https://github.com/charmbracelet/bubbletea">Bubble Tea</a>, a TUI framework written in Go.</p>
 <p>The app uses the <a href="https://github.com/charmbracelet/bubbles/#list">List component</a> as its base, which comes from Bubbles, a repo containing TUI components for Bubble Tea.</p>
 <p>One of the features it provides is filtering items. Filtering works by pressing the <code>/</code> key, followed by entering the text of choice. The filter value, i.e., what field to filter can be declared in the code.</p>
 <p>In the case of the <a href="https://github.com/charmbracelet/bubbletea/tree/master/examples/list-default">default list</a> (what I used for this app), it can be either the Title or the Description. I went ahead with the description, where I store the status of a task.</p>
@@ -46,17 +42,17 @@ X Done
 ! Idea
 &lt; Archive
 </code></pre>
-<p>The description stores textual versions of these symbols, and that&rsquo;s what used as the filter value.</p>
+<p>The description stores textual versions of these symbols, and that’s what used as the filter value.</p>
 <p>Since the filter values are limited, I wanted a way to access these filters faster. Rather than having to type <code>/today</code> for tasks tagged Today, I wanted to press <code>1</code>. Similarly, I wanted the key <code>2</code> for Todo, <code>3</code> for Waiting and so on.</p>
 <p>I set out to look for if there was a function that did this. The first place I checked was the Issues tab on GitHub to see if others had asked for something similar.</p>
-<p>While there is no built-in function to do this, there are pull requests that offer functions to be added to the source code. <a href="https://github.com/charmbracelet/bubbles/pull/335">This pull request</a> has been around for a while, but hasn&rsquo;t been merged to the main source code for some reason.</p>
+<p>While there is no built-in function to do this, there are pull requests that offer functions to be added to the source code. <a href="https://github.com/charmbracelet/bubbles/pull/335">This pull request</a> has been around for a while, but hasn’t been merged to the main source code for some reason.</p>
 <h2 id="attempt-1-use-a-modified-local-bubbles-instance">Attempt #1: Use a modified, local Bubbles instance</h2>
 <p>I was impatient and really wanted to implement this feature in my app. So I cloned the entire Bubbles repository to my directory.</p>
-<p>I specifically cloned the user&rsquo;s fork, so I could use the newly created function, <code>SetFilterText()</code>. The code was located in the branch called <code>feat-prefilter-opt</code>.</p>
+<p>I specifically cloned the user’s fork, so I could use the newly created function, <code>SetFilterText()</code>. The code was located in the branch called <code>feat-prefilter-opt</code>.</p>
 <pre><code>$ git clone https://github.com/taigrr/bubbles
 $ cd bubbles &amp;&amp; git checkout remotes/origin/feat-prefilter-opt
 </code></pre>
-<p>I implemented the core logic in my app&rsquo;s <code>Update()</code> function, which handles keypresses.</p>
+<p>I implemented the core logic in my app’s <code>Update()</code> function, which handles keypresses.</p>
 <pre><code>switch msg := msg.(type) {
 case tea.KeyMsg:
     switch msg.String() {
@@ -121,7 +117,7 @@ func newListKeyMap() *listKeyMap {
 }
 </code></pre>
 <p>The program has two help sections - a short help displayed below the app, and a full help that can be accessed by pressing the <code>?</code> key.</p>
-<p>The <code>Section</code> key is created for the short help, to avoid making the short help too long. Each of the individual section keys go in the full help. This code goes in the app&rsquo;s <code>newModel()</code> function, that builds the list.</p>
+<p>The <code>Section</code> key is created for the short help, to avoid making the short help too long. Each of the individual section keys go in the full help. This code goes in the app’s <code>newModel()</code> function, that builds the list.</p>
 <pre><code>list.AdditionalFullHelpKeys = func() []key.Binding {
     return []key.Binding{
         listKeys.Today,
@@ -147,24 +143,26 @@ return model{
 <p>One last change I had to make was to add the following line to the <code>go.mod</code> file to use the local import.</p>
 <pre><code>replace github.com/charmbracelet/bubbles =&gt; ./bubbles
 </code></pre>
-<p>And&hellip;it worked!</p>
-<p><img src="https://asciinema.org/a/674186.svg" alt="Thumbnail of an asciinema recording of the todo application - showing the various filtering options and the help menu to show the keybindings">{: url=&ldquo;<a href="https://asciinema.org/a/674186%22%7D">https://asciinema.org/a/674186&quot;}</a>
-{: caption=&ldquo;Click to view on asciinema&rdquo;}</p>
-<p>Now I could have stopped here. But having the entire Bubbles package as part of my repo made it unnecessarily bulky. There had to be another way, a way which didn&rsquo;t require a local copy.</p>
-<p>I tried adding <code>SetFilterText()</code> to my <code>main.go</code> file, but it accessed private variables and functions of the List component, which I couldn&rsquo;t access.</p>
+<p>And…it worked!</p>
+<figure>
+<a href="https://asciinema.org/a/674186.svg"><img src="https://asciinema.org/a/674186.svg" alt="Thumbnail of an asciinema recording of the todo application - showing the various filtering options and the help menu to show the keybindings"></a>
+<figcaption>Click to view on asciinema</figcaption>
+</figure>
+<p>Now I could have stopped here. But having the entire Bubbles package as part of my repo made it unnecessarily bulky. There had to be another way, a way which didn’t require a local copy.</p>
+<p>I tried adding <code>SetFilterText()</code> to my <code>main.go</code> file, but it accessed private variables and functions of the List component, which I couldn’t access.</p>
 <h2 id="an-undocumented-workaround">An undocumented workaround</h2>
 <p>The same pull request also contains the following text:</p>
 <blockquote>
 <p>A workaround of using Program.Send works, but is limiting.</p></blockquote>
 <p>I got curious as to what this hack was. From an <a href="https://github.com/charmbracelet/bubbletea/tree/master/examples/send-msg">example</a> provided by Bubble Tea, <code>Program.Send()</code> can be used to send messages from outside of the program.</p>
-<p>The term &ldquo;workaround&rdquo; suggests that there could be a way to send keypresses from within the program through this function.</p>
+<p>The term “workaround” suggests that there could be a way to send keypresses from within the program through this function.</p>
 <p>The pull request had no sample code to show how it works though, so I was left to figure it out on my own.</p>
-<p>I read through the documentation and tried to put something together, but thanks to the combination of working with a new language (Go) and a new code structure, I couldn&rsquo;t get it to work.</p>
+<p>I read through the documentation and tried to put something together, but thanks to the combination of working with a new language (Go) and a new code structure, I couldn’t get it to work.</p>
 <h2 id="recursers-to-the-rescue">Recursers to the rescue</h2>
 <p>Around the same time, <a href="https://the.scapegoat.dev">Manuel</a>, a Recurse alum, shared progress on his project, that also used Bubble Tea!<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> I reached out to him for help, and we decided to figure this out together in a pairing session.</p>
-<p>A few days later, we got on call, and actually got it to work. He did most of the figuring out, so here&rsquo;s my attempt of explaining the concept by showing how I implemented it in the app.</p>
+<p>A few days later, we got on call, and actually got it to work. He did most of the figuring out, so here’s my attempt of explaining the concept by showing how I implemented it in the app.</p>
 <h2 id="proof-of-concept">Proof of concept</h2>
-<p>Let&rsquo;s start with the documentation for <code>Program.Send</code>, which contains the function declaration:</p>
+<p>Let’s start with the documentation for <code>Program.Send</code>, which contains the function declaration:</p>
 <pre><code>func (p *Program) Send(msg Msg)
 </code></pre>
 <p>It takes an input of type <code>Msg</code>, which is the message to be sent. I need a way to send keys to the program. For this, there is a type of <code>Msg</code> called <code>KeyMsg</code>.</p>
@@ -181,7 +179,7 @@ type Key struct {
 <li><code>Type</code> which is the type of key, which could be one of the constant values defined <a href="https://pkg.go.dev/github.com/charmbracelet/bubbletea#KeyType">here</a>. If the type is set to <code>KeyRunes</code>, then the next parameter is required.</li>
 <li><code>Runes</code> is an array of the type <code>rune</code>, a Go type that stores characters as 32-bit integers. This can be used to send keys not described in the constant values above or multiple keys at once.</li>
 </ul>
-<p>Putting together the learnings from the pairing session and the docs, here&rsquo;s the syntax for sending a key press via <code>Program.Send()</code>:</p>
+<p>Putting together the learnings from the pairing session and the docs, here’s the syntax for sending a key press via <code>Program.Send()</code>:</p>
 <pre><code>p.Send(tea.KeyMsg(tea.Key{Type: tea.CtrlC}))
 p.Send(tea.KeyMsg(tea.Key{Type: tea.KeyRunes, Runes: []rune(&quot;q&quot;)}))
 </code></pre>
@@ -230,21 +228,19 @@ case &quot;6&quot;:
 <p>The app can flicker sometimes when switching filters, due to the 2 millisecond delay in the function.</p>
 </li>
 <li>
-<p><a href="#attempt-1-use-a-modified-local-bubbles-instance">Attempt #1</a> displayed a &ldquo;0 items found&rdquo; screen when there were no items for a given filter. This happens due to the function setting a state called <code>FilterApplied</code>. The actual behavior for this case is different though (exits filter mode and displays all items) which is how <a href="#attempt-2-setfilter">Attempt #2</a> works. I prefer the first approach, but haven&rsquo;t found a way to implement it yet.</p>
+<p><a href="#attempt-1-use-a-modified-local-bubbles-instance">Attempt #1</a> displayed a “0 items found” screen when there were no items for a given filter. This happens due to the function setting a state called <code>FilterApplied</code>. The actual behavior for this case is different though (exits filter mode and displays all items) which is how <a href="#attempt-2-setfilter">Attempt #2</a> works. I prefer the first approach, but haven’t found a way to implement it yet.</p>
 </li>
 </ol>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>I came across his blog posts from Bearblog&rsquo;s <a href="http://bearblog.dev/discover">discovery feed</a>, and I had no idea he was an RC alum before joining. Never thought I&rsquo;d actually get to meet him, so pairing with him was totally unexpected and a really cool experience!&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>I came across his blog posts from Bearblog’s <a href="http://bearblog.dev/discover">discovery feed</a>, and I had no idea he was an RC alum before joining. Never thought I’d actually get to meet him, so pairing with him was totally unexpected and a really cool experience!&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

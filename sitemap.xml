@@ -5,9 +5,6 @@
     <loc>https://pjg1.site/homelab-networking-basics.html</loc>
     <lastmod>2025-11-15T01:30:03+04:00</lastmod>
   </url><url>
-    <loc>https://pjg1.site/index.html</loc>
-    <lastmod>2025-11-15T01:30:03+04:00</lastmod>
-  </url><url>
     <loc>https://pjg1.site/publishing-nerd.html</loc>
     <lastmod>2025-11-12T19:10:41+04:00</lastmod>
   </url><url>
@@ -108,19 +105,19 @@
     <lastmod>2025-11-06T02:16:05+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/rc02.html</loc>
-    <lastmod>2025-11-06T02:16:05+04:00</lastmod>
+    <lastmod>2025-12-14T03:28:58+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/rc01.html</loc>
-    <lastmod>2025-11-06T02:16:05+04:00</lastmod>
+    <lastmod>2025-12-14T03:28:58+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/rc00.html</loc>
-    <lastmod>2025-11-06T02:16:05+04:00</lastmod>
+    <lastmod>2025-12-14T03:28:58+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/schedule-jekyll.html</loc>
     <lastmod>2025-11-06T02:16:05+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/website-updates.html</loc>
-    <lastmod>2025-11-06T02:16:05+04:00</lastmod>
+    <lastmod>2025-12-14T03:28:58+04:00</lastmod>
   </url><url>
     <loc>https://pjg1.site/why-blog.html</loc>
     <lastmod>2025-11-06T02:16:05+04:00</lastmod>
@@ -133,5 +130,8 @@
   </url><url>
     <loc>https://pjg1.site/jekyll-blog-setup.html</loc>
     <lastmod>2025-11-06T02:16:05+04:00</lastmod>
+  </url><url>
+    <loc>https://pjg1.site/index.html</loc>
+    <lastmod>2025-12-14T03:28:58+04:00</lastmod>
   </url>
 </urlset>

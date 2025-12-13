@@ -13,7 +13,7 @@
       
       <guid>https://pjg1.site/homelab-networking-basics.html</guid>
       <description><![CDATA[<p>I briefly mentioned the network setup in a post about <a href="/starting-a-homelab.html">starting my homelab</a>, but wanted to describe the steps I took to get connectivity to the machine and the VMs within it.</p>
-<p>Proxmox creates a <a href="https://pve.proxmox.com/wiki/Network_Configuration#_default_configuration_using_a_bridge">basic network configuration</a> during installation. It provides connectivity to the VM via a bridge interface&mdash;a virtual switch. The configuration assumes that the machine has a static IP, and is connected via an Ethernet interface.</p>
+<p>Proxmox creates a <a href="https://pve.proxmox.com/wiki/Network_Configuration#_default_configuration_using_a_bridge">basic network configuration</a> during installation. It provides connectivity to the VM via a bridge interface—a virtual switch. The configuration assumes that the machine has a static IP, and is connected via an Ethernet interface.</p>
 <pre><code class="language-conf">auto lo
 iface lo inet loopback
 
@@ -60,9 +60,9 @@ iface vmbr0 inet static
 source /etc/network/interfaces.d/*
 </code></pre>
 <p>The bridge interface acts as the gateway of a private network, and NAT rules are set to rewrite the packets with the correct address before sending and after receiving them. With this setup, you can either set an IP address for each VM manually, or setup a DHCP server on the physical machine to assign addresses automatically. The latter option is covered in the guide, which I implemented.</p>
-<p>This setup worked just fine, however I was curious if I could separate the routing configuration into a VM of its own. I&rsquo;d seen posts and videos configuring routers using open-source router distributions like <a href="https://www.pfsense.org">pfSense</a> and <a href="https://openwrt.org">OpenWRT</a>, and I wanted to try them out too.</p>
-<p>Another option I found was to pass-through the network card to a VM and configure that VM into a router, inspired by <a href="https://ryjelsum.me/homelab/proxmox-wifi/">this guide</a> from Ryjelsum. It didn&rsquo;t work for my network card though, and I also had problems with troubleshooting as I would lose internet access each time I attempted the passthrough.</p>
-<p>Having an Ethernet interface on the machine would make things easier, so I purchased a USB-to-Ethernet adapter. Figuring out how to get an Ethernet connection to my room from the main home router was quite the learning experience&mdash;figuring out how my home router is setup, knowing which Ethernet cables to buy and where to connect them. I also assigned a static IP to my homelab machine, making it easier to access and simplifying the network configuration.</p>
+<p>This setup worked just fine, however I was curious if I could separate the routing configuration into a VM of its own. I’d seen posts and videos configuring routers using open-source router distributions like <a href="https://www.pfsense.org">pfSense</a> and <a href="https://openwrt.org">OpenWRT</a>, and I wanted to try them out too.</p>
+<p>Another option I found was to pass-through the network card to a VM and configure that VM into a router, inspired by <a href="https://ryjelsum.me/homelab/proxmox-wifi/">this guide</a> from Ryjelsum. It didn’t work for my network card though, and I also had problems with troubleshooting as I would lose internet access each time I attempted the passthrough.</p>
+<p>Having an Ethernet interface on the machine would make things easier, so I purchased a USB-to-Ethernet adapter. Figuring out how to get an Ethernet connection to my room from the main home router was quite the learning experience—figuring out how my home router is setup, knowing which Ethernet cables to buy and where to connect them. I also assigned a static IP to my homelab machine, making it easier to access and simplifying the network configuration.</p>
 <pre><code class="language-conf">auto lo
 iface lo inet loopback
 
@@ -95,9 +95,9 @@ source /etc/network/interfaces.d/*
       <guid>https://pjg1.site/publishing-nerd.html</guid>
       <description><![CDATA[<p>Joel Dueck in <a href="https://joeldueck.com/publishing-nerds.html">Publishing Nerds</a>:</p>
 <blockquote>
-<p>[&hellip;] Publishing nerds end up as inveterate yak shavers and one-man bands performing in their own driveways. Our ingrained preference to control all levels of design, and the facility which computers give us for doing so, tend to preclude us from cross-pollinating and collaborating, which for most of us is a big developmental hazard</p></blockquote>
-<p>I feel called out by this post. I think a lot about how my posts look visually, maybe too much. The hours I&rsquo;ve spent designing this website has been time spent away from writing and <a href="/intentional-engagement.html">collaborating with people</a>.</p>
-<p>I still enjoy working on the designing and don&rsquo;t want to stop completely. so I&rsquo;ll have to think of ways to balance writing and designing better.</p>
+<p>[…] Publishing nerds end up as inveterate yak shavers and one-man bands performing in their own driveways. Our ingrained preference to control all levels of design, and the facility which computers give us for doing so, tend to preclude us from cross-pollinating and collaborating, which for most of us is a big developmental hazard</p></blockquote>
+<p>I feel called out by this post. I think a lot about how my posts look visually, maybe too much. The hours I’ve spent designing this website has been time spent away from writing and <a href="/intentional-engagement.html">collaborating with people</a>.</p>
+<p>I still enjoy working on the designing and don’t want to stop completely. so I’ll have to think of ways to balance writing and designing better.</p>
 <p>via <a href="https://vhbelvadi.com/blogging-together">vhbelvadi.com</a></p>
 ]]></description>
     </item>
@@ -108,12 +108,12 @@ source /etc/network/interfaces.d/*
       <pubDate>Mon, 10 Nov 2025 23:15:02 +0400</pubDate>
       
       <guid>https://pjg1.site/intentional-engagement.html</guid>
-      <description><![CDATA[<p>An addendum in the article <a href="https://vhbelvadi.com/blogging-together">Looking beyond collective blogging</a>&mdash;a conversation between the author V.H.
-Belvadi and <a href="https://hamatti.org">Juhis</a>&mdash;flipped a switch in my brain:</p>
+      <description><![CDATA[<p>An addendum in the article <a href="https://vhbelvadi.com/blogging-together">Looking beyond collective blogging</a>—a conversation between the author V.H.
+Belvadi and <a href="https://hamatti.org">Juhis</a>—flipped a switch in my brain:</p>
 <blockquote>
-<p>Juhis rightly pointed out that ‘the feeling of connection comes through putting an effort into it rather than through automation.&rsquo; In other words most people write and expect engagement without putting effort into participating with others themselves. So, while writing is integral to blogging, we should start treating participation with other blogs as a similarly important activity.</p></blockquote>
-<p>I think this quote might be one of the reasons why previous attempts at blogging regularly didn&rsquo;t stick. I have a tendency to look inwards when creating. The focus is always on &ldquo;where I could improve my writing&rdquo; or &ldquo;how I could make my work reach better&rdquo;.</p>
-<p>Aside from working on my posts this time round, I would like to try being more intentional about engaging with other&rsquo;s work: reaching out to those who&rsquo;s posts resonate, either via email/social media or by sharing them there along with a bit of commentary.</p>
+<p>Juhis rightly pointed out that ‘the feeling of connection comes through putting an effort into it rather than through automation.’ In other words most people write and expect engagement without putting effort into participating with others themselves. So, while writing is integral to blogging, we should start treating participation with other blogs as a similarly important activity.</p></blockquote>
+<p>I think this quote might be one of the reasons why previous attempts at blogging regularly didn’t stick. I have a tendency to look inwards when creating. The focus is always on “where I could improve my writing” or “how I could make my work reach better”.</p>
+<p>Aside from working on my posts this time round, I would like to try being more intentional about engaging with other’s work: reaching out to those who’s posts resonate, either via email/social media or by sharing them there along with a bit of commentary.</p>
 <p>The article also talks about about the <a href="https://indieweb.org">IndieWeb</a> and specifically <a href="https://indieweb.org/Webmention">Webmentions</a>, that I have been curious about. However, I want to commit to interacting manually first, before I choose to incorporate automation into my interactions.</p>
 <p>via <a href="https://lars-christian.com/notes/2025-08-24-the-loneliness-of-blogging/">lars-christian.com</a></p>
 ]]></description>
@@ -125,17 +125,17 @@ Belvadi and <a href="https://hamatti.org">Juhis</a>&mdash;flipped a switch in my
       <pubDate>Sat, 08 Nov 2025 23:59:00 +0400</pubDate>
       
       <guid>https://pjg1.site/starting-a-homelab.html</guid>
-      <description><![CDATA[<p>I have a spare laptop&mdash;a <a href="https://support.apple.com/en-us/111947">15-inch MacBook Pro from 2017</a>&mdash;that I installed Ubuntu on sometime last year to understand Linux better. I did get a better understanding of how the hardware and OS work together (even <a href="/mbp-linux-wifi.html">wrote</a> <a href="/mbp-linux-power.html">posts</a> about it), but quickly ran into a roadblock on what else I could work on. My goals were to understand networking and develop Linux sysadmin skills.</p>
-<p>I started lurking on <a href="https://www.reddit.com/r/homelab">r/homelab</a> probably around the same time. Something about the term &ldquo;lab&rdquo; brings so much joy to me&mdash;a space where one could tinker to their heart&rsquo;s content, break things and fix them, and then share their findings. However, along with joy also came feelings of overwhelm, as most of the posts I saw there went over my head.</p>
+      <description><![CDATA[<p>I have a spare laptop—a <a href="https://support.apple.com/en-us/111947">15-inch MacBook Pro from 2017</a>—that I installed Ubuntu on sometime last year to understand Linux better. I did get a better understanding of how the hardware and OS work together (even <a href="/mbp-linux-wifi.html">wrote</a> <a href="/mbp-linux-power.html">posts</a> about it), but quickly ran into a roadblock on what else I could work on. My goals were to understand networking and develop Linux sysadmin skills.</p>
+<p>I started lurking on <a href="https://www.reddit.com/r/homelab">r/homelab</a> probably around the same time. Something about the term “lab” brings so much joy to me—a space where one could tinker to their heart’s content, break things and fix them, and then share their findings. However, along with joy also came feelings of overwhelm, as most of the posts I saw there went over my head.</p>
 <p>It was after a few chats with people at the <a href="https://www.recurse.com/scout/click?t=2ac66128b9116e0722d941ebf7e14b5a">Recurse Center</a> who were also working on their homelabs and searching for beginner posts on <a href="https://www.reddit.com/r/homelab">r/homelab</a> that made things click for me.</p>
-<p>Instead of running things on a single operating system or, what I needed was a hypervisor. I used to setup Linux/Windows virtual machines on my daily driver, but often had to delete them as they would take up a lot of space. Having a dedicated machine turned into a hypervisor solves this problem. The machine I&rsquo;m using has 2TB of storage, which is more than enough to create and delete as many VMs as I want. I chose <a href="https://www.proxmox.com/en/products/proxmox-virtual-environment/overview">Proxmox</a> as the hypervisor, which is built on top of the Debian Linux distribution.</p>
+<p>Instead of running things on a single operating system or, what I needed was a hypervisor. I used to setup Linux/Windows virtual machines on my daily driver, but often had to delete them as they would take up a lot of space. Having a dedicated machine turned into a hypervisor solves this problem. The machine I’m using has 2TB of storage, which is more than enough to create and delete as many VMs as I want. I chose <a href="https://www.proxmox.com/en/products/proxmox-virtual-environment/overview">Proxmox</a> as the hypervisor, which is built on top of the Debian Linux distribution.</p>
 <p>Using a laptop instead of an actual server meant that I had some constraints:</p>
 <ol>
 <li>
-<p>The machine connects to the Internet via WiFi and does not have an Ethernet port. Proxmox doesn&rsquo;t recommend using WiFi, however I tried my best to make it work. When I realized that it is too much of a limitation, I purchased a USB-to-Ethernet adapter. I learnt about how to get an Ethernet connection from my home router to my room for the first time, which was fun!</p>
+<p>The machine connects to the Internet via WiFi and does not have an Ethernet port. Proxmox doesn’t recommend using WiFi, however I tried my best to make it work. When I realized that it is too much of a limitation, I purchased a USB-to-Ethernet adapter. I learnt about how to get an Ethernet connection from my home router to my room for the first time, which was fun!</p>
 </li>
 <li>
-<p>The machine is a laptop with a battery in it and the battery is quite power hungry, so keeping the machine up all day while plugged in wasn&rsquo;t seeming like a good idea. So I decided that I wouldn&rsquo;t keep the machine up at all times, and use it like a regular laptop.</p>
+<p>The machine is a laptop with a battery in it and the battery is quite power hungry, so keeping the machine up all day while plugged in wasn’t seeming like a good idea. So I decided that I wouldn’t keep the machine up at all times, and use it like a regular laptop.</p>
 </li>
 </ol>
 <p>Another constraint that I personally set was to rely on virtualization as much as possible and introduce additional hardware only where required. I wanted to get started quickly and not fall down the rabbit hole of deciding what hardware to buy. I also wanted to test the limits of the machine and tools I already had.</p>
@@ -145,13 +145,13 @@ Belvadi and <a href="https://hamatti.org">Juhis</a>&mdash;flipped a switch in my
 <p>Setting up a virtual router to create an internal virtual network. This would help me learn about routing, <abbr title="Virtual LAN">VLAN</abbr>s, network protocols such as <abbr title="Dynamic Host Configuration Protocol">DHCP</abbr>, and maybe even set up a <abbr title="Virtual Private Network">VPN</abbr> or a wireless access point to help me access the network from another machine.</p>
 </li>
 <li>
-<p>An authoritative <abbr title="Domain Name Server">DNS</abbr> server for the virtual network. I&rsquo;ve been curious about what setting up a DNS server might look like, and it would be nice to not have to remember the IP address and use domain names instead.</p>
+<p>An authoritative <abbr title="Domain Name Server">DNS</abbr> server for the virtual network. I’ve been curious about what setting up a DNS server might look like, and it would be nice to not have to remember the IP address and use domain names instead.</p>
 </li>
 <li>
-<p>A ethical hacking environment, which would include a Kali Linux and a Windows VM that I can use when participating in <abbr title="Capture the Flag">CTF</abbr>s. I&rsquo;ve also heard about people setting up VMs for learning Active Directory, emulating <abbr title="Security Operations Center">SOC</abbr>-like environments, but I haven&rsquo;t decided on details for it yet.</p>
+<p>A ethical hacking environment, which would include a Kali Linux and a Windows VM that I can use when participating in <abbr title="Capture the Flag">CTF</abbr>s. I’ve also heard about people setting up VMs for learning Active Directory, emulating <abbr title="Security Operations Center">SOC</abbr>-like environments, but I haven’t decided on details for it yet.</p>
 </li>
 <li>
-<p>This might be against the &ldquo;not keeping the server up all the time&rdquo; constraint, but I have a lot of space on this machine + two external hard drives. A DIY <abbr title="Network Attached Storage">NAS</abbr> might be an interesting project to work on.</p>
+<p>This might be against the “not keeping the server up all the time” constraint, but I have a lot of space on this machine + two external hard drives. A DIY <abbr title="Network Attached Storage">NAS</abbr> might be an interesting project to work on.</p>
 </li>
 </ul>
 ]]></description>
@@ -165,8 +165,8 @@ Belvadi and <a href="https://hamatti.org">Juhis</a>&mdash;flipped a switch in my
       <guid>https://pjg1.site/jekyll-to-hugo.html</guid>
       <description><![CDATA[<p>I switched from Jekyll to Hugo as my static site generator of choice recently. The only reason I have a Ruby environment is for this site, so moving from that to a single binary looked appealing.</p>
 <p>I use a specific version of Hugo by downloading the binary directly instead of via a package manager. This was a tip I got from a <a href="https://jvns.ca/blog/2016/10/09/switching-to-hugo/">similar post</a> from Julia Evans. I liked the idea to be able to choose when to upgrade instead of my site breaking each time something changes with a new release.</p>
-<p>Julia&rsquo;s post also mentioned a way to import most of my Jekyll site with one command: <code>hugo import jekyll</code>. It moved the posts static assets (CSS, images) almost seamlessly, except for a few changes in the configuration and specific posts to render certain parts correctly. However, it did not import any of my templates, so the site wouldn&rsquo;t render without adding a theme.</p>
-<p>Themeing is one thing that has confused me each time I&rsquo;ve tried to switch to Hugo in the past since I prefer making custom layouts. Hugo also offers a few base layout files that Jekyll did not, which took a while to get the hang of. Here&rsquo;s the approach I took:</p>
+<p>Julia’s post also mentioned a way to import most of my Jekyll site with one command: <code>hugo import jekyll</code>. It moved the posts static assets (CSS, images) almost seamlessly, except for a few changes in the configuration and specific posts to render certain parts correctly. However, it did not import any of my templates, so the site wouldn’t render without adding a theme.</p>
+<p>Themeing is one thing that has confused me each time I’ve tried to switch to Hugo in the past since I prefer making custom layouts. Hugo also offers a few base layout files that Jekyll did not, which took a while to get the hang of. Here’s the approach I took:</p>
 <ul>
 <li>I created a blank theme by running <code>hugo new theme</code> and looked up a post or two to understand the structure better.</li>
 <li>Then I simplifed the theme files further to get as close to my Jekyll layouts as possible.</li>
@@ -175,9 +175,9 @@ Belvadi and <a href="https://hamatti.org">Juhis</a>&mdash;flipped a switch in my
 </ul>
 <p>The last set of changes I made were configuration changes, and the site was ready to deploy!</p>
 <hr>
-<p>On one hand, the amount of configuration options in Hugo can get overwhelming, and the templating language is also confusing coming from Jekyll&rsquo;s Liquid, making Hugo&rsquo;s learning curve steep.</p>
-<p>Where I prefer Hugo to Jekyll is when structuring the site files. Jekyll imposes a certain filename format and directory for blog posts, and any other collections/sections have to be configured differently. I reached a roadblock whenever I wanted to create other collections or sub-collections within the post collection. Hugo doesn&rsquo;t impose such structure, and lets you define your own.</p>
-<p>I&rsquo;m looking forward to tinkering with Hugo more.</p>
+<p>On one hand, the amount of configuration options in Hugo can get overwhelming, and the templating language is also confusing coming from Jekyll’s Liquid, making Hugo’s learning curve steep.</p>
+<p>Where I prefer Hugo to Jekyll is when structuring the site files. Jekyll imposes a certain filename format and directory for blog posts, and any other collections/sections have to be configured differently. I reached a roadblock whenever I wanted to create other collections or sub-collections within the post collection. Hugo doesn’t impose such structure, and lets you define your own.</p>
+<p>I’m looking forward to tinkering with Hugo more.</p>
 ]]></description>
     </item>
     
@@ -188,7 +188,7 @@ Belvadi and <a href="https://hamatti.org">Juhis</a>&mdash;flipped a switch in my
       
       <guid>https://pjg1.site/gh-workflow-html.html</guid>
       <description><![CDATA[<p>I build files for this website locally and push the static HTML files to GitHub Pages, using the default workflow. At some point, I started noticing that the deploys were taking long to complete. A deploy from today shows that it took 40 seconds to render.</p>
-<p>I decided to looked into the workflow itself using <a href="https://cli.github.com">GitHub&rsquo;s command line tool</a>, and found a job called <code>build</code>, which takes the most time to complete.</p>
+<p>I decided to looked into the workflow itself using <a href="https://cli.github.com">GitHub’s command line tool</a>, and found a job called <code>build</code>, which takes the most time to complete.</p>
 <pre><code>$ gh run list --limit 1
 STATUS  TITLE              WORKFLOW        BRANCH  EVENT    ID           ELAPSED  AGE
 ✓       pages build an...  pages-build...  main    dynamic  19118060009  40s      about 50 mi...
@@ -218,7 +218,7 @@ Triggered via dynamic about 50 minutes ago
   ✓ Post Checkout
   ✓ Complete job
 </code></pre>
-<p>My website doesn&rsquo;t need to be built by Jekyll, and GitHub provides a <a href="https://github.blog/news-insights/the-library/bypassing-jekyll-on-github-pages/">solution</a> to skip it&mdash;to add a file called <code>.nojekyll</code> to the root of the repository.</p>
+<p>My website doesn’t need to be built by Jekyll, and GitHub provides a <a href="https://github.blog/news-insights/the-library/bypassing-jekyll-on-github-pages/">solution</a> to skip it—to add a file called <code>.nojekyll</code> to the root of the repository.</p>
 <p>So I added the file and pushed the changes, and the workflow ran again. This time it took 20 seconds to run, half the time from the last workflow! However, the build step is still there.</p>
 <pre><code>$ gh run list --limit 1
 STATUS  TITLE              WORKFLOW        BRANCH  EVENT    ID           ELAPSED  AGE
@@ -234,7 +234,7 @@ JOBS
 ✓ deploy in 8s (ID 54634846814)
 ...
 </code></pre>
-<p>I was under the assumption that <code>.nojekyll</code> would remove the build job, but that wasn&rsquo;t the case. Instead, it only removes one of the steps in the job, that runs Jekyll.</p>
+<p>I was under the assumption that <code>.nojekyll</code> would remove the build job, but that wasn’t the case. Instead, it only removes one of the steps in the job, that runs Jekyll.</p>
 <pre><code>$ gh run view --job=54634839639
 
 ✓ main pages-build-deployment · 19118930798
@@ -250,7 +250,7 @@ Triggered via dynamic about 9 minutes ago
 </code></pre>
 <p>It feels unnecessary to have to run the <code>build</code> and <code>report-build-status</code> jobs each time, when all I really need is just the <code>deploy</code> job. I wanted to speed this up further.</p>
 <p>After some clickity-clakity on the Pages section of the repository settings, I discovered two options for deployment. One is to deploy from a branch, which is the default GitHub Pages workflow. The other is GitHub Actions, which allows for custom workflows.</p>
-<p>Clicking on the GitHub Actions option displayed some suggested templates. One of those templates is <a href="https://github.com/actions/starter-workflows/blob/main/pages/static.yml">Static HTML</a>, which sounds like exactly what I&rsquo;m looking for! Here is an excerpt:</p>
+<p>Clicking on the GitHub Actions option displayed some suggested templates. One of those templates is <a href="https://github.com/actions/starter-workflows/blob/main/pages/static.yml">Static HTML</a>, which sounds like exactly what I’m looking for! Here is an excerpt:</p>
 <pre><code>jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -272,7 +272,7 @@ Triggered via dynamic about 9 minutes ago
         id: deployment
         uses: actions/deploy-pages@v4
 </code></pre>
-<p>In comparison to the GitHub Pages workflow which had three jobs, this has only one called <code>deploy</code>&mdash;perfect! I took the template as is and added it to my repository at <code>.github/workflows/</code>. One thing I changed was commenting out the <strong>Setup Pages</strong> step, as I didn&rsquo;t recall seeing that step in the previous workflows.</p>
+<p>In comparison to the GitHub Pages workflow which had three jobs, this has only one called <code>deploy</code>—perfect! I took the template as is and added it to my repository at <code>.github/workflows/</code>. One thing I changed was commenting out the <strong>Setup Pages</strong> step, as I didn’t recall seeing that step in the previous workflows.</p>
 <p>I expected a much bigger speedup for the custom workflow run, but it was only a second faster.</p>
 <pre><code>$ gh run list --limit 1
 ✓       *                  Deploy stat...  main    push     19120221474  18s      about 15 mi...
@@ -287,7 +287,7 @@ JOBS
 </code></pre>
 <p>Looking closely at the steps, I get a better sense why. The <code>deploy</code> job is now a mix of the <code>build</code> and <code>deploy</code> jobs from the second workflow run (after adding <code>.nojekyll</code>). The number of jobs may have reduced from three to one, but the number of steps are more or less the same.</p>
 <p>Combining all steps into one job does reduce some overhead. The original workflow ran a setup and cleanup for each of the three jobs. With one job, the setup and cleanup happens only once, which saves a second or two.</p>
-<p>I&rsquo;ll take a few seconds of speedup as a win.</p>
+<p>I’ll take a few seconds of speedup as a win.</p>
 ]]></description>
     </item>
     
@@ -297,7 +297,7 @@ JOBS
       <pubDate>Thu, 27 Feb 2025 00:00:00 +0000</pubDate>
       
       <guid>https://pjg1.site/kbd-css.html</guid>
-      <description><![CDATA[<p>I use the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd"><code>kbd</code></a> element to specify keypresses in my posts. To differentiate it from the inline <code>code</code> element, I&rsquo;ve styled it as a minimal version of an actual key:</p>
+      <description><![CDATA[<p>I use the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/kbd"><code>kbd</code></a> element to specify keypresses in my posts. To differentiate it from the inline <code>code</code> element, I’ve styled it as a minimal version of an actual key:</p>
 <pre><code>kbd {
   font-family: ui-monospace, monospace;
   font-size: 90%;
@@ -350,9 +350,9 @@ kbd:hover {
       <pubDate>Wed, 26 Feb 2025 00:00:00 +0000</pubDate>
       
       <guid>https://pjg1.site/fade-block-css.html</guid>
-      <description><![CDATA[<p>One aspect I&rsquo;ve gotten stuck on with the styling of this blog is code blocks. I&rsquo;ve tried adding a border and/or a background color in the past, but I couldn&rsquo;t stick with either of them and constantly kept changing styles.</p>
+      <description><![CDATA[<p>One aspect I’ve gotten stuck on with the styling of this blog is code blocks. I’ve tried adding a border and/or a background color in the past, but I couldn’t stick with either of them and constantly kept changing styles.</p>
 <p>I wanted a subtler indication to scroll if a block overflows, and a fading gradient towards seemed like a good option.</p>
-<p>Here&rsquo;s the CSS I wrote for it:</p>
+<p>Here’s the CSS I wrote for it:</p>
 <pre><code>pre {
   position: relative;
   background: white;
@@ -381,10 +381,10 @@ pre code {
   padding-inline-end: 1.5rem;
 }
 </code></pre>
-<p>The key behind this effect is the <code>::after</code> pseudo-element, which is a linear-gradient positioned to the right end of the <code>pre</code> block. The <code>left</code> value ensures that the gradient doesn&rsquo;t overlap the block completely, and acts as a subtle gradient, suggesting the user to scroll to see the code.</p>
-<p>Usually I&rsquo;d add the scroll to the <code>pre</code> block, however since we want the pseudoelement to stay at a fixed position, the scroll and overflow is applied to the child block - the <code>code</code> element in this case.</p>
+<p>The key behind this effect is the <code>::after</code> pseudo-element, which is a linear-gradient positioned to the right end of the <code>pre</code> block. The <code>left</code> value ensures that the gradient doesn’t overlap the block completely, and acts as a subtle gradient, suggesting the user to scroll to see the code.</p>
+<p>Usually I’d add the scroll to the <code>pre</code> block, however since we want the pseudoelement to stay at a fixed position, the scroll and overflow is applied to the child block - the <code>code</code> element in this case.</p>
 <p>The gradient hiding overflow text makes sense, but this also covers the text at the end of the scroll. This is fixed by adding <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end"><code>padding-inline-end</code></a> to the <code>code</code> element, which adds padding at the end of scroll.</p>
-<p>Here&rsquo;s how it looks:</p>
+<p>Here’s how it looks:</p>
 <pre class="block"><code>This is a super long string of text that appears to be faded where the text overflows.</code></pre>
 <style>
   pre.block {
@@ -413,7 +413,7 @@ pre code {
     padding-inline-end: 1.5rem;
   }
 </style>
-<p>While I&rsquo;ve demonstrated this for codeblocks, this styling could be extended for any block element - say a paragraph within a div, or a paragraph within a blockquote.</p>
+<p>While I’ve demonstrated this for codeblocks, this styling could be extended for any block element - say a paragraph within a div, or a paragraph within a blockquote.</p>
 ]]></description>
     </item>
     
@@ -423,31 +423,31 @@ pre code {
       <pubDate>Mon, 17 Feb 2025 00:00:00 +0000</pubDate>
       
       <guid>https://pjg1.site/first-monitoring-system.html</guid>
-      <description><![CDATA[<p>Till last week, I didn&rsquo;t know what a monitoring system really looked like. A week later, I&rsquo;m in the process of setting up one for the <a href="https://www.recurse.com/scout/click?t=2ac66128b9116e0722d941ebf7e14b5a">Recurse Center</a>&rsquo;s shared computing cluster<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>  which is community maintained. Here are some notes about the various tools I&rsquo;m using and how they work together (<a href="#tldr">TL;DR</a>).</p>
-<p>I&rsquo;m halfway through my second batch at RC, and one of my batch goals was to learn DevOps/SRE skills by contributing to this cluster. Having put it off for the first 5 weeks, I finally reached out to folks in the weekly meeting about the cluster, where I was recommended to look into <a href="https://prometheus.io">Prometheus</a>.</p>
+      <description><![CDATA[<p>Till last week, I didn’t know what a monitoring system really looked like. A week later, I’m in the process of setting up one for the <a href="https://www.recurse.com/scout/click?t=2ac66128b9116e0722d941ebf7e14b5a">Recurse Center</a>’s shared computing cluster<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>  which is community maintained. Here are some notes about the various tools I’m using and how they work together (<a href="#tldr">TL;DR</a>).</p>
+<p>I’m halfway through my second batch at RC, and one of my batch goals was to learn DevOps/SRE skills by contributing to this cluster. Having put it off for the first 5 weeks, I finally reached out to folks in the weekly meeting about the cluster, where I was recommended to look into <a href="https://prometheus.io">Prometheus</a>.</p>
 <h2 id="prometheus">Prometheus</h2>
 <p>The Prometheus server at its core is a database. More specifically, it is a time-series database, which means it stores key-value pairs with the key being a timestamp, thus showing how a particular value changed over time. This data can be used to create graphs and dashboards or trigger alerts if the values cross a certain threshold (more on both later). It has its own query language called PromQL.</p>
 <p>The server can pull and store data from multiple machines, so it runs on only one of the machines in the cluster. However, if this machine goes down for some reason, our monitoring system is down.</p>
 <h2 id="node-exporter">Node Exporter</h2>
-<p>We have a database, cool, but where does the data come from? There are a variety of tools for this<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, but the one I&rsquo;m using here is Prometheus&rsquo; own tool - <a href="https://github.com/prometheus/node_exporter">Node Exporter</a> - that captures metrics from the system - things like CPU usage, memory usage, filesystem sizes, etc. This runs on each machine in the cluster.</p>
+<p>We have a database, cool, but where does the data come from? There are a variety of tools for this<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>, but the one I’m using here is Prometheus’ own tool - <a href="https://github.com/prometheus/node_exporter">Node Exporter</a> - that captures metrics from the system - things like CPU usage, memory usage, filesystem sizes, etc. This runs on each machine in the cluster.</p>
 <h2 id="alertmanager">Alertmanager</h2>
 <p>The last piece in the puzzle is alerting. The Prometheus server takes in alert rules written in PromQL - things like checking for low disk space, checking if certain services failed to run, high CPU or memory usage, etc.</p>
-<p>It checks the metrics against the rules as they arrive. If a rule is met, it sends the alert to a tool called <a href="https://github.com/prometheus/alertmanager">Alertmanager</a> that handles sending of notifications via email or a chat platform. RC uses Zulip for communication, which has an <a href="https://zulip.com/integrations/doc/alertmanager">integration for Alertmanager</a> that I&rsquo;m using in this case.</p>
+<p>It checks the metrics against the rules as they arrive. If a rule is met, it sends the alert to a tool called <a href="https://github.com/prometheus/alertmanager">Alertmanager</a> that handles sending of notifications via email or a chat platform. RC uses Zulip for communication, which has an <a href="https://zulip.com/integrations/doc/alertmanager">integration for Alertmanager</a> that I’m using in this case.</p>
 <h2 id="grafana">Grafana</h2>
-<p>Grafana can be integrated with Prometheus to visualize the metrics via graphs and dashboards. I&rsquo;ve mainly been focused on getting alerting to work so far, so I am yet to try making a dashboard.</p>
+<p>Grafana can be integrated with Prometheus to visualize the metrics via graphs and dashboards. I’ve mainly been focused on getting alerting to work so far, so I am yet to try making a dashboard.</p>
 <h2 id="adding-kubernetes-to-the-mix">Adding Kubernetes to the mix</h2>
 <p>The reason I was recommended Prometheus in the first place is because it had been deployed within a Kubernetes cluster by a fellow Recurser.</p>
 <p>The above setup would have worked just fine if I ran them as individual services directly on the machine. However, I went ahead with the Kubernetes option for two reasons:</p>
 <ol>
 <li>I preferred using something that was already deployed over re-inventing the wheel</li>
-<li>I&rsquo;d been hearing a lot about Kubernetes, so this would finally be my introduction to the tool</li>
+<li>I’d been hearing a lot about Kubernetes, so this would finally be my introduction to the tool</li>
 </ol>
-<p>One advantage of using Kubernetes is that it makes multiple machines operate as one big unit - you provide it a list of services to deploy, and it&rsquo;ll figure out which machine&rsquo;s resources to utilize and how. Except for Node Exporter which is deployed on all machines, other services like Grafana, Alertmanager and the Prometheus server are deployed automagically.</p>
-<p>In my case they&rsquo;re deployed using Kubernetes&rsquo; package manager, Helm. While these eases setup, it also adds some layers of complexity.</p>
+<p>One advantage of using Kubernetes is that it makes multiple machines operate as one big unit - you provide it a list of services to deploy, and it’ll figure out which machine’s resources to utilize and how. Except for Node Exporter which is deployed on all machines, other services like Grafana, Alertmanager and the Prometheus server are deployed automagically.</p>
+<p>In my case they’re deployed using Kubernetes’ package manager, Helm. While these eases setup, it also adds some layers of complexity.</p>
 <p>Accessing the Prometheus web interface locally now requires more steps than a direct install, as it is isolated from the main system and has its own network and IP address. So multiple port forwards would be required.</p>
-<p>Making changes to configuration files is also harder. Kubernetes containers don&rsquo;t have persistent disk space, so it isn&rsquo;t possible to exec into the containers and change files directly<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> like I would with a direct install. So I have to add the configuration to some external file and then pass that file during deployment.</p>
-<p>For applications deployed using Helm, I have to modify something called a Helm chart. I don&rsquo;t completely understand what the various files are for, but one of them is <a href="https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml"><code>values.yaml</code></a>, where I would add custom configuration like the alert rules for example. This file is passed to the install command, which then applies the custom config.</p>
-<p>This complexity was preventing me from testing stuff quickly, so I decided to break the project into two phases. The first phase was testing Prometheus and alerting using a direct install, which I&rsquo;m almost done with. Once I have a working set of config files, the next phase would be to figure out the Helm install and adding my configuration to the values file.</p>
+<p>Making changes to configuration files is also harder. Kubernetes containers don’t have persistent disk space, so it isn’t possible to exec into the containers and change files directly<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup> like I would with a direct install. So I have to add the configuration to some external file and then pass that file during deployment.</p>
+<p>For applications deployed using Helm, I have to modify something called a Helm chart. I don’t completely understand what the various files are for, but one of them is <a href="https://github.com/prometheus-community/helm-charts/blob/main/charts/prometheus/values.yaml"><code>values.yaml</code></a>, where I would add custom configuration like the alert rules for example. This file is passed to the install command, which then applies the custom config.</p>
+<p>This complexity was preventing me from testing stuff quickly, so I decided to break the project into two phases. The first phase was testing Prometheus and alerting using a direct install, which I’m almost done with. Once I have a working set of config files, the next phase would be to figure out the Helm install and adding my configuration to the values file.</p>
 <h2 id="tldr">TL;DR</h2>
 <p>The following diagram is based on my limited understanding of the above concepts.</p>
 <pre><code>┌───────────────┐   ┌──────────────────────────────────┐
@@ -475,7 +475,7 @@ pre code {
 │ node exporter │◀──┼──────┘    └──────────────┘       │      └─────────┘
 └───────────────┘   └──────────────────────────────────┘
 </code></pre>
-<p>Is baby&rsquo;s first monitoring system a bit complex? Yes.</p>
+<p>Is baby’s first monitoring system a bit complex? Yes.</p>
 <p>Is baby learning new things and reaching <a href="https://www.recurse.com/self-directives#work-at-the-edge">the edge of their abilities</a> thanks to the complexity? ALSO YES!</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -484,10 +484,10 @@ pre code {
 <p>I knew about the cluster in my first batch, but the thought of contributing to it came to mind only a year later, thanks to some folks from a later batch starting a meeting to discuss stuff relating to the cluster.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
-<p>I found that metrics were already being captured on the machines using another tool while working on this. That tool didn&rsquo;t provide any support for alerts though, so I chose to switch to using Prometheus.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>I found that metrics were already being captured on the machines using another tool while working on this. That tool didn’t provide any support for alerts though, so I chose to switch to using Prometheus.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
-<p>Prometheus has a web interface, so I expected that I would be able to change configuration and alert rules from the interface directly. I didn&rsquo;t find a way to do so though, and had to edit the file and restart the service each time.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Prometheus has a web interface, so I expected that I would be able to change configuration and alert rules from the interface directly. I didn’t find a way to do so though, and had to edit the file and restart the service each time.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -501,7 +501,7 @@ pre code {
       
       <guid>https://pjg1.site/linux-internet-from-scratch.html</guid>
       <description><![CDATA[<p>Recently, I was brainstorming networking project ideas, I got curious on what goes behind connecting to the internet, and if I could do it from scratch.</p>
-<p>I&rsquo;m delighted to report that the experiment was successful, and I thought of sharing it here! I&rsquo;ve tested this on Ubuntu, but I think it should work on any Linux distribution. If not, <a href="mailto:piya@pjg1.site">let me know</a>.</p>
+<p>I’m delighted to report that the experiment was successful, and I thought of sharing it here! I’ve tested this on Ubuntu, but I think it should work on any Linux distribution. If not, <a href="mailto:piya@pjg1.site">let me know</a>.</p>
 <ul>
 <li><a href="#identify-and-disable-existing-configuration">Identify and disable existing configuration</a></li>
 <li><a href="#additional-setup-for-wireless-interfaces">Additional setup for wireless interfaces</a></li>
@@ -511,7 +511,7 @@ pre code {
 <li><a href="#bonus-dynamic-addresses-via-dhcp">Bonus: Dynamic addresses via DHCP</a></li>
 </ul>
 <h2 id="identify-and-disable-existing-configuration">Identify and disable existing configuration</h2>
-<p>Before I could set stuff up manually, I had to figure out my machine&rsquo;s existing configuration and disable it, so it wouldn&rsquo;t interfere with my handcrafted setup.</p>
+<p>Before I could set stuff up manually, I had to figure out my machine’s existing configuration and disable it, so it wouldn’t interfere with my handcrafted setup.</p>
 <p>The <a href="https://documentation.ubuntu.com/server/explanation/networking/configuring-networks/">Ubuntu documentation</a> was a useful resource to find out the services in use. The network on my machine is configured using NetworkManager and DNS is managed using the systemd-resolved service.</p>
 <p>I figured out what the above tools had setup using by trying out some of the code snippets in the docs, so I had a plan and a final result in mind.</p>
 <p>Based on this, I made a note of the following from the existing configuration, which can be found by running <code>ip addr show</code>:</p>
@@ -536,7 +536,7 @@ Removed &quot;/etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service&quo
 <p>One is for a connection made by connecting an Ethernet cable to your machine. If you were to try out this post on a Linux VM, you would be setting up an Ethernet connection and can skip this section. The other is a wireless interface, which can connect to WiFi networks.</p>
 <p>An Ethernet interface appears up/enabled at all times - even before it has actual internet access - as its connected via cable. Wireless interfaces on the other hand remain down/disabled until you connect to a WiFi network.</p>
 <p>This led to differences during setup, which required me to add separate instructions for both, making the post long and confusing.</p>
-<p>It is possible to connect to a WiFi network before having internet access - this would be similar to situations when your phone or laptop displays a &ldquo;No Internet Connection&rdquo; message while being connected to a network.</p>
+<p>It is possible to connect to a WiFi network before having internet access - this would be similar to situations when your phone or laptop displays a “No Internet Connection” message while being connected to a network.</p>
 <p>The tool that helps connect to WiFi is <a href="https://www.linuxfromscratch.org/blfs/view/stable-systemd/basicnet/wpa_supplicant.html"><code>wpa_supplicant</code></a>. This is what the previous setup used, so I went with it. There may be a process for it running in the background from the previous setup which is no longer required, so you can terminate it if it exists:</p>
 <pre><code># ps -ef | grep -i [w]pa
 root         883       1  0 01:59 ?        00:00:00 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
@@ -554,7 +554,7 @@ network={
 }
 EOF
 </code></pre>
-<p>Replace <code>&lt;name&gt;</code> and <code>&lt;password&gt;</code> with your WiFi&rsquo;s name and password in plaintext. Yes, you read that right - a PASSWORD stored in PLAINTEXT<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. I&rsquo;m pretty shocked by this, but it seems to be a norm for WiFi tools, not sure why<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
+<p>Replace <code>&lt;name&gt;</code> and <code>&lt;password&gt;</code> with your WiFi’s name and password in plaintext. Yes, you read that right - a PASSWORD stored in PLAINTEXT<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>. I’m pretty shocked by this, but it seems to be a norm for WiFi tools, not sure why<sup id="fnref:3"><a href="#fn:3" class="footnote-ref" role="doc-noteref">3</a></sup>.</p>
 <p>I was following <a href="https://ubuntuforums.org/showthread.php?t=571188">this tutorial</a> which added further details to the network block like the protocol type and the encryption used. However, adding just the username and password seemed to work in my case.</p>
 <p>Then, I ran <code>wpa_supplicant</code> with the config file:</p>
 <pre><code># wpa_supplicant -D nl80211 -i wlp3s0 -c /etc/wpa_supplicant/wpa_supplicant.conf -B
@@ -602,13 +602,13 @@ PING 192.168.100.141 (192.168.100.141) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
 rtt min/avg/max/mdev = 4.088/69.678/112.835/47.144 ms
 </code></pre>
-<p>However, pinging a machine outside the network didn&rsquo;t.</p>
+<p>However, pinging a machine outside the network didn’t.</p>
 <pre><code># ping 1.1.1.1
 ping: connect: Network is unreachable
 </code></pre>
 <p>There had to be a way to route packets outside of the network.</p>
 <h2 id="set-a-default-gateway">Set a default gateway</h2>
-<p>Accessing machines outside of the network requires a default gateway - an address that forwards packets to other networks when the destination address isn&rsquo;t part of the network&rsquo;s address range. In a home network, this address would likely be assigned to your router.</p>
+<p>Accessing machines outside of the network requires a default gateway - an address that forwards packets to other networks when the destination address isn’t part of the network’s address range. In a home network, this address would likely be assigned to your router.</p>
 <p>This information is added to the routing table, and is typically the first assignable address in the address range, <code>192.168.100.1</code> in this case. The default gateway was set using <code>ip route</code>:</p>
 <pre><code># ip route add default via 192.168.100.1 dev wlp3s0
 # ip route show
@@ -627,7 +627,7 @@ PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2004ms
 rtt min/avg/max/mdev = 7.113/13.093/23.426/7.336 ms
 </code></pre>
-<p>But if I were to try pinging a domain name, that wouldn&rsquo;t work.</p>
+<p>But if I were to try pinging a domain name, that wouldn’t work.</p>
 <pre><code># ping example.com
 ping: example.com: Temporary failure in name resolution
 </code></pre>
@@ -637,7 +637,7 @@ ping: example.com: Temporary failure in name resolution
 <pre><code># ls -l /etc/resolv.conf
 lrwxrwxrwx 1 root root 39 Feb  7 04:49 /etc/resolv.conf -&gt; ../run/systemd/resolve/stub-resolv.conf
 </code></pre>
-<p>This was part of the previous configuration, as DNS was setup using systemd-resolved on this machine. Since I&rsquo;ve disabled that, I removed the symlink and added my nameservers of choice. I used <a href="https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/">Cloudflare&rsquo;s public DNS server</a> in this case:</p>
+<p>This was part of the previous configuration, as DNS was setup using systemd-resolved on this machine. Since I’ve disabled that, I removed the symlink and added my nameservers of choice. I used <a href="https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/">Cloudflare’s public DNS server</a> in this case:</p>
 <pre><code># rm /etc/resolv.conf
 # cat &lt;&lt;EOF &gt; /etc/resolv.conf
 nameserver 1.1.1.1
@@ -653,16 +653,16 @@ PING example.com (96.7.128.198) 56(84) bytes of data.
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
 rtt min/avg/max/mdev = 269.178/269.178/269.178/0.000 ms
 </code></pre>
-<p>This brings mission &ldquo;connect to the Internet from scratch&rdquo; to an end! I had a lot of fun working on this and learnt a lot, I hope you enjoyed reading this too! Before I end the post though, there&rsquo;s one little side quest I wanted to cover.</p>
+<p>This brings mission “connect to the Internet from scratch” to an end! I had a lot of fun working on this and learnt a lot, I hope you enjoyed reading this too! Before I end the post though, there’s one little side quest I wanted to cover.</p>
 <h2 id="bonus-dynamic-addresses-via-dhcp">Bonus: Dynamic addresses via DHCP</h2>
-<p>The IP address I set above is a static IP, which doesn&rsquo;t change. Each time I connect to the network, I can assign it the same address.</p>
+<p>The IP address I set above is a static IP, which doesn’t change. Each time I connect to the network, I can assign it the same address.</p>
 <p>There are two problems with this:</p>
 <ul>
 <li>I need to know the address range for each network before I connect to it, which is time-consuming.</li>
 <li>Setting an IP this way might cause confusion if another machine has been assigned the same address.</li>
 </ul>
 <p>The solution for this is to let the network assign an address when you connect to it, which is how your default setup most likely works. This is done using DHCP or the Dynamic Host Configuration Protocol.</p>
-<p>I got it working using a tool called <code>dhclient</code>. It doesn&rsquo;t work if an IP address is already assigned to the interface, so I removed the static IP and default gateway I had set first:</p>
+<p>I got it working using a tool called <code>dhclient</code>. It doesn’t work if an IP address is already assigned to the interface, so I removed the static IP and default gateway I had set first:</p>
 <pre><code># ip addr flush dev wlp3s0
 # ip route flush dev wlp3s0
 # dhclient -v wlp3s0
@@ -682,7 +682,7 @@ DHCPREQUEST for 192.168.100.128 on wlp3s0 to 255.255.255.255 port 67 (xid=0x1cbc
 DHCPACK of 192.168.100.128 from 192.168.100.1 (xid=0xf29dbc1c)
 bound to 192.168.100.128 -- renewal in 271244 seconds.
 </code></pre>
-<p>From the output, it looks like the network&rsquo;s router (<code>192.168.100.1</code>) assigned this machine with the address <code>192.168.100.128</code>, which is what I was setting statically too.</p>
+<p>From the output, it looks like the network’s router (<code>192.168.100.1</code>) assigned this machine with the address <code>192.168.100.128</code>, which is what I was setting statically too.</p>
 <p>What I also noticed was that running this also setup the default gateway and DNS automagically - and that too to the same address?!?!?</p>
 <pre><code># ip route show | awk '/default via/{print $3}'
 192.168.100.1
@@ -690,18 +690,18 @@ bound to 192.168.100.128 -- renewal in 271244 seconds.
 192.168.100.1
 </code></pre>
 <p>After some searching, I <a href="https://lobste.rs/s/563zjp/how_does_linux_machine_connect_internet">found</a> that my router (aka the default gateway) is also capable of handling DNS requests. More specifically, it can forward DNS requests to servers it has configured that are likely specified by my ISP, and then send it back to my machine. Pretty cool!</p>
-<p>What&rsquo;s not so cool though, is that this one command basically automated almost everything I set up lovingly by hand :/ The experiment was still worth it though, as I now know exactly what steps the tool is automating.</p>
+<p>What’s not so cool though, is that this one command basically automated almost everything I set up lovingly by hand :/ The experiment was still worth it though, as I now know exactly what steps the tool is automating.</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>In my first attempt, I removed NetworkManager from the system all together, but reached a dead end and had to reinstall it. That&rsquo;s why I recommend disabling instead, as its easy to start over by enabling the service. &#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>In my first attempt, I removed NetworkManager from the system all together, but reached a dead end and had to reinstall it. That’s why I recommend disabling instead, as its easy to start over by enabling the service. &#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:2">
 <p>It is possible to generate a password hash with a tool called <code>wpa_passphrase</code>, but turns out that you can use the hash as is to connect to a network without knowing the actual password. This kind of makes hashing pointless. &#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 <li id="fn:3">
-<p>Even NetworkManager had my WiFi password stored in plaintext in a config file, which was a shocker. The rationale provided is that the file permissions are set such that only root can access it, making it safe. I&rsquo;m not so sure about that. &#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>Even NetworkManager had my WiFi password stored in plaintext in a config file, which was a shocker. The rationale provided is that the file permissions are set such that only root can access it, making it safe. I’m not so sure about that. &#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>

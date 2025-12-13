@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/homelab-networking-basics.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="Homelab networking: the basics | pjg1.site">
+<meta property="og:title" content="Homelab networking: the basics">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/homelab-networking-basics.html">
@@ -21,21 +21,17 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>Homelab networking: the basics</h1>
 <p>
-<time datetime="2025-11-14T23:59:00&#43;04:00">November 14, 2025</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2025-11-14T23:59:00+04:00">14 November 2025</time>
 </p>
-</header>
-<hr>
 <p>I briefly mentioned the network setup in a post about <a href="/starting-a-homelab.html">starting my homelab</a>, but wanted to describe the steps I took to get connectivity to the machine and the VMs within it.</p>
-<p>Proxmox creates a <a href="https://pve.proxmox.com/wiki/Network_Configuration#_default_configuration_using_a_bridge">basic network configuration</a> during installation. It provides connectivity to the VM via a bridge interface&mdash;a virtual switch. The configuration assumes that the machine has a static IP, and is connected via an Ethernet interface.</p>
+<p>Proxmox creates a <a href="https://pve.proxmox.com/wiki/Network_Configuration#_default_configuration_using_a_bridge">basic network configuration</a> during installation. It provides connectivity to the VM via a bridge interface—a virtual switch. The configuration assumes that the machine has a static IP, and is connected via an Ethernet interface.</p>
 <pre><code class="language-conf">auto lo
 iface lo inet loopback
 
@@ -82,9 +78,9 @@ iface vmbr0 inet static
 source /etc/network/interfaces.d/*
 </code></pre>
 <p>The bridge interface acts as the gateway of a private network, and NAT rules are set to rewrite the packets with the correct address before sending and after receiving them. With this setup, you can either set an IP address for each VM manually, or setup a DHCP server on the physical machine to assign addresses automatically. The latter option is covered in the guide, which I implemented.</p>
-<p>This setup worked just fine, however I was curious if I could separate the routing configuration into a VM of its own. I&rsquo;d seen posts and videos configuring routers using open-source router distributions like <a href="https://www.pfsense.org">pfSense</a> and <a href="https://openwrt.org">OpenWRT</a>, and I wanted to try them out too.</p>
-<p>Another option I found was to pass-through the network card to a VM and configure that VM into a router, inspired by <a href="https://ryjelsum.me/homelab/proxmox-wifi/">this guide</a> from Ryjelsum. It didn&rsquo;t work for my network card though, and I also had problems with troubleshooting as I would lose internet access each time I attempted the passthrough.</p>
-<p>Having an Ethernet interface on the machine would make things easier, so I purchased a USB-to-Ethernet adapter. Figuring out how to get an Ethernet connection to my room from the main home router was quite the learning experience&mdash;figuring out how my home router is setup, knowing which Ethernet cables to buy and where to connect them. I also assigned a static IP to my homelab machine, making it easier to access and simplifying the network configuration.</p>
+<p>This setup worked just fine, however I was curious if I could separate the routing configuration into a VM of its own. I’d seen posts and videos configuring routers using open-source router distributions like <a href="https://www.pfsense.org">pfSense</a> and <a href="https://openwrt.org">OpenWRT</a>, and I wanted to try them out too.</p>
+<p>Another option I found was to pass-through the network card to a VM and configure that VM into a router, inspired by <a href="https://ryjelsum.me/homelab/proxmox-wifi/">this guide</a> from Ryjelsum. It didn’t work for my network card though, and I also had problems with troubleshooting as I would lose internet access each time I attempted the passthrough.</p>
+<p>Having an Ethernet interface on the machine would make things easier, so I purchased a USB-to-Ethernet adapter. Figuring out how to get an Ethernet connection to my room from the main home router was quite the learning experience—figuring out how my home router is setup, knowing which Ethernet cables to buy and where to connect them. I also assigned a static IP to my homelab machine, making it easier to access and simplifying the network configuration.</p>
 <pre><code class="language-conf">auto lo
 iface lo inet loopback
 
@@ -106,10 +102,8 @@ source /etc/network/interfaces.d/*
 </code></pre>
 <p>Each VM now receives an IP address from my main home router via DHCP, so all VMs + the physical machine itself are on the same network. I have also been using the Ethernet adapter for a few months, and it seems to be working reliably so far!</p>
 <p>The next step would be to create the router VM, and expand on that further. Also, now that the WiFi interface is unused and I have a working ethernet interface, I might try to make the passthrough work again.</p>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

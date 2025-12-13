@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/mbp-linux-power.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="Installing Ubuntu on a 2017 MBP - Power management | pjg1.site">
+<meta property="og:title" content="Installing Ubuntu on a 2017 MBP - Power management">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/mbp-linux-power.html">
@@ -21,32 +21,28 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>Installing Ubuntu on a 2017 MBP - Power management</h1>
 <p>
-<time datetime="2024-09-13T00:00:00&#43;00:00">September 13, 2024</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2024-09-13T00:00:00+00:00">13 September 2024</time>
 </p>
-</header>
-<hr>
 <p>Continuing from the <a href="/mbp-linux-wifi">previous post</a>, there were two other issues I faced after installing Ubuntu:</p>
 <ul>
 <li>The battery drained super quickly despite less usage</li>
 <li>The laptop would get warm and remain warm even when the system was idle</li>
 </ul>
-<p>I didn&rsquo;t get any warnings regarding battery life or heat issues from the family member I got the laptop from, neither was I using the laptop enough for it to be this warm or use this much power.</p>
-<p>Solving this wasn&rsquo;t as straightforward as the fixing WiFi, becuase the searches didn&rsquo;t lead to any one single solution. So I had to debug my way through this somehow.</p>
+<p>I didn’t get any warnings regarding battery life or heat issues from the family member I got the laptop from, neither was I using the laptop enough for it to be this warm or use this much power.</p>
+<p>Solving this wasn’t as straightforward as the fixing WiFi, becuase the searches didn’t lead to any one single solution. So I had to debug my way through this somehow.</p>
 <h2 id="finding-a-starting-point">Finding a starting point</h2>
 <p>I started by finding ways to see the temperature of my laptop, for which I found a package called <code>lm-sensors</code>. Before checking the temps, I ran <code>sensors-detect</code> and selected all of the default options.</p>
 <pre><code>$ sudo apt install lm-sensors
 $ sudo sensors-detect
 </code></pre>
-<p>When I ran <code>sensors</code> for the first time, there was too much output and it barely made sense. I spent some time deciphering the output, and then came the second problem - I didn&rsquo;t know the ideal temperatures to know which ones were high.</p>
+<p>When I ran <code>sensors</code> for the first time, there was too much output and it barely made sense. I spent some time deciphering the output, and then came the second problem - I didn’t know the ideal temperatures to know which ones were high.</p>
 <p>So I tried a different approach. I decided to capture the <code>sensors</code> output twice - once after boot, and one 30mins after that - and compare the two. In those 30mins, I tried to keep the system idle or used it minimally.</p>
 <p>This approach worked, as I saw a difference in <code>coretemp-isa-0000</code>, which shows the temperatures of the CPU cores:</p>
 <div class="flex">
@@ -71,7 +67,7 @@ Package id 0:  +55.0°C
 <li>Some process is hogging CPU</li>
 <li>Bad power management of Linux on Macs</li>
 </ol>
-<p>The first cause got eliminated pretty quickly, as <code>htop</code> didn&rsquo;t show any process with a high CPU usage, and the CPU usage was also fairly low overall. Bad power management was a very common issue reported in online forums, and I knew my machine worked fine on macOS, so this seemed like a valid cause.</p>
+<p>The first cause got eliminated pretty quickly, as <code>htop</code> didn’t show any process with a high CPU usage, and the CPU usage was also fairly low overall. Bad power management was a very common issue reported in online forums, and I knew my machine worked fine on macOS, so this seemed like a valid cause.</p>
 <p>One of the tools I came across to enable better power management was <code>powertop</code>, that displays the energy usage of a system and offers default settings for better power management. I enabled the defaults using the <code>--auto-tune</code> flag after installing.</p>
 <pre><code>$ sudo apt install powertop
 $ sudo powertop --auto-tune
@@ -94,16 +90,16 @@ Summary: 123.1 wakeups/second,  0.0 GPU ops/seconds, 0.0 VFS ops/sec and 3.1% CP
 <li>As a result, the energy consumption was also high</li>
 <li><code>amdgpu</code> was second highest in the energy usage list</li>
 </ul>
-<p>The appearance of <code>amdgpu</code> seemed something to look into further, and saw that there was an option to disable it all together. I wasn&rsquo;t planning on doing any heavy-duty work on this machine, so it seemed like a reasonable solution if it would help reduce temperatures.</p>
+<p>The appearance of <code>amdgpu</code> seemed something to look into further, and saw that there was an option to disable it all together. I wasn’t planning on doing any heavy-duty work on this machine, so it seemed like a reasonable solution if it would help reduce temperatures.</p>
 <p>I started following <a href="https://medium.com/codeflu/disabling-discrete-amd-graphics-card-in-linux-5d365738fc97">this tutorial</a>, which first checks if you have two graphics on your system or not.</p>
 <pre><code>$ lspci | grep VGA
 01:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Baffin [Radeon RX 460/560D / Pro 450/455/460/555/555X/560/560X] (rev ff)
 </code></pre>
-<p>I don&rsquo;t see a second GPU, but <a href="https://support.apple.com/en-us/111947">this machine</a> has two GPUs - an integrated GPU and a discrete/dedicated GPU.</p>
-<p>OH WAIT, I found the root cause - the iGPU didn&rsquo;t get detected for whatever reason, and the dGPU is being used as the main graphics driver in its place. The dGPU uses a lot of power, which explains the the high energy usage in <code>powertop</code>, the quick battery drain and the laptop getting warm!</p>
+<p>I don’t see a second GPU, but <a href="https://support.apple.com/en-us/111947">this machine</a> has two GPUs - an integrated GPU and a discrete/dedicated GPU.</p>
+<p>OH WAIT, I found the root cause - the iGPU didn’t get detected for whatever reason, and the dGPU is being used as the main graphics driver in its place. The dGPU uses a lot of power, which explains the the high energy usage in <code>powertop</code>, the quick battery drain and the laptop getting warm!</p>
 <p>Other people have also <a href="https://github.com/Dunedan/mbp-2016-linux/issues/6">faced the same issue</a> and have documented solutions for it, which I followed along.</p>
 <h2 id="enabling-the-igpu">Enabling the iGPU</h2>
-<p>The iGPU is not detected thanks to the way Apple&rsquo;s firmware works. If it recognizes that it&rsquo;s booting an OS other than macOS, it will power down some of the hardware, the iGPU being one of them. Thanks Apple!</p>
+<p>The iGPU is not detected thanks to the way Apple’s firmware works. If it recognizes that it’s booting an OS other than macOS, it will power down some of the hardware, the iGPU being one of them. Thanks Apple!</p>
 <p>The TL;DR solution to this is to make the firmware believe that it is booting macOS by running custom code before boot.</p>
 <h3 id="step-1-build-the-custom-efi-code">Step 1: Build the custom EFI code</h3>
 <p>The custom code is available in the <a href="https://github.com/0xbb/apple_set_os.efi">apple_set_os.efi</a> repository. All I had to do was build the file.</p>
@@ -123,7 +119,7 @@ rm apple_set_os.o apple_set_os.so
 $ sudo cp apple_set_os.efi /boot/efi/EFI/custom
 </code></pre>
 <h3 id="step-3-ask-grub-to-run-the-code-before-boot">Step 3: Ask GRUB to run the code before boot</h3>
-<p>Placing the code in the boot partition alone isn&rsquo;t enough, I needed to add instructions to run the code before boot somewhere. That somewhere is the bootloader configuration, which in this case is GRUB. I added the following lines to a file created for users to add custom configurations: <code>/etc/grub.d/40_custom</code>:</p>
+<p>Placing the code in the boot partition alone isn’t enough, I needed to add instructions to run the code before boot somewhere. That somewhere is the bootloader configuration, which in this case is GRUB. I added the following lines to a file created for users to add custom configurations: <code>/etc/grub.d/40_custom</code>:</p>
 <pre><code>$ cat &lt;&lt;EOF &gt;&gt; /etc/grub.d/40_custom
 search --no-floppy --set=root --file /EFI/custom/apple_set_os.efi
 chainloader /EFI/custom/apple_set_os.efi
@@ -195,11 +191,9 @@ TimeoutSec=0
 [Install]
 WantedBy=multi-user.target
 </code></pre>
-<p>I remember being scared when I noticed these issues for the first time. I&rsquo;d been used to things &ldquo;just working&rdquo; on macOS and Windows, and this was the opposite of that. Going from a feeling of fear to slowly gaining the courage to fix stuff has felt great. I think I&rsquo;m less scared now.</p>
+<p>I remember being scared when I noticed these issues for the first time. I’d been used to things “just working” on macOS and Windows, and this was the opposite of that. Going from a feeling of fear to slowly gaining the courage to fix stuff has felt great. I think I’m less scared now.</p>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

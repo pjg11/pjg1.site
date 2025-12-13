@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/rc01.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="RC01: Some InconsistenC&#39;s | pjg1.site">
+<meta property="og:title" content="RC01: Some InconsistenC&#39;s">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/rc01.html">
@@ -21,19 +21,15 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>RC01: Some InconsistenC&#39;s</h1>
 <p>
-<time datetime="2023-08-19T00:00:00&#43;00:00">August 19, 2023</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2023-08-19T00:00:00+00:00">19 August 2023</time>
 </p>
-</header>
-<hr>
 <p>I came across an older CTF writeup of mine - <a href="https://github.com/pjg11/CTF-Writeups/blob/main/2021-Space-Race/3-Space-Snacks.md#50-points-there-might-be-more-cake">There might be more cake</a> from Hacky Holidays 2021. The solution for it was this C program:</p>
 <pre><code>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
@@ -62,9 +58,9 @@ int main() {
 $ ./pin
 1376299761
 </code></pre>
-<p>Same code, different output? I think we attributed the issue to some differences in implementations on different operating systems, I&rsquo;m not sure. Regardless, I left it there and didn&rsquo;t look into it further.</p>
+<p>Same code, different output? I think we attributed the issue to some differences in implementations on different operating systems, I’m not sure. Regardless, I left it there and didn’t look into it further.</p>
 <p>However, upon seeing the writeup recently, I got curious and decided to figure out why this happened, and if there was a way to get the correct output on macOS.</p>
-<h2 id="gcc-isnt-the-issue"><code>gcc</code> isn&rsquo;t the issue</h2>
+<h2 id="gcc-isnt-the-issue"><code>gcc</code> isn’t the issue</h2>
 <p>During the search process, I was shocked to find out that Apple actually executes <code>clang</code> whenever you type <code>gcc</code> in the terminal.</p>
 <pre><code>% gcc
 clang: error: no input files
@@ -93,7 +89,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <p>I was reading through a post from Julia Evans before starting RC - <a href="https://jvns.ca/blog/2023/08/03/behind--hello-world">Behind Hello World on Linux</a> - which briefly mentions about libc, the C standard library. These lines stood out:</p>
 <blockquote>
 <p>But there are different libc implementations, and sometimes they behave differently. The two main ones are glibc (GNU libc) and musl libc.</p></blockquote>
-<p>The <code>srand()</code> and <code>rand()</code> functions come from this library, so maybe they&rsquo;re implemented differently in macOS and Linux. This explains why the previous step to change my compiler didn&rsquo;t work.</p>
+<p>The <code>srand()</code> and <code>rand()</code> functions come from this library, so maybe they’re implemented differently in macOS and Linux. This explains why the previous step to change my compiler didn’t work.</p>
 <p>My Linux VM uses glibc, which I can confirm by running <code>ldd</code> on the binary.</p>
 <pre><code>$ ldd pin
     linux-vdso.so.1 (0x00007ffcb23d4000)
@@ -106,10 +102,10 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 pin:
     /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1311.100.3)
 </code></pre>
-<p>In macOS, libc is part of Apple&rsquo;s system library, called <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/intro.3.html">libSystem</a>. It seems to be Apple&rsquo;s own implementation, as I found a link to the <a href="https://opensource.apple.com/source/Libc/">libc source code</a> while searching.</p>
-<p>So different implementations mean there is no way I could get the same output on both Linux and Mac? That doesn&rsquo;t seem right.</p>
+<p>In macOS, libc is part of Apple’s system library, called <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/intro.3.html">libSystem</a>. It seems to be Apple’s own implementation, as I found a link to the <a href="https://opensource.apple.com/source/Libc/">libc source code</a> while searching.</p>
+<p>So different implementations mean there is no way I could get the same output on both Linux and Mac? That doesn’t seem right.</p>
 <h2 id="meet-srandom-and-random">Meet <code>srandom()</code> and <code>random()</code></h2>
-<p>I came across a pair of similar functions in my searches - <code>srandom()</code> and <code>random()</code>. In their <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/random.3.html">man page</a> on macOS, they&rsquo;re termed as the &ldquo;better random number generator&rdquo;.</p>
+<p>I came across a pair of similar functions in my searches - <code>srandom()</code> and <code>random()</code>. In their <a href="https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/random.3.html">man page</a> on macOS, they’re termed as the “better random number generator”.</p>
 <p>I replaced the functions in my code on macOS, and now I get the correct output!</p>
 <pre><code>% gcc-13 -o pin pin.c
 % ./pin
@@ -128,27 +124,23 @@ binary value.
 <p>Okay, so use <code>srandom()</code> instead of <code>srand()</code> and <code>random()</code> instead of <code>rand()</code> and problem solved, right? Technically yes, but I still had one more question.</p>
 <p>I went ahead and tested the newly found functions on Linux, and they return the correct output. While this is expected, why does <code>srand()/rand()</code> return the incorrect output only on macOS?</p>
 <table>
-  <thead>
-      <tr>
-          <th style="text-align: center"></th>
-          <th style="text-align: center"><code>srand()/rand()</code></th>
-          <th style="text-align: center"><code>srandom()/random()</code></th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: center">macOS</td>
-          <td style="text-align: center">444334282</td>
-          <td style="text-align: center">1376299761</td>
-      </tr>
-      <tr>
-          <td style="text-align: center">Linux</td>
-          <td style="text-align: center">1376299761</td>
-          <td style="text-align: center">1376299761</td>
-      </tr>
-  </tbody>
+<tr>
+<th style="width: 5rem"></th>
+<th style="text-align: right"><code>rand()</code></th>
+<th style="text-align: right"><code>random()</code></th>
+</tr>
+<tr>
+<th>macOS</th>
+<td style="text-align: right">444334282</td>
+<td style="text-align: right">1376299761</td>
+</tr>
+<tr>
+<th>Linux</th>
+<td style="text-align: right">1376299761</td>
+<td style="text-align: right">1376299761</td>
+</tr>
 </table>
-<p>I think this is where the standards matter. Here&rsquo;s a snippet of the man pages for <code>srand()/rand()</code> from both operating systems:</p>
+<p>I think this is where the standards matter. Here’s a snippet of the man pages for <code>srand()/rand()</code> from both operating systems:</p>
 <figure>
 <pre><code>STANDARDS
   The rand() and srand()
@@ -164,12 +156,10 @@ binary value.
 <figcaption><a href="https://man7.org/linux/man-pages/man3/rand.3.html">Linux</a></figcaption>
 </figure>
 <p>Different standards likely mean different implementations, which explains the difference in output.</p>
-<p>The standard mentioned in the macOS code, ISO C90, is an older standard, so the implementation might be outdated, and hence is declared obsolete in the man pages. This isn&rsquo;t the case for the Linux version though, which is interesting.</p>
-<p>The man pages also seem to have quite a few differences in both OS&rsquo;s, the major one being that the macOS pages date back to the 1990s, while the Linux ones are from this year.</p>
+<p>The standard mentioned in the macOS code, ISO C90, is an older standard, so the implementation might be outdated, and hence is declared obsolete in the man pages. This isn’t the case for the Linux version though, which is interesting.</p>
+<p>The man pages also seem to have quite a few differences in both OS’s, the major one being that the macOS pages date back to the 1990s, while the Linux ones are from this year.</p>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

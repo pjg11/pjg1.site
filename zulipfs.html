@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/zulipfs.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="Things I learnt while working on ZulipFS | pjg1.site">
+<meta property="og:title" content="Things I learnt while working on ZulipFS">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/zulipfs.html">
@@ -21,19 +21,15 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>Things I learnt while working on ZulipFS</h1>
 <p>
-<time datetime="2025-02-03T00:00:00&#43;00:00">February 3, 2025</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2025-02-03T00:00:00+00:00">3 February 2025</time>
 </p>
-</header>
-<hr>
 <p>I came across <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE</a> recently, which brought up an idea: <em>what if I could access a <a href="https://zulip.com">Zulip</a> instance as a filesystem?</em></p>
 <p>This led to the creation of ZulipFS, where channels are represented as directories, and topics as files within those directories. The usage and code for the project is available <a href="https://github.com/pjg11/zulipfs">here</a>. This post talks about things I learnt about FUSE, filesystems in general and design choices I made in the process.</p>
 <h2 id="how-fuse-works-in-a-nutshell">How FUSE works in a nutshell</h2>
@@ -70,8 +66,8 @@
   }
   return self.topics[channel][topic]
 </code></pre>
-<p>Making the same API calls twice felt a bit excessive for reading, but it was okay as long as it wasn&rsquo;t slowing things down. Then I tried listing all the topics in a channel via <code>ls</code>, and things slowed down…A LOT.</p>
-<p>Why, you ask? The function handling directory listing, <code>readdir</code>, calls <code>getattr</code> for EACH FILE in the directory. If a channel has 300 topics, that&rsquo;s 300 API calls before <code>ls</code> completes execution. To add to the chaos, <code>get_topic</code> above uses API calls instead of one, which means 600 API calls before <code>ls</code> completes execution. I had to find ways to optimize this.</p>
+<p>Making the same API calls twice felt a bit excessive for reading, but it was okay as long as it wasn’t slowing things down. Then I tried listing all the topics in a channel via <code>ls</code>, and things slowed down…A LOT.</p>
+<p>Why, you ask? The function handling directory listing, <code>readdir</code>, calls <code>getattr</code> for EACH FILE in the directory. If a channel has 300 topics, that’s 300 API calls before <code>ls</code> completes execution. To add to the chaos, <code>get_topic</code> above uses API calls instead of one, which means 600 API calls before <code>ls</code> completes execution. I had to find ways to optimize this.</p>
 <h2 id="lazy-loading-files">Lazy loading files?!?!?</h2>
 <p>The first optimization attempt was to remove the <code>get_topic</code> call from <code>getattr</code>, and call it only in <code>read</code>. I placed an exception block in <code>getattr</code>, which would assign a file size of 65535 bytes on mount, and a subsequent <code>read</code> would fill the hash map with the correct values, which <code>getattr</code> would take the next time its called.</p>
 <pre><code>def getattr(self, path):
@@ -90,9 +86,9 @@ try:
     st.st_size = 65535
 # ...snip...
 </code></pre>
-<p>This worked initially, but caused problems when I wanted to append new messages instead of just displaying the last one. After lots of trial and error, a question popped up in my head: <em>What if I don&rsquo;t create all topic files right away, and add them only after someone tries to read or list it?</em></p>
+<p>This worked initially, but caused problems when I wanted to append new messages instead of just displaying the last one. After lots of trial and error, a question popped up in my head: <em>What if I don’t create all topic files right away, and add them only after someone tries to read or list it?</em></p>
 <p>This seemed like a great idea as it would significantly reduce the number of API calls made at once. Things might slow down eventually as you read more and more topics, but it would still be faster than trying to list all topics at once.</p>
-<p>Another optimization I was able to make was combining the two API calls into one using <a href="https://zulip.com/api/get-messages"><code>get_messages</code></a>, which powers Zulip&rsquo;s search functionality. I can pass it the name of a channel and topic, and ask it to return the last message of that topic. If either the channel or topic doesn&rsquo;t exist, it&rsquo;ll return an empty result.</p>
+<p>Another optimization I was able to make was combining the two API calls into one using <a href="https://zulip.com/api/get-messages"><code>get_messages</code></a>, which powers Zulip’s search functionality. I can pass it the name of a channel and topic, and ask it to return the last message of that topic. If either the channel or topic doesn’t exist, it’ll return an empty result.</p>
 <pre><code>def get_topic(self, channel, topic):
   request = {
     &quot;anchor&quot;: &quot;newest&quot;,
@@ -163,9 +159,9 @@ except IndexError:
   pass
 </code></pre>
 <h2 id="filename-gotchas">Filename gotchas</h2>
-<p>One of the earliest errors I encountered was displaying names that had slashes in them. In Linux and other Unix-based OS&rsquo;s, a slash is considered as a delimiter for a directory rather than part of a filename. One thing I&rsquo;d seen certain apps do is change special characters to their URL-encoded versions, so I replaced all instances of <code>/</code> with <code>%2F</code>.</p>
+<p>One of the earliest errors I encountered was displaying names that had slashes in them. In Linux and other Unix-based OS’s, a slash is considered as a delimiter for a directory rather than part of a filename. One thing I’d seen certain apps do is change special characters to their URL-encoded versions, so I replaced all instances of <code>/</code> with <code>%2F</code>.</p>
 <p>Another set of characters that are inconvenient to type in the terminal are emojis. I was initially thinking of getting rid of them, but then I realized that looking up the channel name would become tricky.</p>
-<p>I remembered seeing textual representations of emojis, which turns out are called <a href="https://emojipedia.org/shortcodes">shortcodes</a>, and they&rsquo;re written as text in-between colons <code>:</code>. For example, the shortcode for 📝 is <code>:memo:</code>​, and these are understood by Zulip. Python has an <code>emoji</code> package that converts emojis to shortcodes and vice versa.</p>
+<p>I remembered seeing textual representations of emojis, which turns out are called <a href="https://emojipedia.org/shortcodes">shortcodes</a>, and they’re written as text in-between colons <code>:</code>. For example, the shortcode for 📝 is <code>:memo:</code>​, and these are understood by Zulip. Python has an <code>emoji</code> package that converts emojis to shortcodes and vice versa.</p>
 <p>With that, I had two functions to convert Zulip names to a valid filename and vice versa.</p>
 <pre><code>def file_name(self, name):
   return emoji.demojize(name.replace('/', '%2F'))
@@ -175,10 +171,8 @@ def zulip_name(self, name):
 </code></pre>
 <h2 id="acknowledgements">Acknowledgements</h2>
 <p>Thanks to <a href="https://fractalkitty.com">Sophia</a> for reviewing a draft of this post.</p>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>

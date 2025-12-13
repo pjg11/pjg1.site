@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://pjg1.site/fade-block-css.html">
 <link rel="stylesheet" href="/public/style.css">
 
-<meta property="og:title" content="Faded codeblocks using CSS | pjg1.site">
+<meta property="og:title" content="Faded codeblocks using CSS">
 <meta property="og:site_name" content="pjg1.site">
 <meta property="og:image" content="/public/images/favicon-full.png">
 <meta property="og:url" content="https://pjg1.site/fade-block-css.html">
@@ -21,22 +21,18 @@
 <link rel="authorization_endpoint" href="https://indieauth.com/auth">
 </head>
 <body>
-<nav>
-<a href="/">pjg1.site</a>
-<a href="/now.html">now</a>
-</nav>
-<main>
+
 <article>
-<header>
 <h1>Faded codeblocks using CSS</h1>
 <p>
-<time datetime="2025-02-26T00:00:00&#43;00:00">February 26, 2025</time>
+<a href="/">Piya Gehi</a> ∙
+
+
+<time datetime="2025-02-26T00:00:00+00:00">26 February 2025</time>
 </p>
-</header>
-<hr>
-<p>One aspect I&rsquo;ve gotten stuck on with the styling of this blog is code blocks. I&rsquo;ve tried adding a border and/or a background color in the past, but I couldn&rsquo;t stick with either of them and constantly kept changing styles.</p>
+<p>One aspect I’ve gotten stuck on with the styling of this blog is code blocks. I’ve tried adding a border and/or a background color in the past, but I couldn’t stick with either of them and constantly kept changing styles.</p>
 <p>I wanted a subtler indication to scroll if a block overflows, and a fading gradient towards seemed like a good option.</p>
-<p>Here&rsquo;s the CSS I wrote for it:</p>
+<p>Here’s the CSS I wrote for it:</p>
 <pre><code>pre {
   position: relative;
   background: white;
@@ -65,10 +61,10 @@ pre code {
   padding-inline-end: 1.5rem;
 }
 </code></pre>
-<p>The key behind this effect is the <code>::after</code> pseudo-element, which is a linear-gradient positioned to the right end of the <code>pre</code> block. The <code>left</code> value ensures that the gradient doesn&rsquo;t overlap the block completely, and acts as a subtle gradient, suggesting the user to scroll to see the code.</p>
-<p>Usually I&rsquo;d add the scroll to the <code>pre</code> block, however since we want the pseudoelement to stay at a fixed position, the scroll and overflow is applied to the child block - the <code>code</code> element in this case.</p>
+<p>The key behind this effect is the <code>::after</code> pseudo-element, which is a linear-gradient positioned to the right end of the <code>pre</code> block. The <code>left</code> value ensures that the gradient doesn’t overlap the block completely, and acts as a subtle gradient, suggesting the user to scroll to see the code.</p>
+<p>Usually I’d add the scroll to the <code>pre</code> block, however since we want the pseudoelement to stay at a fixed position, the scroll and overflow is applied to the child block - the <code>code</code> element in this case.</p>
 <p>The gradient hiding overflow text makes sense, but this also covers the text at the end of the scroll. This is fixed by adding <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline-end"><code>padding-inline-end</code></a> to the <code>code</code> element, which adds padding at the end of scroll.</p>
-<p>Here&rsquo;s how it looks:</p>
+<p>Here’s how it looks:</p>
 <pre class="block"><code>This is a super long string of text that appears to be faded where the text overflows.</code></pre>
 <style>
   pre.block {
@@ -97,11 +93,9 @@ pre code {
     padding-inline-end: 1.5rem;
   }
 </style>
-<p>While I&rsquo;ve demonstrated this for codeblocks, this styling could be extended for any block element - say a paragraph within a div, or a paragraph within a blockquote.</p>
+<p>While I’ve demonstrated this for codeblocks, this styling could be extended for any block element - say a paragraph within a div, or a paragraph within a blockquote.</p>
+
 </article>
 
-</main>
-<footer>
-</footer>
 </body>
 </html>
