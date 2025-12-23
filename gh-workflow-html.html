@@ -23,13 +23,12 @@
 <body>
 
 <article>
+<header>
 <h1>A custom GitHub Actions workflow for static HTML pages</h1>
-<p>
-<a href="/">Piya Gehi</a> ∙
-
-
-<time datetime="2025-11-06T05:22:00+04:00">6 November 2025</time>
+<p><time datetime="2025-11-06T05:22:00+04:00">2025-11-06</time>
 </p>
+</header>
+<main>
 <p>I build files for this website locally and push the static HTML files to GitHub Pages, using the default workflow. At some point, I started noticing that the deploys were taking long to complete. A deploy from today shows that it took 40 seconds to render.</p>
 <p>I decided to looked into the workflow itself using <a href="https://cli.github.com">GitHub’s command line tool</a>, and found a job called <code>build</code>, which takes the most time to complete.</p>
 <pre><code>$ gh run list --limit 1
@@ -132,7 +131,13 @@ JOBS
 <p>Combining all steps into one job does reduce some overhead. The original workflow ran a setup and cleanup for each of the three jobs. With one job, the setup and cleanup happens only once, which saves a second or two.</p>
 <p>I’ll take a few seconds of speedup as a win.</p>
 
+</main>
+<footer>
+<p><a class="button" href="mailto:piya@pjg1.site?subject=Re:%20A%20custom%20GitHub%20Actions%20workflow%20for%20static%20HTML%20pages">Reply via email</a></p>
+</footer>
 </article>
-
+<footer>
+<p>&copy; 2022–2025 <a href="/">Piya Gehi</a></p>
+</footer>
 </body>
 </html>

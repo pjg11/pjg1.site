@@ -23,13 +23,12 @@
 <body>
 
 <article>
+<header>
 <h1>Switching from Jekyll to Hugo</h1>
-<p>
-<a href="/">Piya Gehi</a> ∙
-
-
-<time datetime="2025-11-07T23:18:03+04:00">7 November 2025</time>
+<p><time datetime="2025-11-07T23:18:03+04:00">2025-11-07</time>
 </p>
+</header>
+<main>
 <p>I switched from Jekyll to Hugo as my static site generator of choice recently. The only reason I have a Ruby environment is for this site, so moving from that to a single binary looked appealing.</p>
 <p>I use a specific version of Hugo by downloading the binary directly instead of via a package manager. This was a tip I got from a <a href="https://jvns.ca/blog/2016/10/09/switching-to-hugo/">similar post</a> from Julia Evans. I liked the idea to be able to choose when to upgrade instead of my site breaking each time something changes with a new release.</p>
 <p>Julia’s post also mentioned a way to import most of my Jekyll site with one command: <code>hugo import jekyll</code>. It moved the posts static assets (CSS, images) almost seamlessly, except for a few changes in the configuration and specific posts to render certain parts correctly. However, it did not import any of my templates, so the site wouldn’t render without adding a theme.</p>
@@ -46,7 +45,13 @@
 <p>Where I prefer Hugo to Jekyll is when structuring the site files. Jekyll imposes a certain filename format and directory for blog posts, and any other collections/sections have to be configured differently. I reached a roadblock whenever I wanted to create other collections or sub-collections within the post collection. Hugo doesn’t impose such structure, and lets you define your own.</p>
 <p>I’m looking forward to tinkering with Hugo more.</p>
 
+</main>
+<footer>
+<p><a class="button" href="mailto:piya@pjg1.site?subject=Re:%20Switching%20from%20Jekyll%20to%20Hugo">Reply via email</a></p>
+</footer>
 </article>
-
+<footer>
+<p>&copy; 2022–2025 <a href="/">Piya Gehi</a></p>
+</footer>
 </body>
 </html>

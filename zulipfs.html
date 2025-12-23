@@ -23,13 +23,12 @@
 <body>
 
 <article>
+<header>
 <h1>Things I learnt while working on ZulipFS</h1>
-<p>
-<a href="/">Piya Gehi</a> ∙
-
-
-<time datetime="2025-02-03T00:00:00+00:00">3 February 2025</time>
+<p><time datetime="2025-02-03T00:00:00+00:00">2025-02-03</time>
 </p>
+</header>
+<main>
 <p>I came across <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE</a> recently, which brought up an idea: <em>what if I could access a <a href="https://zulip.com">Zulip</a> instance as a filesystem?</em></p>
 <p>This led to the creation of ZulipFS, where channels are represented as directories, and topics as files within those directories. The usage and code for the project is available <a href="https://github.com/pjg11/zulipfs">here</a>. This post talks about things I learnt about FUSE, filesystems in general and design choices I made in the process.</p>
 <h2 id="how-fuse-works-in-a-nutshell">How FUSE works in a nutshell</h2>
@@ -172,7 +171,13 @@ def zulip_name(self, name):
 <h2 id="acknowledgements">Acknowledgements</h2>
 <p>Thanks to <a href="https://fractalkitty.com">Sophia</a> for reviewing a draft of this post.</p>
 
+</main>
+<footer>
+<p><a class="button" href="mailto:piya@pjg1.site?subject=Re:%20Things%20I%20learnt%20while%20working%20on%20ZulipFS">Reply via email</a></p>
+</footer>
 </article>
-
+<footer>
+<p>&copy; 2022–2025 <a href="/">Piya Gehi</a></p>
+</footer>
 </body>
 </html>
