@@ -1,13 +1,24 @@
 :root {
-    color-scheme: light dark;
+	--bg: #fff;
+	--fg: #222;
+	--ac: #888;
+	--bl: #eee;
 }
-
+@media(prefers-color-scheme: dark) {
+	:root {
+		--bg: #1e1e1e;
+		--fg: #d9d9d9;
+		--ac: #a6a6a6;
+		--bl: #282828;
+	}
+}
 body {
     font-family: Avenir Next, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
-	background: light-dark(#fff, #1e1e1e);
-	color: light-dark(#000, #d9d9d9);
+	background: var(--bg);
+	color: var(--fg);
     margin: 0 auto;
     max-width: 36rem;
+	padding: 0 1rem;
 }
 code, kbd {
     font-family: SF Mono, ui-monospace, monospace;
@@ -22,7 +33,7 @@ header p {
     font-size: 1.075rem;
     line-height: 1;
     margin-top: 0.5rem;
-    color: #a6a6a6
+    color: var(--ac)
 }
 
 h1, h2, h3 {
@@ -41,10 +52,6 @@ h2 {
     font-size: 1.25rem;
     margin: 2rem 0 -0.5rem;
 }
-header h2 {
-    font-size: 1.35rem;
-    margin-bottom: 0
-}
 h3 {
     font-size: 1.25rem;
     font-variant: all-small-caps;
@@ -61,86 +68,16 @@ img {
     max-width: 100%;
     height: auto
 }
-
 table {
     border-collapse: collapse;
     width: 100%
 }
-
 th {
     text-align: left
 }
-
 th, td {
     border-bottom: 1px solid;
     padding: 0.25rem 0
-}
-
-ul, ol {
-    padding-left: 1.625rem
-}
-
-li {
-	margin-top: 0.5rem
-}
-
-blockquote {
-    margin: 0;
-    border-left: solid;
-    padding-left: 1rem
-}
-
-hr {
-    border-style: solid;
-    border-bottom: 0
-}
-
-sup {
-    line-height: 0
-}
-
-a {
-	color: LinkText
-}
-footer {
-	margin-top: 2rem
-}
-
-a.button {
-	padding: 0.5rem 0.75rem;
-	border: 1px solid;
-	text-decoration: none
-}
-a.button:hover {
-    color: #1e1e1e;
-    background: #d9d9d9
-}
-a {
-    color: inherit;
-    text-decoration-thickness: 0.05em;
-    text-underline-offset: 0.07rem;
-}
-.footnotes {
-    margin-top: 2rem;
-    font-size: 90%;
-    color: darkgrey
-}
-footer {
-    margin: 3rem 0 4rem
-}
-pre code {
-  display: block;
-  background: light-dark(#eee, #282828);
-  padding: 0.75rem;
-  font-size: 95%;
-  line-height: 1.4;
-  overflow-x: auto
-}
-header a, ul.posts a {
-    text-decoration: none;
-}
-header a:hover, ul.posts a:hover {
-    text-decoration: underline
 }
 ul, ol {
     padding-left: 1.625rem
@@ -161,14 +98,65 @@ ul.posts a {
 }
 ul.posts time {
 	text-align: right;
-	color: #a6a6a6;
+	color: var(--ac);
 	font-size: 1.075rem;
 	flex: 0 0 6.35rem;
 	margin-top: 0.05rem
 }
+li {
+	margin-top: 0.5rem
+}
+blockquote {
+    margin: 0;
+    border-left: solid;
+    padding-left: 1rem
+}
+hr {
+    border-style: solid;
+    border-bottom: 0
+}
+sup {
+    line-height: 0
+}
+a.button {
+	padding: 0.5rem 0.75rem;
+	border: 1px solid;
+	text-decoration: none
+}
+a.button:hover {
+    color: var(--bg);
+    background: var(--fg)
+}
+.footnotes {
+    margin-top: 2rem;
+    font-size: 90%;
+    color: var(--ac)
+}
+footer {
+    margin: 3rem 0 4rem
+}
+pre code {
+  display: block;
+  background: var(--bl);
+  padding: 0.75rem;
+  font-size: 95%;
+  line-height: 1.4;
+  overflow-x: auto
+}
+a {
+    color: inherit;
+    text-decoration-thickness: 0.05em;
+    text-underline-offset: 0.07rem;
+}
+header a, ul.posts a {
+    text-decoration: none;
+}
+header a:hover, ul.posts a:hover {
+    text-decoration: underline
+}
 @media (max-width: 36rem) {
     ul.posts li {
-        flex-direction: column;
+        flex-direction: column-reverse;
 		gap: 0
     }
     ul.posts time {
