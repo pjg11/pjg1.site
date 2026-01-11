@@ -97,10 +97,9 @@ ul.posts a {
 	font-weight: 600;
 }
 ul.posts time {
-	text-align: right;
 	color: var(--ac);
 	font-size: 1.075rem;
-	flex: 0 0 6.35rem;
+	flex: 0 0 3.7rem;
 	margin-top: 0.05rem
 }
 li {
