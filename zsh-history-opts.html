@@ -40,11 +40,21 @@ setopt HIST_IGNORE_SPACE
 </code></pre>
 <p>I think I copied these from somewhere whenever I last modified the file. But this time, I wanted to apply a more systematic approach to setting options, where I was sure I knew exactly what each option in the file was doing.</p>
 <p>I stared at these options for a bit. Some of these look similar to each other, and I don’t know how each one is different despite comments. Do I even need all of these?</p>
-<p>For the purposes of this article, I’ll be dividing the options into categories:</p>
+<p><code>HIST_IGNORE_SPACE</code> makes sense right away, so I’ll add it to my config directly. The others will be divided into two categories:</p>
 <ul>
-<li>Appending history - <code>SHARE_HISTORY</code>, <code>INC_APPEND_HISTORY</code></li>
-<li>Managing duplicates - <code>HIST_IGNORE_DUPS</code>, <code>HIST_IGNORE_ALL_DUPS</code>, <code>HIST_SAVE_NO_DUPS</code></li>
-<li><code>HIST_IGNORE_SPACE</code> makes sense right away, so I’ll add it to my config directly.</li>
+<li>Appending history
+<ul>
+<li><code>SHARE_HISTORY</code></li>
+<li><code>INC_APPEND_HISTORY</code></li>
+</ul>
+</li>
+<li>Managing duplicates
+<ul>
+<li><code>HIST_IGNORE_DUPS</code></li>
+<li><code>HIST_IGNORE_ALL_DUPS</code></li>
+<li><code>HIST_SAVE_NO_DUPS</code></li>
+</ul>
+</li>
 </ul>
 <h2 id="appending-history">Appending history</h2>
 <p>The default behavior for writing to the history file is to write all commands from a session in bulk at the end of the session. I’m looking for a way to append commands from different sessions as they’re entered to the history file, aka sharing the same file across sessions.</p>

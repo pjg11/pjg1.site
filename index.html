@@ -27,6 +27,7 @@
 <p>Computer person</p>
 </header>
 <p>Welcome to my space on the internet! I write to make sense of how the systems I use on a daily basis work, and share links that resonate with me. I also like creating static sites like this one.</p>
+<p class="webring"><a title="Previous site" href="https://ring.recurse.com/prev?id=61">←</a><a data-rc-uuid="33f576a6-c823-4bc7-862b-1f15c3c6a01e" href="https://ring.recurse.com/">Recurse Webring</a><a title="Random site" href="https://ring.recurse.com/rand">∞</a><a title="Next site" href="https://ring.recurse.com/next?id=61">→</a></p>
 <h2>2025</h2>
 <ul class="posts">
 <li>
@@ -207,21 +208,36 @@
 <a href="/jekyll-blog-setup.html">Creating A Blog with GitHub Pages and Jekyll</a>
 </li>
 </ul>
-<footer>
-<p class="webring"><a title="Previous site" href="https://ring.recurse.com/prev?id=61">←</a><a data-rc-uuid="33f576a6-c823-4bc7-862b-1f15c3c6a01e" href="https://ring.recurse.com/">Recurse Webring</a><a title="Random site" href="https://ring.recurse.com/rand">∞</a><a title="Next site" href="https://ring.recurse.com/next?id=61">→</a></p>
-</footer>
 <style>
+ul.posts {
+	list-style: none;
+	padding: 0
+}
+ul.posts li {
+	display: flex;
+	justify-content: space-between;
+	margin: 0.75rem 0;
+	gap: 1rem;
+}
+ul.posts a {
+	flex: 1;
+	font-weight: 600;
+}
+ul.posts time {
+	color: var(--ac);
+	flex: 0 0 4rem;
+}
 p.webring {
+	font-size: 90%;
 	border: thin solid;
 	display: inline-block;
-	padding: 0.25rem 0;
-	font-size: 1.075rem;
+	padding: 0.1rem 0;
 	margin: 0
 }
 p.webring > a {
 	text-decoration: none;
 	border-right: thin solid;
-	padding: 0.25rem 0.5rem;
+	padding: 0.15rem 0.5rem;
 }
 p.webring > a:hover {
 	background: var(--fg);
