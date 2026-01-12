@@ -30,6 +30,7 @@ body {
     max-width: 36rem;
     margin: 4rem auto;
 	padding: 0 1rem;
+    font-variant: no-common-ligatures;
 }
 code, kbd {
     font-family: SF Mono, ui-monospace, monospace;
@@ -63,12 +64,7 @@ h2 {
     margin: 2rem 0 1rem;
 }
 h3 {
-    font-size: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.0125rem;
-    margin: 1.4rem 0 0.75rem;
-}
-h3 code {
+    font-size: 1.125rem;
 }
 p, details, pre, figure, hr, table {
 	margin: 0 0 1.4rem
@@ -120,8 +116,16 @@ a.button:hover {
 }
 .footnotes {
     margin-top: 2rem;
-    font-size: 90%;
+    font-size: smaller;
     color: var(--ac)
+}
+.footnotes hr {
+	border: 0;
+	color: var(--ac);
+	margin-bottom: 0
+}
+.footnotes hr::before {
+	content: '— Notes';
 }
 footer {
     margin-top: 3rem
@@ -136,4 +140,9 @@ header a, ul.posts a {
 }
 header a:hover, ul.posts a:hover {
     text-decoration: underline
+}
+.sidenote {
+	margin-top: 0;
+	margin-left: 38rem;
+	max-width: 18rem;
 }
